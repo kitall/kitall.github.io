@@ -11,20 +11,44 @@ ErrorDocument 500
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	
+
 	<link rel="manifest" href="config/manifest.json">
-	
+
 	<link rel="stylesheet" type="text/css" href="style.css">
-	
+	<link rel="stylesheet" href="slider.css">
+
 	<title>Kitall?</title>
 </head>
 
 <body>
 
 	<h1 style=" color: white; background-color: rgb(0, 197, 0); display: block; width: 99%; padding:10px;">Em construção</h1>
-		<img src="imgs/iconKITALL.png" style=" height: 10vw;" alt="Kitall?">
-	
+	<img src="imgs/iconKITALL.png" style=" height: 10vw;" alt="Kitall?">
+
+	<h1>Incredibly Basic Slider</h1>
+	<div id="slider">
+		<a href="#" class="control_next">▶</a>
+		<a href="#" class="control_prev">◀</a>
+		<ul>
+			<li>SLIDE 1</li>
+			<li style="background: #aaa;">SLIDE 2</li>
+			<li>SLIDE 3</li>
+			<li style="background: #aaa;">SLIDE 4</li>
+		</ul>
+	</div>
+
+	<div class="slider_option">
+		<input type="checkbox" id="checkbox">
+		<label for="checkbox">Autoplay Slider</label>
+	</div>
+
+
+
 </body>
 
-<script src="config_js/app.js"></script>
+<script src="config/app.js"></script>
+
+
+<script src="js/slider.js"></script>
+
 </html>
