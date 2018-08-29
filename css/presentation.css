@@ -1,0 +1,312 @@
+.presentation {
+    grid-area: presentation;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    position: relative;
+}
+
+.presentation img {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    filter: brightness(0.4);
+}
+
+.presentOrganize {
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    position: absolute;
+    display: flex;
+    font-size: inherit;
+}
+
+.presentTxtBtn {
+    /* background: red; */
+    margin: auto;
+    font-size: inherit;
+}
+
+.presentTxt {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-row-gap: 10px;
+    text-align: center;
+    font-size: inherit;
+}
+
+.presentTxt h1 {
+    color: white;
+    font-weight: normal;
+    margin: -0.9rem;
+    font-size: 4.5em;
+}
+
+.presentBtn {
+    font-size: inherit;
+}
+
+.btnKitall {
+    background: #1CCE00;
+    border: none;
+    border-radius: 5px;
+    font-size: 7em;
+    margin: 0.25em;
+    color: white;
+    padding: 0.1rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    margin-bottom: 0;
+    cursor: pointer;
+}
+
+.btnKitall:hover {
+    -webkit-box-shadow: -5px 9px 16px -5px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: -5px 9px 16px -5px rgba(0, 0, 0, 0.3);
+    box-shadow: -5px 9px 16px -5px rgba(0, 0, 0, 0.3);
+    background: rgb(30, 223, 0);
+}
+
+.btnKitall:active {
+    background: #1CCE00;
+}
+
+/*VERTICAL MOBILE*/
+@media only screen and (max-width: 291px) {
+    .presentation {
+        font-size: 4px;
+    }
+
+    .presentTxt {
+        grid-template-columns: 1fr 1fr;
+        margin: -0.7em;
+        /* margin-bottom: 0; */
+        margin-top: 0.25em;
+    }
+}
+
+@media only screen and (max-width: 320px) {
+    @media only screen and (min-width: 292px) {
+        .presentation {
+            font-size: 5.2px;
+        }
+
+        .presentTxt {
+            grid-template-columns: 1fr 1fr;
+            margin: -0.9em;
+            /* margin-bottom: 0; */
+            margin-top: 0.25em;
+        }
+    }
+}
+
+@media only screen and (max-width: 390px) {
+    @media only screen and (min-width: 321px) {
+        .presentation {
+            font-size: 6px;
+        }
+
+        .presentTxt {
+            grid-template-columns: 1fr 1fr;
+            margin: -1.5em;
+            /* margin-bottom: 0; */
+            margin-top: 0.25em;
+        }
+    }
+}
+
+@media only screen and (max-width: 567px) {
+    @media only screen and (min-width: 391px) {
+        .presentation {
+            font-size: 7px;
+        }
+
+        .presentTxt {
+            grid-template-columns: 1fr 1fr;
+            margin: -2em;
+            /* margin-bottom: 0; */
+            margin-top: 0.25em;
+        }
+    }
+}
+
+/*HORIZONTAL MOBILE*/
+@media only screen and (max-width: 999px) {
+    @media only screen and (min-width: 568px) {
+        @media only screen and (max-width: 785px) {
+            .presentation {
+                font-size: 9px;
+            }
+        }
+
+        @media only screen and (min-width: 786px) {
+            .presentation {
+                font-size: 11px;
+            }
+        }
+    }
+}
+
+/*TABLET*/
+@media only screen and (max-width: 1284px) {
+    @media only screen and (min-width: 1000px) {
+        .presentation {
+            font-size: 13px;
+        }
+    }
+}
+
+/*PC*/
+@media only screen and (min-width: 1285px) {
+    .presentation {
+        font-size: 16px;
+    }
+}
+
+/*
+ *
+ * CONTENT - FEAT PRODUCTS
+ *
+ */
+.featProducts {
+    grid-area: content;
+    width: 100%;
+    display: flex;
+    margin: auto;
+    text-align: center;
+    /* background: black; */
+}
+
+.featProductsContent {
+    width: 80vw;
+    margin: auto;
+    text-align: center;
+    /* background: turquoise; */
+}
+
+.featProduct {
+    display: grid;
+    margin: auto;
+    margin-top: 2em;
+    width: 100%;
+}
+
+.featProductText {
+    grid-area: txt;
+    /* background: red; */
+    height: auto;
+}
+
+.featProductText h2 {
+    margin: 0;
+}
+
+.featProductImg {
+    grid-area: img;
+    /* background: yellow; */
+    text-align: center;
+}
+
+@media only screen and (max-width: 500px) {
+    .featProduct {
+        grid-template-rows: 1fr 1fr;
+        grid-template-areas: "img""txt";
+    }
+
+    .featProductText h2 {
+        text-align: center;
+    }
+
+    .featProductText p {
+        text-align: center;
+    }
+
+    .featProductImg img {
+        width: auto;
+        height: 20vh;
+    }
+}
+
+@media only screen and (min-width: 501px) {
+    .textOnLeft {
+        grid-template-columns: 2fr 1fr;
+        grid-column-gap: 10px;
+        grid-template-areas: "txt img";
+    }
+
+    .textOnLeft .featProductText {
+        text-align: right;
+    }
+
+    .textOnRight {
+        grid-template-columns: 1fr 3fr;
+        grid-column-gap: 10px;
+        grid-template-areas: "img txt";
+    }
+
+    .textOnRight .featProductText {
+        text-align: left;
+    }
+
+    .featProductImg img {
+        width: 100%;
+        height: auto;
+    }
+}
+
+/*
+ *
+ * VIDEO - VIDEO PROMOCIONAL
+ *
+ */
+.presentVideo {
+    grid-area: video;
+    display: flex;
+    margin: auto;
+    width: 100%;
+    text-align: center;
+}
+
+.presentVideoOrganizer {
+    margin: auto;
+    /* background: red; */
+    width: 90%;
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+.presentVideoGrid {
+    width: 100%;
+    display: grid;
+    grid-template-rows: 550px 1fr;
+    grid-row-gap: 1em;
+    grid-template-areas: "video""txt";
+}
+
+.presentVideo {
+    display: flex;
+    grid-area: video;
+    /* background: red; */
+}
+
+.presentVideo iframe {
+    width: 80%;
+    height: 550px;
+    margin: auto;
+    padding: 0;
+}
+
+.presentVideoDescription {
+    grid-area: txt;
+    text-align: center;
+    height: auto;
+    margin: auto;
+    width: 70%;
+    /* background: yellow; */
+}
+
+.presentVideoDescription h2 {
+    margin: 0;
+}

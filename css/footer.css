@@ -1,0 +1,142 @@
+.footer {
+    grid-area: footer;
+    margin: auto;
+    width: 100%;
+    display: flex;
+    background-color: #fafafa;
+}
+
+.footerContato a,
+.footerTopo a {
+    text-decoration: none;
+}
+
+.footerContato a:hover,
+.footerTopo a:hover {
+    text-decoration: underline;
+}
+
+.footerContent {
+    margin: auto;
+    width: 100%;
+    /* display: flex; */
+}
+
+.footerMenu {
+    /* height: 70px; */
+    /* background: #149d00; */
+    /* padding-top: 10px; */
+    display: flex;
+    width: 100%;
+}
+
+#rodape {
+    bottom: 70px;
+    -webkit-box-shadow: -5px -9px 16px -5px rgba(0, 0, 0, 0.19);
+    -moz-box-shadow: -5px -9px 16px -5px rgba(0, 0, 0, 0.19);
+    box-shadow: -5px -9px 16px -5px rgba(0, 0, 0, 0.19);
+}
+
+@media only screen and (max-width: 567px) {
+    #rodape {
+        bottom: 50px;
+    }
+}
+
+.footerContato {
+    /* margin: auto; */
+    padding-top: 1vh;
+    display: flex;
+    width: 100%;
+}
+
+.footerContatoContent {
+    margin: auto;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    padding: 10px;
+}
+
+.footerContatoTxt h2 {
+    font-weight: normal;
+    margin: 0;
+    font-size: 2ch;
+}
+
+.footerContatoIcons {
+    display: flex;
+}
+
+.footerContatoIconsContent {
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 0;
+}
+
+.footerContatoIconsContent a div {
+    transition-property: width;
+    transition-duration: 0.1s;
+    display: block;
+    background: black;
+    height: 1px;
+    width: 0;
+    margin: auto;
+}
+
+.footerContatoIconsContent a:hover div {
+    width: 1.2em;
+}
+
+.footerContatoIconsContent img {
+    max-width: 1.7em;
+    padding: 10px;
+    padding-top: 0;
+    padding-bottom: 0px;
+}
+
+#face {
+    content: url("../imgs/facebook.png");
+}
+
+#insta {
+    content: url("../imgs/instagram.png");
+}
+
+#twitter {
+    content: url("../imgs/twitter.png");
+}
+
+.footerTopo {
+    margin: auto;
+    display: flex;
+}
+
+.footerTopoContent {
+    margin: auto;
+}
+
+.footerTopoContent a {
+    font-size: 1.5ch;
+}
+
+.footerIntegrantes {
+    margin: auto;
+    display: flex;
+    margin-bottom: 1.5em;
+}
+
+.footerIntegrantesContent {
+    margin: auto;
+    width: 95vw;
+}
+
+.footerIntegrantesContent hr {
+    border: inset 1px rgba(0, 0, 0, 0.1);
+}
+
+.footerIntegrantesNomes p {
+    margin: auto;
+    width: 100%;
+    text-align: center;
+}

@@ -12,33 +12,370 @@ ErrorDocument 500
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-	<link rel="manifest" href="config/manifest.json">
-	<script src="config/app.js"></script>
-	<link rel="stylesheet" type="text/css" href="style.css">
-	<link rel="stylesheet" href="slider.css">
+
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/header.css">
+	<link rel="stylesheet" href="css/presentation.css">
+	<link rel="stylesheet" href="css/footer.css">
+	<link rel="icon" type="image/png" href="favicon.png">
+	<link rel="manifest" href="manifest.json">
 
 	<title>Kitall?</title>
 </head>
 
 <body>
 
-	<h1 style=" color: white; background-color: rgb(0, 197, 0); display: block; width: 99%; padding:10px;">Em construção</h1>
-	<img src="imgs/iconKITALL.png" style=" height: 10vw;" alt="Kitall?">
+	<div class="main">
+		<div class="index-struct">
 
-	<div class="slider">
-		<a href="#" class="control_next">▶</a>
-		<a href="#" class="control_prev">◀</a>
-		<ul>
-			<li>SLIDE 1</li>
-			<li style="background: #aaa;">SLIDE 2</li>
-			<li>SLIDE 3</li>
-			<li style="background: #aaa;">SLIDE 4</li>
-		</ul>
-	</div>
+			<div class="header" id="topo">
+				<div class="logo">
+					<a href="">
+						<img src="imgs/KITALL.png" alt="Kitall?">
+					</a>
+				</div>
 
-	<div class="slider_option">
-		<input type="checkbox" class="checkbox">
-		<label for="checkbox">Autoplay Slider</label>
+				<div class="menu show">
+					<ul>
+						<li id="active">
+							<a href="">Home</a>
+						</li>
+						<li>
+							<a href="">Monte seu Kit</a>
+						</li>
+						<li>
+							<a href="">Produtos</a>
+						</li>
+						<li>
+							<a href="">Quem Somos</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="menuMobile showMobile">
+					<button class="menuMobileButton" onclick="menuDropdown(true)">
+						▼
+					</button>
+
+					<div class="menuMobileContent">
+						<ul>
+							<li id="active">
+								<a href="">Home</a>
+							</li>
+							<li>
+								<a href="">Monte seu Kit</a>
+							</li>
+							<li>
+								<a href="">Produtos</a>
+							</li>
+							<li>
+								<a href="">Quem Somos</a>
+							</li>
+							<li id="btns">
+								<div class="btns showBtnsMobile">
+									<ul>
+										<li>
+											<div class="pesquisa">
+												<a href="" title="Pesquisar">
+													<div>
+														<img src="" id="search" alt="Pesquisa" title="Clique aqui para pesquisar algo!">
+													</div>
+												</a>
+											</div>
+										</li>
+										<li>
+											<div class="entrar">
+												<div>
+													<a href=""><img id="user" src="" alt="Usuário"></a>
+												</div>
+												<div>
+													<h2><a href="" title="Entre em sua conta!">Entre</a> ou <a href="" title="Cadastre-se em nosso site!">Cadastre-se</a></h2>
+												</div>
+											</div>
+										</li>
+										<li>
+											<div class="cesta">
+												<a href="" title="Essas são suas compras">
+													<div>
+														<img src="" id="cesta" alt="Cesta">
+													</div>
+													<div>
+														<h2>3</h2>
+													</div>
+												</a>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="btns showBtns">
+					<ul>
+						<li>
+							<div class="pesquisa">
+								<a href="" title="Pesquisar">
+									<div>
+										<img src="" id="search" alt="Pesquisa" title="Clique aqui para pesquisar algo!">
+									</div>
+								</a>
+							</div>
+						</li>
+						<li>
+							<div class="entrar">
+								<div>
+									<a href=""><img id="user" src="" alt="Usuário"></a>
+								</div>
+								<div>
+									<h2><a href="" title="Entre em sua conta!">Entre</a> ou <a href="" title="Cadastre-se em nosso site!">Cadastre-se</a></h2>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="cesta">
+								<a href="" title="Essas são suas compras">
+									<div>
+										<img src="" id="cesta" alt="Cesta">
+									</div>
+									<div>
+										<h2>3</h2>
+									</div>
+								</a>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="presentation">
+				<img src="imgs/paperwork.jpg" alt="">
+
+				<div class="presentOrganize">
+					<div class="presentTxtBtn">
+						<div class="presentTxt">
+							<h1>MONTE</h1>
+							<h1 style="font-weight: bold">SEU KIT</h1>
+						</div>
+						<div class="presentBtn">
+							<button class="btnKitall bold">Kitall?</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="featProducts">
+				<div class="featProductsContent">
+					<div class="featProduct textOnLeft">
+						<div class="featProductText">
+							<h2>Caderninho Stylish Summer</h2>
+							<p>Ótimo para organizar sua rotina, moda do verão!</p>
+						</div>
+						<div class="featProductImg">
+							<img src="imgs/notebook.jpg" alt="">
+						</div>
+					</div>
+					<div class="featProduct textOnRight">
+						<div class="featProductText">
+							<h2>Bloco de Notas Sticker</h2>
+							<p>Auto-adesivo com 5 marca páginas de cores variadas!</p>
+						</div>
+						<div class="featProductImg">
+							<img src="imgs/postit.jpg" alt="">
+						</div>
+					</div>
+					<div class="featProduct textOnLeft">
+						<div class="featProductText">
+							<h2>Borracha para Caneta</h2>
+							<p>A maior ilusão é a de que ela realmente apaga tinta de caneta!</p>
+						</div>
+						<div class="featProductImg">
+							<img src="imgs/eraser.jpg" alt="">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="presentVideo">
+				<div class="presentVideoOrganizer">
+					<div class="presentVideoGrid">
+						<div class="presentVideo">
+							<iframe src="https://www.youtube.com/embed/AbmZeLv3Qc4?rel=0&amp;showinfo=0" frameborder="0" allow="autoplay; encrypted-media"
+							    allowfullscreen></iframe>
+						</div>
+						<div class="presentVideoDescription">
+							<h2>Dicas de materiais para você adquirir na Kitall?</h2>
+							<p>A Kitall? oferece os melhores produtos para você montar o seu kit como e onde quiser. Com o melhor preço você
+								economiza com qualidade.
+								Agora você não precisa mais sair de casa! A Kitall? foi desenvolvida para facilitar a sua vida, te
+								proporcionando os melhores produtos no conforto do seu sofá!</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="footer">
+				<div class="footerContent">
+					<div class="footerMenu">
+						<div class="header">
+							<div class="logo">
+								<a href="">
+									<img src="imgs/KITALL.png" alt="Kitall?">
+								</a>
+							</div>
+
+							<div class="menu show">
+								<ul>
+									<li id="active">
+										<a href="">Home</a>
+									</li>
+									<li>
+										<a href="">Monte seu Kit</a>
+									</li>
+									<li>
+										<a href="">Produtos</a>
+									</li>
+									<li>
+										<a href="">Quem Somos</a>
+									</li>
+								</ul>
+							</div>
+
+							<div class="menuMobile showMobile">
+								<button class="menuMobileButton" id="footerMobileButton" onclick="menuDropdown(false)">
+									▲
+								</button>
+
+								<div class="menuMobileContent" id="rodape">
+									<ul>
+										<li id="active">
+											<a href="">Home</a>
+										</li>
+										<li>
+											<a href="">Monte seu Kit</a>
+										</li>
+										<li>
+											<a href="">Produtos</a>
+										</li>
+										<li>
+											<a href="">Quem Somos</a>
+										</li>
+										<li id="btns">
+											<div class="btns showBtnsMobile">
+												<ul>
+													<li>
+														<div class="pesquisa">
+															<a href="" title="Pesquisar">
+																<div>
+																	<img src="" id="search" alt="Pesquisa" title="Clique aqui para pesquisar algo!">
+																</div>
+															</a>
+														</div>
+													</li>
+													<li>
+														<div class="entrar">
+															<div>
+																<a href=""><img id="user" src="" alt="Usuário"></a>
+															</div>
+															<div>
+																<h2><a href="" title="Entre em sua conta!">Entre</a> ou <a href="" title="Cadastre-se em nosso site!">Cadastre-se</a></h2>
+															</div>
+														</div>
+													</li>
+													<li>
+														<div class="cesta">
+															<a href="" title="Essas são suas compras">
+																<div>
+																	<img src="" id="cesta" alt="Cesta">
+																</div>
+																<div>
+																	<h2>3</h2>
+																</div>
+															</a>
+														</div>
+													</li>
+												</ul>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+
+							<div class="btns showBtns">
+								<ul>
+									<li>
+										<div class="pesquisa">
+											<a href="" title="Pesquisar">
+												<div>
+													<img src="" id="search" alt="Pesquisa" title="Clique aqui para pesquisar algo!">
+												</div>
+											</a>
+										</div>
+									</li>
+									<li>
+										<div class="entrar">
+											<div>
+												<a href=""><img id="user" src="" alt="Usuário"></a>
+											</div>
+											<div>
+												<h2><a href="" title="Entre em sua conta!">Entre</a> ou <a href="" title="Cadastre-se em nosso site!">Cadastre-se</a></h2>
+											</div>
+										</div>
+									</li>
+									<li>
+										<div class="cesta">
+											<a href="" title="Essas são suas compras">
+												<div>
+													<img src="" id="cesta" alt="Cesta">
+												</div>
+												<div>
+													<h2>3</h2>
+												</div>
+											</a>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+					<div class="footerContato">
+						<div class="footerContatoContent">
+							<div class="footerContatoTxt">
+								<h2>Entre em <a class="bold" href="">Contato</a>!</h2>
+							</div>
+							<div class="footerContatoIcons">
+								<div class="footerContatoIconsContent">
+									<a href="" id="aface"><img src="imgs/facebook.png" id="face" alt="">
+										<div></div>
+									</a>
+									<a href="" id="ainsta"><img src="imgs/instagram.png" id="insta" alt="">
+										<div></div>
+									</a>
+									<a href="" id="atwitter"><img src="imgs/twitter.png" id="twitter" alt="">
+										<div></div>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="footerTopo">
+						<div class="footerTopoContent">
+							<a href="#topo">Voltar ao Topo</a>
+						</div>
+					</div>
+
+					<div class="footerIntegrantes">
+						<div class="footerIntegrantesContent">
+							<hr>
+							<div class="footerIntegrantesNomes">
+								<p>@2018<br>por André Creppe, Bella Barreira, Carolina Alborgheti, Estevão Rolim e Marcos Lira</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
 	</div>
 
 
@@ -47,6 +384,6 @@ ErrorDocument 500
 
 
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="js/slider.js"></script>
+<script type="text/javascript" src="js/header.js"></script>
 
 </html>
