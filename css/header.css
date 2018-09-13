@@ -235,6 +235,11 @@
     font-weight: bold;
 }
 
+.btns ul li#active h2 {
+
+    color: white;
+}
+
 .btns ul li:hover {
     background-color: #fefefe;
 }
@@ -580,10 +585,6 @@ li#active .cesta #cesta {
 
         .entrar {
             grid-template-columns: 1fr 5fr;
-        }
-
-        .cesta #cesta {
-            padding: 0;
         }
 
         .menuMobileContent {

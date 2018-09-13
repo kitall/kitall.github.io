@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<!--
+ErrorDocument 401 
+ErrorDocument 404 
+ErrorDocument 403 
+ErrorDocument 500 
+-->
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
+	<link rel="stylesheet" href="../css/main.css">
+	<link rel="stylesheet" href="../css/header.css">
+	<link rel="stylesheet" href="../css/presentation.css">
+	<link rel="stylesheet" href="../css/footer.css">
+	<link rel="stylesheet" href="../css/login.css">
+
+	<title>Faça seu Login</title>
+</head>
+
+<body>
+
+	<div class="main">
+		<div class="index-struct">
+
+			<div class="header" id="topo">
+				<div class="logo">
+					<a href="">
+						<img src="imgs/KITALL.png" alt="Kitall?">
+					</a>
+				</div>
+
+				<div class="menu show">
+					<ul>
+						<li>
+							<a href="../index.html">Home</a>
+						</li>
+						<li>
+							<a href="">Monte seu Kit</a>
+						</li>
+						<li>
+							<a href="">Produtos</a>
+						</li>
+						<li>
+							<a href="">Quem Somos</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="menuMobile showMobile">
+					<button class="menuMobileButton" onclick="menuDropdown(true)">
+						▼
+					</button>
+
+					<div class="menuMobileContent">
+						<ul>
+							<li id="active">
+								<a href="../index.html">Home</a>
+							</li>
+							<li>
+								<a href="">Monte seu Kit</a>
+							</li>
+							<li>
+								<a href="">Produtos</a>
+							</li>
+							<li>
+								<a href="">Quem Somos</a>
+							</li>
+							<li id="btns">
+								<div class="btns showBtnsMobile">
+									<ul>
+										<li>
+											<div class="pesquisa">
+												<a href="" title="Pesquisar">
+													<div>
+														<img src="" id="search" alt="Pesquisa" title="Clique aqui para pesquisar algo!">
+													</div>
+												</a>
+											</div>
+										</li>
+										<li>
+											<div class="entrar">
+												<div>
+													<a href=""><img id="user" src="" alt="Usuário"></a>
+												</div>
+												<div>
+													<h2><a href="" title="Entre em sua conta!">Entre</a> ou <a href="" title="Cadastre-se em nosso site!">Cadastre-se</a></h2>
+												</div>
+											</div>
+										</li>
+										<li>
+											<div class="cesta">
+												<a href="" title="Essas são suas compras">
+													<div>
+														<img src="" id="cesta" alt="Cesta">
+													</div>
+													<div>
+														<h2>3</h2>
+													</div>
+												</a>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="btns showBtns">
+					<ul>
+						<li>
+							<div class="pesquisa">
+								<a href="" title="Pesquisar">
+									<div>
+										<img src="" id="search" alt="Pesquisa" title="Clique aqui para pesquisar algo!">
+									</div>
+								</a>
+							</div>
+						</li>
+						<li>
+							<div class="entrar">
+								<div>
+									<a href=""><img id="user" src="" alt="Usuário"></a>
+								</div>
+								<div>
+									<h2><a href="" title="Entre em sua conta!">Entre</a> ou <a href="" title="Cadastre-se em nosso site!">Cadastre-se</a></h2>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="cesta">
+								<a href="" title="Essas são suas compras">
+									<div>
+										<img src="" id="cesta" alt="Cesta">
+									</div>
+									<div>
+										<h2>3</h2>
+									</div>
+								</a>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="login">
+
+				<div class="loginContent">
+					<h3>Entre em sua conta</h3>
+					<div class="signin">
+						<div class="username">
+							<div>
+								<label>Usuário ou email</label>
+							</div>
+							<div>
+								<input type="text" name="user">
+							</div>
+						</div>
+						<div class="password">
+							<div class="lblSenha">
+								<label for="">Senha</label>
+								<label for="" id="recu"><a href="">Esqueceu sua senha?</a></label>
+							</div>
+							<div>
+								<input type="text" name="senha">
+							</div>
+						</div>
+						<div class="btn">
+							<input type="submit" value="Entrar">
+						</div>
+					</div>
+
+					<div class="signup">
+						<h4>Novo aqui? <a href="">Crie sua conta</a></h4>
+
+					</div>
+				</div>
+			</div>
+			<div class="footer">
+				<div class="footerContent">
+					<div class="footerMenu">
+						<div class="header">
+							<div class="logo">
+								<a href="">
+									<img src="imgs/KITALL.png" alt="Kitall?">
+								</a>
+							</div>
+
+							<div class="menu show">
+								<ul>
+									<li>
+										<a href="../index.html">Home</a>
+									</li>
+									<li>
+										<a href="">Monte seu Kit</a>
+									</li>
+									<li>
+										<a href="">Produtos</a>
+									</li>
+									<li>
+										<a href="">Quem Somos</a>
+									</li>
+								</ul>
+							</div>
+
+							<div class="menuMobile showMobile">
+								<button class="menuMobileButton" id="footerMobileButton" onclick="menuDropdown(false)">
+									▲
+								</button>
+
+								<div class="menuMobileContent" id="rodape">
+									<ul>
+										<li>
+											<a href="../index.html">Home</a>
+										</li>
+										<li>
+											<a href="">Monte seu Kit</a>
+										</li>
+										<li>
+											<a href="">Produtos</a>
+										</li>
+										<li>
+											<a href="">Quem Somos</a>
+										</li>
+										<li id="btns">
+											<div class="btns showBtnsMobile">
+												<ul>
+													<li>
+														<div class="pesquisa">
+															<a href="" title="Pesquisar">
+																<div>
+																	<img src="" id="search" alt="Pesquisa" title="Clique aqui para pesquisar algo!">
+																</div>
+															</a>
+														</div>
+													</li>
+													<li>
+														<div class="entrar">
+															<div>
+																<a href=""><img id="user" src="" alt="Usuário"></a>
+															</div>
+															<div>
+																<h2><a href="" title="Entre em sua conta!">Entre</a> ou <a href="" title="Cadastre-se em nosso site!">Cadastre-se</a></h2>
+															</div>
+														</div>
+													</li>
+													<li>
+														<div class="cesta">
+															<a href="" title="Essas são suas compras">
+																<div>
+																	<img src="" id="cesta" alt="Cesta">
+																</div>
+																<div>
+																	<h2>3</h2>
+																</div>
+															</a>
+														</div>
+													</li>
+												</ul>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+
+							<div class="btns showBtns">
+								<ul>
+									<li>
+										<div class="pesquisa">
+											<a href="" title="Pesquisar">
+												<div>
+													<img src="" id="search" alt="Pesquisa" title="Clique aqui para pesquisar algo!">
+												</div>
+											</a>
+										</div>
+									</li>
+									<li>
+										<div class="entrar">
+											<div>
+												<a href=""><img id="user" src="" alt="Usuário"></a>
+											</div>
+											<div>
+												<h2><a href="" title="Entre em sua conta!">Entre</a> ou <a href="" title="Cadastre-se em nosso site!">Cadastre-se</a></h2>
+											</div>
+										</div>
+									</li>
+									<li>
+										<div class="cesta">
+											<a href="" title="Essas são suas compras">
+												<div>
+													<img src="" id="cesta" alt="Cesta">
+												</div>
+												<div>
+													<h2>3</h2>
+												</div>
+											</a>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+					<div class="footerContato">
+						<div class="footerContatoContent">
+							<div class="footerContatoTxt">
+								<h2>Entre em <a class="bold" href="">Contato</a>!</h2>
+							</div>
+							<div class="footerContatoIcons">
+								<div class="footerContatoIconsContent">
+									<a href="" id="aface"><img src="imgs/facebook.png" id="face" alt="">
+										<div></div>
+									</a>
+									<a href="" id="ainsta"><img src="imgs/instagram.png" id="insta" alt="">
+										<div></div>
+									</a>
+									<a href="" id="atwitter"><img src="imgs/twitter.png" id="twitter" alt="">
+										<div></div>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="footerTopo">
+						<div class="footerTopoContent">
+							<a href="#topo">Voltar ao Topo</a>
+						</div>
+					</div>
+
+					<div class="footerIntegrantes">
+						<div class="footerIntegrantesContent">
+							<hr>
+							<div class="footerIntegrantesNomes">
+								<p>@2018<br>por André Creppe, Bella Barreira, Carolina Alborgheti, Estevão Rolim e Marcos Lira</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+
+
+
+</body>
+
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript" src="../js/header.js"></script>
+<link rel="manifest" href="../config/manifest.json">
+<script src="../config/app.js"></script>
+
+</html>

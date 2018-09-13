@@ -3,7 +3,6 @@
 * {
 	font-family: 'Quicksand', sans-serif;
 	/* font-family: 'Arial', sans-serif; */
-	;
 	color: #242424;
 }
 
@@ -28,7 +27,7 @@ html {
 }
 
 html {
-	background-color: white;
+	background-color: #fafafa;
 	max-width: 100vw;
 }
 
