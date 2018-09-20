@@ -1,6 +1,6 @@
 /*Script do banco de dados para o projeto de e-commerce*/
-DROP TABLE IF EXISTS e01.produtos;
-CREATE TABLE e01.produtos
+DROP TABLE IF EXISTS produtos;
+CREATE TABLE produtos
 (
     id SERIAL PRIMARY KEY,
     nome CHARACTER VARYING(40) NOT NULL,
@@ -10,36 +10,30 @@ CREATE TABLE e01.produtos
     excluido BOOL NOT NULL
 );
 
-DROP TABLE IF EXISTS e01.clientes;
-CREATE TABLE e01.clientes
+DROP TABLE IF EXISTS carrinho;
+CREATE TABLE carrinho
 (
-    id SERIAL PRIMARY KEY,
-    nome CHARACTER VARYING(20) NOT NULL,
-    sobrenome CHARACTER VARYING(40) NOT NULL,
-    nascm DATE NOT NULL,
-    email CHARACTER VARYING(60) NOT NULL,
-    cpf BIGINT NOT NULL UNIQUE,
-    tel BIGINT,
-    senha CHARACTER VARYING(30) NOT NULL,
-    adm BOOL NOT NULL,
-    excluido BOOL NOT NULL
-);
-
-DROP TABLE IF EXISTS e01.carrinho;
-CREATE TABLE e01.carrinho
-(
-    id_prod INT REFERENCES e01.clientes NOT NULL,
+    id_prod INT REFERENCES produtos NOT NULL,
     qtd INT NOT NULL,
     val_total FLOAT NOT NULL
 );
 
-DROP TABLE IF EXISTS e01.comprasfeitas;
-CREATE TABLE e01.comprasfeitas
+DROP TABLE IF EXISTS comprasfeitas;
+CREATE TABLE comprasfeitas
 (
-    id_comrpa SERIAL,
-    id_cli INT REFERENCES e01.clientes NOT NULL,
-    id_prod INT REFERENCES e01.produtos NOT NULL,
+    id_comrpa SERIAL PRIMARY KEY,
+    id_cli INT NOT NULL,
+    id_prod INT REFERENCES produtos NOT NULL,
     qtd INT NOT NULL,
     val_total FLOAT NOT NULL,
     excluido BOOL NOT NULL
 );
+/*--------------------------------------------------------------------------------------*/
+DROP TABLE IF EXISTS administradores;
+CREATE TABLE administradores
+(
+    id_adm SERIAL PRIMARY KEY,
+    nome CHARACTER VARYING(30),
+    senha CHARACTER VARYING(40)
+);
+INSERT INTO administradores VALUES(DEFAULT, 'Andre Creppe', 'adc49a48a7f2a861702c4306c92244be');
