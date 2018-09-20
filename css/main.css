@@ -11,13 +11,13 @@
 *::after {
 	transition-property: color;
 	transition-duration: 0;
-	transition-property: border, background;
-	transition-duration: 0.3s;
+	transition-property: border, background, opacity;
+	transition-duration: 0.2s;
 }
 
-*:focus {
+/* *:focus {
 	outline: none;
-}
+} */
 
 body,
 html {
@@ -40,6 +40,105 @@ html {
 
 .bold {
 	font-weight: bold;
+}
+
+
+
+.double_11_grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+}
+
+.double_21_grid {
+	display: grid;
+	grid-template-columns: 2fr 1fr;
+}
+
+.double_31_grid {
+	display: grid;
+	grid-template-columns: 3fr 1fr;
+}
+
+.double_12_grid {
+	display: grid;
+	grid-template-columns: 1fr 2fr;
+}
+
+.double_13_grid {
+	display: grid;
+	grid-template-columns: 1fr 3fr;
+}
+
+[type="text"],
+[type="password"],
+select {
+	padding: 8px;
+	border: solid 1px rgba(0, 0, 0, 0.4);
+	border-radius: 2px;
+	width: 100%;
+	box-sizing: border-box;
+	-webkit-box-shadow: inset 0px 10px 7px -8px rgba(0, 0, 0, 0.12);
+	-moz-box-shadow: inset 0px 10px 7px -8px rgba(0, 0, 0, 0.12);
+	box-shadow: inset 0px 10px 7px -8px rgba(0, 0, 0, 0.12);
+}
+
+
+[type="radio"]:focus {
+	outline: rgba(0, 0, 255, 0.411);
+}
+
+[type="radio"]:checked,
+[type="radio"]:not(:checked) {
+	position: absolute;
+	left: -9999px;
+}
+
+[type="radio"]:checked+label,
+[type="radio"]:not(:checked)+label {
+	position: relative;
+	padding-left: 28px;
+	cursor: pointer;
+	line-height: 20px;
+	display: inline-block;
+}
+
+[type="radio"]:checked+label:before,
+[type="radio"]:not(:checked)+label:before {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 18px;
+	height: 18px;
+	border: 1px solid #ddd;
+	border-radius: 100%;
+	background: #fff;
+}
+
+[type="radio"]:checked+label:after,
+[type="radio"]:not(:checked)+label:after {
+	content: '';
+	width: 10px;
+	height: 10px;
+	background: #666;
+	position: absolute;
+	top: 5px;
+	left: 5px;
+	border-radius: 100%;
+	-webkit-transition: all 0.2s ease;
+	transition: all 0.2s ease;
+}
+
+[type="radio"]:not(:checked)+label:after {
+	opacity: 0;
+	-webkit-transform: scale(0);
+	transform: scale(0);
+}
+
+[type="radio"]:checked+label:after {
+	opacity: 1;
+	-webkit-transform: scale(1);
+	transform: scale(1);
 }
 
 .main {}

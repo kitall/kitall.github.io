@@ -89,15 +89,9 @@
     font-size: 1ch;
 }
 
+.signin input[type="text"],
 .signin input[type="text"] {
-    padding: 8px;
-    border: solid 1px rgba(0, 0, 0, 0.4);
-    border-radius: 2px;
-    width: 100%;
-    box-sizing: border-box;
-    -webkit-box-shadow: inset 0px 10px 7px -8px rgba(0, 0, 0, 0.12);
-    -moz-box-shadow: inset 0px 10px 7px -8px rgba(0, 0, 0, 0.12);
-    box-shadow: inset 0px 10px 7px -8px rgba(0, 0, 0, 0.12);
+    font-size: 1.6ch;
 }
 
 .signup {
@@ -123,7 +117,7 @@
     text-decoration: underline;
 }
 
-.btn input {
+.btnLogin input {
     width: 100%;
     padding: 8px;
     color: white;
@@ -135,11 +129,11 @@
     border-radius: 3px;
 }
 
-.btn input:hover {
+.btnLogin input:hover {
     background: linear-gradient(rgb(31, 230, 0), rgb(6, 177, 0));
 }
 
-.btn input:active {
+.btnLogin input:active {
     background: linear-gradient(#1BCB00, #049C00);
     border: solid 1px #049C00;
 }

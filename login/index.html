@@ -14,9 +14,9 @@ ErrorDocument 500
 
 
 	<link rel="stylesheet" href="../css/main.css">
+	<link rel="stylesheet" href="../css/footer.css">
 	<link rel="stylesheet" href="../css/header.css">
 	<link rel="stylesheet" href="../css/presentation.css">
-	<link rel="stylesheet" href="../css/footer.css">
 	<link rel="stylesheet" href="../css/login.css">
 
 	<title>Faça seu Login</title>
@@ -29,7 +29,7 @@ ErrorDocument 500
 
 			<div class="header" id="topo">
 				<div class="logo">
-					<a href="">
+					<a href="../index.html">
 						<img src="imgs/KITALL.png" alt="Kitall?">
 					</a>
 				</div>
@@ -52,13 +52,13 @@ ErrorDocument 500
 				</div>
 
 				<div class="menuMobile showMobile">
-					<button class="menuMobileButton" onclick="menuDropdown(true)">
+					<button class="menuMobileButton" onclick="menuDropdown()">
 						▼
 					</button>
 
 					<div class="menuMobileContent">
 						<ul>
-							<li id="active">
+							<li>
 								<a href="../index.html">Home</a>
 							</li>
 							<li>
@@ -88,7 +88,7 @@ ErrorDocument 500
 													<a href=""><img id="user" src="" alt="Usuário"></a>
 												</div>
 												<div>
-													<h2><a href="" title="Entre em sua conta!">Entre</a> ou <a href="" title="Cadastre-se em nosso site!">Cadastre-se</a></h2>
+													<h2><a href="" title="Entre em sua conta!">Entre</a> ou <a href="../cadastro/index.html" title="Cadastre-se em nosso site!">Cadastre-se</a></h2>
 												</div>
 											</div>
 										</li>
@@ -128,7 +128,7 @@ ErrorDocument 500
 									<a href=""><img id="user" src="" alt="Usuário"></a>
 								</div>
 								<div>
-									<h2><a href="" title="Entre em sua conta!">Entre</a> ou <a href="" title="Cadastre-se em nosso site!">Cadastre-se</a></h2>
+									<h2><a href="" title="Entre em sua conta!">Entre</a> ou <a href="../cadastro/index.html" title="Cadastre-se em nosso site!">Cadastre-se</a></h2>
 								</div>
 							</div>
 						</li>
@@ -163,19 +163,19 @@ ErrorDocument 500
 						<div class="password">
 							<div class="lblSenha">
 								<label for="">Senha</label>
-								<label for="" id="recu"><a href="">Esqueceu sua senha?</a></label>
+								<label for="" id="recu" tabindex="-1"><a href="" tabindex="-1">Esqueceu sua senha?</a></label>
 							</div>
 							<div>
-								<input type="text" name="senha">
+								<input type="password" name="senha">
 							</div>
 						</div>
-						<div class="btn">
+						<div class="btnLogin">
 							<input type="submit" value="Entrar">
 						</div>
 					</div>
 
 					<div class="signup">
-						<h4>Novo aqui? <a href="">Crie sua conta</a></h4>
+						<h4>Novo aqui? <a href="../cadastro/index.html">Crie sua conta</a></h4>
 
 					</div>
 				</div>
@@ -183,14 +183,9 @@ ErrorDocument 500
 			<div class="footer">
 				<div class="footerContent">
 					<div class="footerMenu">
-						<div class="header">
-							<div class="logo">
-								<a href="">
-									<img src="imgs/KITALL.png" alt="Kitall?">
-								</a>
-							</div>
+						<div class="footerMenuContent">
 
-							<div class="menu show">
+							<div class="menuFooter show">
 								<ul>
 									<li>
 										<a href="../index.html">Home</a>
@@ -207,12 +202,12 @@ ErrorDocument 500
 								</ul>
 							</div>
 
-							<div class="menuMobile showMobile">
-								<button class="menuMobileButton" id="footerMobileButton" onclick="menuDropdown(false)">
+							<div class="menuFooterMobile showMobile">
+								<button class="menuFooterMobileButton" onclick="menuFooterDropdown()">
 									▲
 								</button>
 
-								<div class="menuMobileContent" id="rodape">
+								<div class="menuFooterMobileContent">
 									<ul>
 										<li>
 											<a href="../index.html">Home</a>
@@ -244,7 +239,7 @@ ErrorDocument 500
 																<a href=""><img id="user" src="" alt="Usuário"></a>
 															</div>
 															<div>
-																<h2><a href="" title="Entre em sua conta!">Entre</a> ou <a href="" title="Cadastre-se em nosso site!">Cadastre-se</a></h2>
+																<h2><a href="" title="Entre em sua conta!">Entre</a> ou <a href="../cadastro/index.html" title="Cadastre-se em nosso site!">Cadastre-se</a></h2>
 															</div>
 														</div>
 													</li>
@@ -284,7 +279,7 @@ ErrorDocument 500
 												<a href=""><img id="user" src="" alt="Usuário"></a>
 											</div>
 											<div>
-												<h2><a href="" title="Entre em sua conta!">Entre</a> ou <a href="" title="Cadastre-se em nosso site!">Cadastre-se</a></h2>
+												<h2><a href="" title="Entre em sua conta!">Entre</a> ou <a href="../cadastro/index.html" title="Cadastre-se em nosso site!">Cadastre-se</a></h2>
 											</div>
 										</div>
 									</li>
@@ -354,6 +349,7 @@ ErrorDocument 500
 
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script type="text/javascript" src="../js/header.js"></script>
+<script type="text/javascript" src="../js/footerMenu.js"></script>
 <link rel="manifest" href="../config/manifest.json">
 <script src="../config/app.js"></script>
 

@@ -1,0 +1,267 @@
+.cadastro {
+    width: 100%;
+}
+
+.cadastroContent {
+    height: auto;
+    width: auto;
+    display: grid;
+    padding: 2em;
+    padding-left: 10em;
+    padding-right: 10em;
+    grid-template-columns: 3fr 2fr;
+    grid-template-areas: "campos info";
+}
+
+.cadastroContent div {}
+
+.campos {
+    grid-area: campos;
+    display: block;
+    width: 100%;
+    padding: 10px;
+}
+
+.campos h1 {
+    padding: 0;
+    margin-top: 0;
+    margin-bottom: 0.2em;
+    /* font-weight: normal; */
+}
+
+.logGroup {
+    width: 85%;
+    padding-top: 1.5em;
+}
+
+.logGroup h2 {
+    margin: 0;
+    font-weight: normal;
+}
+
+.logGroup hr {
+    border: inset 1px rgba(0, 0, 0, 0.5);
+}
+
+.campos a {
+    font-weight: bold;
+    text-decoration: none;
+    color: #0A6BD7;
+}
+
+.campos a:focus,
+.campos a:hover {
+    text-decoration: underline;
+}
+
+.campo {
+    padding: 10px;
+    padding-left: 5px;
+    padding-bottom: 0;
+}
+
+.campo div {
+    display: block;
+    margin: 0;
+    font-weight: bold;
+    padding: 5px;
+    padding-left: 0;
+    padding-top: 0;
+}
+
+.campo input {
+    font-size: 1.6ch;
+}
+
+.lblCampo {
+    float: left;
+}
+
+.descCampo {
+    margin: 0;
+    padding: 0;
+    margin-bottom: 0;
+
+}
+
+.descCampo p {
+    font-size: 1.3ch;
+    padding: 0;
+    padding-top: 5px;
+    margin: 0;
+    font-weight: normal;
+}
+
+.errorCampo p {
+    color: rgb(235, 2, 2);
+    font-weight: bold;
+
+}
+
+.selectSexo {}
+
+.selectSexo input,
+.selectSexo label {
+    font-weight: normal;
+    cursor: pointer;
+}
+
+.selectSexo label {
+    margin-right: 10px;
+    color: #404040;
+}
+
+.selectSexo label:hover {
+    color: black;
+}
+
+.qMarkText {
+    background: rgba(0, 0, 0, 0.05);
+    margin: auto;
+    margin-left: 5px;
+    border-radius: 50%;
+    height: auto;
+}
+
+.qMarkContent {
+    font-weight: normal;
+    font-size: 1.4ch;
+    padding: 0;
+    padding-left: 0.9ch;
+    padding-right: 0.9ch;
+    cursor: pointer;
+}
+
+.moreInfo {
+    padding: 10px;
+    margin: 1px;
+    opacity: 0;
+    background: rgba(0, 0, 0, 0.05);
+    max-width: 200px;
+    position: absolute;
+}
+
+.showContato {
+    font-weight: bold;
+    text-decoration: none;
+    /* color: #0A6BD7; */
+    cursor: pointer;
+}
+
+.showContato:focus,
+.showContato:hover {
+    text-decoration: underline;
+}
+
+.contato {
+    display: none;
+}
+
+.btnCadastro input {
+    width: 40%;
+    padding: 8px;
+    color: white;
+    background: linear-gradient(#1BCB00, #049C00);
+    border: solid 1px #049C00;
+    font-size: 1.6ch;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.btnCadastro input:hover {
+    background: linear-gradient(rgb(31, 230, 0), rgb(6, 177, 0));
+}
+
+.btnCadastro input:active {
+    background: linear-gradient(#1BCB00, #049C00);
+    border: solid 1px #049C00;
+}
+
+.info {
+    grid-area: info;
+    height: 100%;
+    width: 100%;
+    padding: 10px;
+    display: flex;
+}
+
+.infoContent {
+    margin: auto;
+    margin-top: 0;
+    display: grid;
+    grid-template-rows: 10fr 1fr 3fr;
+    grid-template-areas: "vantagens""none""signinInfo";
+}
+
+.vantagens {
+    grid-area: vantagens;
+    border: solid 1px rgba(0, 0, 0, 0.401);
+    /* padding: 10px; */
+    border-radius: 5px;
+    -webkit-box-shadow: 0px 0px 15px -5px rgba(0, 0, 0, 0.19);
+    -moz-box-shadow: 0px 0px 15px -5px rgba(0, 0, 0, 0.19);
+    box-shadow: 0px 0px 15px -5px rgba(0, 0, 0, 0.19);
+}
+
+.vantagens h3 {
+    border-bottom: solid 1px rgba(0, 0, 0, 0.2);
+    /* background: red; */
+    margin: auto;
+    padding: 10px;
+}
+
+.itensVantagens ul {
+    list-style: none;
+    padding: 5px;
+    margin: 0;
+
+}
+
+.itensVantagens ul li {
+    margin: 0;
+    padding: 10px;
+}
+
+.destaquesVantagens ul {
+    list-style: none;
+    padding: 5px;
+    margin: 0;
+    border-top: solid 1px rgba(0, 0, 0, 0.2);
+
+}
+
+.destaquesVantagens ul li {
+    margin: 0;
+    padding: 10px;
+}
+
+.destaquesVantagens b {
+    color: #1BCB00;
+}
+
+.signinInfo {
+    grid-area: signinInfo;
+    border: solid 1px rgba(0, 0, 0, 0.4);
+    border-radius: 5px;
+    /* padding: 5px; */
+    display: flex;
+    -webkit-box-shadow: 0px 0px 15px -5px rgba(0, 0, 0, 0.19);
+    -moz-box-shadow: 0px 0px 15px -5px rgba(0, 0, 0, 0.19);
+    box-shadow: 0px 0px 15px -5px rgba(0, 0, 0, 0.19);
+}
+
+.signinInfo h4 {
+    font-weight: normal;
+    margin: auto;
+    font-size: 1.5ch;
+}
+
+.signinInfo h4 a {
+    text-decoration: none;
+    color: #0A6BD7;
+}
+
+.signinInfo h4 a:hover {
+    text-decoration: underline;
+}
