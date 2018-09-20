@@ -7,6 +7,7 @@ CREATE TABLE produtos
     qtd INT NOT NULL,
     preco FLOAT NOT NULL,
     link_img CHARACTER VARYING(100),
+    descricao CHARACTER VARYING(200) NOT NULL,
     excluido BOOL NOT NULL
 );
 

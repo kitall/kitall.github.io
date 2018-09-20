@@ -1,5 +1,33 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+    
+<?php 
+    include "php/conect_prod.php";
+    
+    $sql = "SELECT id FROM produtos WHERE excluido=FALSE
+            ORDER BY RANDOM()
+            LIMIT 3";
+    
+    $num_rand = array(0, 0, 0);
+    
+    $res = pg_query($conectar, $sql);
+    $qtd = pg_num_rows($res);
+    if($qtd > 0)
+    {
+        $i = 0;
+        while($prod = pg_fetch_array($res))
+        {
+            $num_rand[$i] = $prod['id'];
+            $i++;
+        }
+    }
+    else
+    {
+        echo "Nao foi encontrado nenhum produto! :(";
+        exit;
+    }
+?>
+    
 <!--
 ErrorDocument 401 
 ErrorDocument 404 
@@ -168,29 +196,92 @@ ErrorDocument 500
 				<div class="featProductsContent">
 					<div class="featProduct textOnLeft">
 						<div class="featProductText">
-							<h2>Caderninho Stylish Summer</h2>
-							<p>Ótimo para organizar sua rotina, moda do verão!</p>
+                        <?php
+                            $numm = $num_rand[0];
+                            $sql = "SELECT * FROM produtos WHERE id=$numm";
+
+                            $res = pg_query($conectar, $sql);
+                            $qtd = pg_num_rows($res);
+                            if($qtd > 0)
+                            {
+                                while($prod = pg_fetch_array($res))
+                                {
+                                    $nome = $prod['nome'];
+                                    $descricao = $prod['descricao'];
+                                    $link_img = $prod['link_img'];
+                                }
+                                
+                                echo "<h2>$nome</h2>";
+                                echo "<p>$descricao</p>";
+                            }
+                            else
+                            {
+                                echo "ERRO!";
+                            }
+                        ?>
 						</div>
 						<div class="featProductImg">
-							<img src="imgs/notebook.jpg" alt="">
+							<?php echo "<img src='$link_img' alt='300'>" ?>
 						</div>
 					</div>
 					<div class="featProduct textOnRight">
 						<div class="featProductText">
-							<h2>Bloco de Notas Sticker</h2>
-							<p>Auto-adesivo com 5 marca páginas de cores variadas!</p>
+                        <?php
+                            $numm = $num_rand[1];
+                            $sql = "SELECT * FROM produtos WHERE id=$numm";
+
+                            $res = pg_query($conectar, $sql);
+                            $qtd = pg_num_rows($res);
+                            if($qtd > 0)
+                            {
+                                while($prod = pg_fetch_array($res))
+                                {
+                                    $nome = $prod['nome'];
+                                    $descricao = $prod['descricao'];
+                                    $link_img = $prod['link_img'];
+                                }
+                                
+                                echo "<h2>$nome</h2>";
+                                echo "<p>$descricao</p>";
+                            }
+                            else
+                            {
+                                echo "ERRO!";
+                            }
+                        ?>
 						</div>
 						<div class="featProductImg">
-							<img src="imgs/postit.jpg" alt="">
+							<?php echo "<img src='$link_img' alt='300'>" ?>
 						</div>
 					</div>
 					<div class="featProduct textOnLeft">
 						<div class="featProductText">
-							<h2>Borracha para Caneta</h2>
-							<p>A maior ilusão é a de que ela realmente apaga tinta de caneta!</p>
+                        <?php
+                            $numm = $num_rand[2];
+                            $sql = "SELECT * FROM produtos WHERE id=$numm";
+
+                            $res = pg_query($conectar, $sql);
+                            $qtd = pg_num_rows($res);
+                            if($qtd > 0)
+                            {
+                                while($prod = pg_fetch_array($res))
+                                {
+                                    $nome = $prod['nome'];
+                                    $descricao = $prod['descricao'];
+                                    $link_img = $prod['link_img'];
+                                }
+                                
+                                echo "<h2>$nome</h2>";
+                                echo "<p>$descricao</p>";
+                            }
+                            else
+                            {
+                                echo "ERRO!";
+                            }
+                        ?>
 						</div>
 						<div class="featProductImg">
-							<img src="imgs/eraser.jpg" alt="">
+							<?php echo "<img src='$link_img' alt='300'>" ?>
 						</div>
 					</div>
 				</div>
