@@ -3,7 +3,9 @@
     
 <?php 
     include "php/conect_prod.php";
-    
+	
+	$prod_padrao[3][3] = [["Caderno de Anotações", "Anote tudo o que precisa ser transformado e melhorado.", "img/notebook.png"], ["Borracha de Lápis e Caneta", "Para corrigir os erros e aprender com eles", "img/eraser.png"], ["Porta Post-It", "Aqui fica tudo o você precisa lembrar e fazer.", "img/portapostit.png"]];
+	
     $sql = "SELECT id FROM produtos WHERE excluido=FALSE
             ORDER BY RANDOM()
             LIMIT 3";
@@ -20,12 +22,7 @@
             $num_rand[$i] = $prod['id'];
             $i++;
         }
-    }
-    else
-    {
-        echo "Nao foi encontrado nenhum produto! :(";
-        exit;
-    }
+	}
 ?>
     
 <!--
@@ -195,9 +192,9 @@ ErrorDocument 500
 			<div class="featProducts">
 				<div class="featProductsContent">
 					<div class="featProduct textOnLeft">
-						<div class="featProductText">
-                        <?php
-                            $numm = $num_rand[0];
+						<?php
+                            $ind = 0;
+                            $numm = $num_rand[ind];
                             $sql = "SELECT * FROM produtos WHERE id=$numm";
 
                             $res = pg_query($conectar, $sql);
@@ -206,28 +203,52 @@ ErrorDocument 500
                             {
                                 while($prod = pg_fetch_array($res))
                                 {
-                                    $nome = $prod['nome'];
-                                    $descricao = $prod['descricao'];
-                                    $link_img = $prod['link_img'];
+									$nome = $prod['nome'];
+									$descricao = $prod['descricao'];
+									$link_img = $prod['link_img'];
+									
+                                    ?>
+									<div class="featProductText">
+										<?php
+											echo "<h2>$nome</h2>";
+											echo "<p>$descricao</p>";
+										?>
+									</div>
+									<?php
+
+									?>
+									<div class="featProductImg">
+										<?php echo "<img src='$link_img' alt='300'>" ?>
+									</div>
+									<?php
                                 }
-                                
-                                echo "<h2>$nome</h2>";
-                                echo "<p>$descricao</p>";
                             }
                             else
-                            {
-                                echo "ERRO!";
+                            {			
+								$nome = $prod_padrao[ind][0];
+								$descricao = $prod_padrao[ind][1];
+								$link_img = $prod_padrao[ind][2];					
+								?>
+								<div class="featProductText">
+									<?php
+										echo "<h2>$nome</h2>";
+										echo "<p>$descricao</p>";
+									?>
+								</div>
+								<?php
+
+								?>
+								<div class="featProductImg">
+									<?php echo "<img src='$link_img' alt='300'>" ?>
+								</div>
+								<?php
                             }
                         ?>
-						</div>
-						<div class="featProductImg">
-							<?php echo "<img src='$link_img' alt='300'>" ?>
-						</div>
 					</div>
 					<div class="featProduct textOnRight">
-						<div class="featProductText">
-                        <?php
-                            $numm = $num_rand[1];
+						<?php
+							$ind++;
+                            $numm = $num_rand[ind];
                             $sql = "SELECT * FROM produtos WHERE id=$numm";
 
                             $res = pg_query($conectar, $sql);
@@ -236,28 +257,53 @@ ErrorDocument 500
                             {
                                 while($prod = pg_fetch_array($res))
                                 {
-                                    $nome = $prod['nome'];
-                                    $descricao = $prod['descricao'];
-                                    $link_img = $prod['link_img'];
+									$nome = $prod['nome'];
+									$descricao = $prod['descricao'];
+									$link_img = $prod['link_img'];
+									
+                                    ?>
+									<div class="featProductText">
+										<?php
+											echo "<h2>$nome</h2>";
+											echo "<p>$descricao</p>";
+										?>
+									</div>
+									<?php
+
+									?>
+									<div class="featProductImg">
+										<?php echo "<img src='$link_img' alt='300'>" ?>
+									</div>
+									<?php
                                 }
-                                
-                                echo "<h2>$nome</h2>";
-                                echo "<p>$descricao</p>";
                             }
                             else
-                            {
-                                echo "ERRO!";
+                            {			
+								$nome = $prod_padrao[ind][0];
+								$descricao = $prod_padrao[ind][1];
+								$link_img = $prod_padrao[ind][2];					
+								?>
+								<div class="featProductText">
+									<?php
+										echo "<h2>$nome</h2>";
+										echo "<p>$descricao</p>";
+									?>
+								</div>
+								<?php
+
+								?>
+								<div class="featProductImg">
+									<?php echo "<img src='$link_img' alt='300'>" ?>
+								</div>
+								<?php
                             }
                         ?>
-						</div>
-						<div class="featProductImg">
-							<?php echo "<img src='$link_img' alt='300'>" ?>
-						</div>
 					</div>
 					<div class="featProduct textOnLeft">
 						<div class="featProductText">
                         <?php
-                            $numm = $num_rand[2];
+                            $ind++;
+                            $numm = $num_rand[ind];
                             $sql = "SELECT * FROM produtos WHERE id=$numm";
 
                             $res = pg_query($conectar, $sql);
@@ -266,23 +312,47 @@ ErrorDocument 500
                             {
                                 while($prod = pg_fetch_array($res))
                                 {
-                                    $nome = $prod['nome'];
-                                    $descricao = $prod['descricao'];
-                                    $link_img = $prod['link_img'];
+									$nome = $prod['nome'];
+									$descricao = $prod['descricao'];
+									$link_img = $prod['link_img'];
+									
+                                    ?>
+									<div class="featProductText">
+										<?php
+											echo "<h2>$nome</h2>";
+											echo "<p>$descricao</p>";
+										?>
+									</div>
+									<?php
+
+									?>
+									<div class="featProductImg">
+										<?php echo "<img src='$link_img' alt='300'>" ?>
+									</div>
+									<?php
                                 }
-                                
-                                echo "<h2>$nome</h2>";
-                                echo "<p>$descricao</p>";
                             }
                             else
-                            {
-                                echo "ERRO!";
+                            {			
+								$nome = $prod_padrao[ind][0];
+								$descricao = $prod_padrao[ind][1];
+								$link_img = $prod_padrao[ind][2];					
+								?>
+								<div class="featProductText">
+									<?php
+										echo "<h2>$nome</h2>";
+										echo "<p>$descricao</p>";
+									?>
+								</div>
+								<?php
+
+								?>
+								<div class="featProductImg">
+									<?php echo "<img src='$link_img' alt='300'>" ?>
+								</div>
+								<?php
                             }
                         ?>
-						</div>
-						<div class="featProductImg">
-							<?php echo "<img src='$link_img' alt='300'>" ?>
-						</div>
 					</div>
 				</div>
 			</div>
