@@ -30,7 +30,7 @@ ErrorDocument 500
 
             <div class="header" id="topo">
                 <div class="logo">
-                    <a href="../index.html">
+                    <a href="../index.php">
                         <img src="imgs/KITALL.png" alt="Kitall?">
                     </a>
                 </div>
@@ -38,7 +38,7 @@ ErrorDocument 500
                 <div class="menu show">
                     <ul>
                         <li>
-                            <a href="../index.html">Home</a>
+                            <a href="../index.php">Home</a>
                         </li>
                         <li>
                             <a href="">Monte seu Kit</a>
@@ -60,7 +60,7 @@ ErrorDocument 500
                     <div class="menuMobileContent">
                         <ul>
                             <li>
-                                <a href="../index.html">Home</a>
+                                <a href="../index.php">Home</a>
                             </li>
                             <li>
                                 <a href="">Monte seu Kit</a>
@@ -151,95 +151,103 @@ ErrorDocument 500
                 </div>
             </div>
             <div class="cadastro">
-
+                
                 <div class="cadastroContent">
-
+                    <form action="../php/salva_cli.php" method="post">
                     <div class="campos">
                         <h1>Crie sua conta</h1>
+                        
+                            <div class="logGroup">
+                                <h2>Dados Pessoais</h2>
+                                <hr>
 
-                        <div class="logGroup">
-                            <h2>Dados Pessoais</h2>
-                            <hr>
-
-                            <div class="campo">
-                                <div>
-                                    <div class="lblCampo"><label>Nome</label></div>
+                                <div class="campo">
+                                    <div>
+                                        <div class="lblCampo"><label>Nome</label></div>
+                                    </div>
+                                    <input type="text" name="nome" placeholder="Albert" autofocus>
+                                    <div class="descCampo" id="nome">
+                                        <p></p>
+                                    </div>
                                 </div>
-                                <input type="text" name="nome" placeholder="Albert" autofocus>
-                                <div class="descCampo" id="nome">
-                                    <p></p>
+                                <div class="campo">
+                                    <div>
+                                        <div class="lblCampo"><label>Sobrenome</label></div>
+                                    </div>
+                                    <input type="text" name="sobrenome" placeholder="Einstein">
+                                    <div class="descCampo" id="sobrenome">
+                                        <p></p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="campo">
-                                <div>
-                                    <div class="lblCampo"><label>Sobrenome</label></div>
+                                <div class="campo">
+                                    <div>
+                                        <div class="lblCampo"><label>Sexo</label></div>
+                                    </div>
+                                    <br>
+                                    <div class="selectSexo">
+                                        <input type="radio" name="sexo" value="M" id="sexoM"><label for="sexoM">Masculino</label>
+                                        <input type="radio" name="sexo" value="F" id="sexoF"><label for="sexoF">Feminino</label>
+                                        <input type="radio" name="sexo" value="N" id="sexoN"><label for="sexoN">Prefiro
+                                            não dizer</label>
+                                    </div>
+                                    <div class="descCampo" id="sexo">
+                                        <p></p>
+                                    </div>
                                 </div>
-                                <input type="text" name="sobrenome" placeholder="Einstein">
-                                <div class="descCampo" id="sobrenome">
-                                    <p></p>
+                                <div class="campo">
+                                    <div>
+                                        <div class="lblCampo"><label>Data de Nascimento</label></div>
+                                    </div>
+                                    <input type="text" name="data_nasc" id="dateInput" placeholder="dd/mm/aaaa" required>
+                                    <div class="descCampo" id="data_nasc">
+                                        <p></p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="campo">
-                                <div>
-                                    <div class="lblCampo"><label>Sexo</label></div>
-                                </div>
-                                <br>
-                                <div class="selectSexo">
-                                    <input type="radio" name="sexo" value="M" id="sexoM"><label for="sexoM">Masculino</label>
-                                    <input type="radio" name="sexo" value="F" id="sexoF"><label for="sexoF">Feminino</label>
-                                    <input type="radio" name="sexo" value="N" id="sexoN"><label for="sexoN">Prefiro
-                                        não dizer</label>
-                                </div>
-                                <div class="descCampo" id="sexo">
-                                    <p></p>
-                                </div>
-                            </div>
-                            <div class="campo">
-                                <div>
-                                    <div class="lblCampo"><label>Data de Nascimento</label></div>
-                                </div>
-                                <input type="text" name="data_nasc" id="dateInput" placeholder="dd/mm/aaaa" required>
-                                <div class="descCampo" id="data_nasc">
-                                    <p></p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="logGroup">
-                            <h2>Conta</h2>
-                            <hr>
-
-                            <div class="campo">
-                                <div>
-                                    <div class="lblCampo"><label>Login</label></div>
-                                </div>
-                                <input type="text" name="login" placeholder="albEinstein123">
-                                <div class="descCampo" id="login">
-                                    <p></p>
+                                <div class="campo">
+                                    <div>
+                                        <div class="lblCampo"><label>Celular</label></div>
+                                    </div>
+                                    <input type="text" name="celular" placeholder="(DDD)55555-4444">
+                                    <div class="descCampo" id="celular">
+                                        <p></p>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="campo">
-                                <div>
-                                    <div class="lblCampo"><label>Email</label></div>
+                            <div class="logGroup">
+                                <h2>Conta</h2>
+                                <hr>
+
+                                <div class="campo">
+                                    <div>
+                                        <div class="lblCampo"><label>Login</label></div>
+                                    </div>
+                                    <input type="text" name="login" placeholder="albEinstein123">
+                                    <div class="descCampo" id="login">
+                                        <p></p>
+                                    </div>
                                 </div>
-                                <input type="text" name="email" placeholder="albert@einstein.com">
-                                <div class="descCampo" id="email">
-                                    <p></p>
+
+                                <div class="campo">
+                                    <div>
+                                        <div class="lblCampo"><label>Email</label></div>
+                                    </div>
+                                    <input type="text" name="email" placeholder="albert@einstein.com">
+                                    <div class="descCampo" id="email">
+                                        <p></p>
+                                    </div>
+                                </div>
+
+                                <div class="campo">
+                                    <div>
+                                        <div class="lblCampo"><label>Senha</label></div>
+                                    </div>
+                                    <input type="password" name="senha" placeholder="Sua nova senha aqui...">
+                                    <div class="descCampo" id="senha">
+                                        <p></p>
+                                    </div>
                                 </div>
                             </div>
-
-                            <div class="campo">
-                                <div>
-                                    <div class="lblCampo"><label>Senha</label></div>
-                                </div>
-                                <input type="password" name="senha" placeholder="Sua nova senha aqui...">
-                                <div class="descCampo" id="senha">
-                                    <p></p>
-                                </div>
-                            </div>
-                        </div>
-
                         <div class="logGroup contato">
                             <h2>Informações de Entrega</h2>
                             <hr>
@@ -383,7 +391,7 @@ ErrorDocument 500
                             </div>
                         </div>
                     </div>
-
+                    </form>
                     <div class="info">
                         <div class="infoContent">
                             <div class="vantagens">
@@ -437,7 +445,7 @@ ErrorDocument 500
                             <div class="menuFooter show">
                                 <ul>
                                     <li>
-                                        <a href="../index.html">Home</a>
+                                        <a href="../index.php">Home</a>
                                     </li>
                                     <li>
                                         <a href="">Monte seu Kit</a>
@@ -459,7 +467,7 @@ ErrorDocument 500
                                 <div class="menuFooterMobileContent">
                                     <ul>
                                         <li>
-                                            <a href="../index.html">Home</a>
+                                            <a href="../index.php">Home</a>
                                         </li>
                                         <li>
                                             <a href="">Monte seu Kit</a>

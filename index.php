@@ -23,6 +23,8 @@
     }
     else
     {
+        pg_close($conectar);
+        
         echo "Nao foi encontrado nenhum produto! :(";
         exit;
     }
@@ -476,3 +478,6 @@ ErrorDocument 500
 <script type="text/javascript" src="js/footerMenu.js"></script>
 
 </html>
+
+
+<?php pg_close($conectar); ?>
