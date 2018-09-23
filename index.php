@@ -1,37 +1,41 @@
 <!DOCTYPE html>
-<html lang="pt-br">
     
-<?php 
-    include "php/conect_prod.php";
-	
-	$prod_padrao[3][3] = [["Caderno de Anotações", "Anote tudo o que precisa ser transformado e melhorado.", "img/notebook.png"], ["Borracha de Lápis e Caneta", "Para corrigir os erros e aprender com eles", "img/eraser.png"], ["Porta Post-It", "Aqui fica tudo o você precisa lembrar e fazer.", "img/portapostit.png"]];
-	
-    $sql = "SELECT id FROM produtos WHERE excluido=FALSE
-            ORDER BY RANDOM()
-            LIMIT 3";
-    
-    $num_rand = array(0, 0, 0);
-    
-    $res = pg_query($conectar, $sql);
-    $qtd = pg_num_rows($res);
-    if($qtd > 0)
-    {
-        $i = 0;
-        while($prod = pg_fetch_array($res))
-        {
-            $num_rand[$i] = $prod['id'];
-            $i++;
-        }
+<?php
+	$able = true;
+	$ind = -1;
+	$prod_padrao = array(array("Caderno de Anotações", "Anote tudo o que precisa ser transformado e melhorado.", "imgs/notebook.jpg"), 
+	array("Borracha de Lápis e Caneta", "Para corrigir os erros e aprender com eles.", "imgs/eraser.jpg"), 
+	array("Porta Post-It", "Aqui fica tudo o você precisa lembrar e fazer.", "imgs/postit.jpg"));
+
+	$num_rand = array(0, 0, 0);
+	try
+	{
+		include "php/conect_prod.php";
+		
+		$sql = "SELECT id FROM produtos WHERE excluido=FALSE
+					ORDER BY RANDOM()
+					LIMIT 3";
+
+		$res = pg_query($conectar, $sql);
+		$qtd = pg_num_rows($res);
+		if ($qtd > 0) {
+			$i = 0;
+			while ($prod = pg_fetch_array($res)) {
+				$num_rand[$i] = $prod['id'];
+				$i++;
+			}
+		}
+	}catch(Exception $e){
+		?> <script>
+			alert("<?php echo $e->getMessage(); ?>");
+		</script>
+		<?php
+
+		$able = false;
 	}
 ?>
-    
-<!--
-ErrorDocument 401 
-ErrorDocument 404 
-ErrorDocument 403 
-ErrorDocument 500 
--->
 
+<html lang="pt-br">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -193,166 +197,121 @@ ErrorDocument 500
 				<div class="featProductsContent">
 					<div class="featProduct textOnLeft">
 						<?php
-                            $ind = 0;
-                            $numm = $num_rand[ind];
-                            $sql = "SELECT * FROM produtos WHERE id=$numm";
+							$ind++;
+					if($able){
+						$numm = $num_rand[$ind];
+						$sql = "SELECT * FROM produtos WHERE id=$numm";
 
-                            $res = pg_query($conectar, $sql);
-                            $qtd = pg_num_rows($res);
-                            if($qtd > 0)
-                            {
-                                while($prod = pg_fetch_array($res))
-                                {
-									$nome = $prod['nome'];
-									$descricao = $prod['descricao'];
-									$link_img = $prod['link_img'];
-									
-                                    ?>
-									<div class="featProductText">
-										<?php
-											echo "<h2>$nome</h2>";
-											echo "<p>$descricao</p>";
-										?>
-									</div>
-									<?php
-
-									?>
-									<div class="featProductImg">
-										<?php echo "<img src='$link_img' alt='300'>" ?>
-									</div>
-									<?php
-                                }
-                            }
-                            else
-                            {			
-								$nome = $prod_padrao[ind][0];
-								$descricao = $prod_padrao[ind][1];
-								$link_img = $prod_padrao[ind][2];					
-								?>
-								<div class="featProductText">
-									<?php
-										echo "<h2>$nome</h2>";
-										echo "<p>$descricao</p>";
-									?>
-								</div>
+						$res = pg_query($conectar, $sql);
+						$qtd = pg_num_rows($res);
+						if ($qtd > 0) {
+							while ($prod = pg_fetch_array($res)) {
+								$nome = $prod['nome'];
+								$descricao = $prod['descricao'];
+								$link_img = $prod['link_img'];
+							}
+						} else {
+							$nome = $prod_padrao[$ind][0];
+							$descricao = $prod_padrao[$ind][1];
+							$link_img = $prod_padrao[$ind][2];
+						}
+					}
+					else{
+						$nome = $prod_padrao[$ind][0];
+						$descricao = $prod_padrao[$ind][1];
+						$link_img = $prod_padrao[$ind][2];
+					}
+					?>
+							<div class="featProductText">
 								<?php
+							echo "<h2>$nome</h2>";
+							echo "<p>$descricao</p>";
+							?>
+							</div>
+							<?php
 
-								?>
-								<div class="featProductImg">
-									<?php echo "<img src='$link_img' alt='300'>" ?>
-								</div>
-								<?php
-                            }
-                        ?>
+						?>
+							<div class="featProductImg">
+								<?php echo "<img src='$link_img' alt='300'>" ?>
+							</div>
+							<?php
+						?>
 					</div>
 					<div class="featProduct textOnRight">
 						<?php
-							$ind++;
-                            $numm = $num_rand[ind];
-                            $sql = "SELECT * FROM produtos WHERE id=$numm";
+						$ind++;
+					if($able){
+						$numm = $num_rand[$ind];
+						$sql = "SELECT * FROM produtos WHERE id=$numm";
 
-                            $res = pg_query($conectar, $sql);
-                            $qtd = pg_num_rows($res);
-                            if($qtd > 0)
-                            {
-                                while($prod = pg_fetch_array($res))
-                                {
-									$nome = $prod['nome'];
-									$descricao = $prod['descricao'];
-									$link_img = $prod['link_img'];
-									
-                                    ?>
-									<div class="featProductText">
-										<?php
-											echo "<h2>$nome</h2>";
-											echo "<p>$descricao</p>";
-										?>
-									</div>
-									<?php
+						$res = pg_query($conectar, $sql);
+						$qtd = pg_num_rows($res);
+						if ($qtd > 0) {
+							while ($prod = pg_fetch_array($res)) {
+								$nome = $prod['nome'];
+								$descricao = $prod['descricao'];
+								$link_img = $prod['link_img'];
+							}
+						} else {
+							$nome = $prod_padrao[$ind][0];
+							$descricao = $prod_padrao[$ind][1];
+							$link_img = $prod_padrao[$ind][2];
+						}
+					}
+					else{
+						$nome = $prod_padrao[$ind][0];
+						$descricao = $prod_padrao[$ind][1];
+						$link_img = $prod_padrao[$ind][2];
+					}
+						?>
 
-									?>
-									<div class="featProductImg">
-										<?php echo "<img src='$link_img' alt='300'>" ?>
-									</div>
-									<?php
-                                }
-                            }
-                            else
-                            {			
-								$nome = $prod_padrao[ind][0];
-								$descricao = $prod_padrao[ind][1];
-								$link_img = $prod_padrao[ind][2];					
-								?>
-								<div class="featProductText">
-									<?php
-										echo "<h2>$nome</h2>";
-										echo "<p>$descricao</p>";
-									?>
-								</div>
-								<?php
-
-								?>
-								<div class="featProductImg">
-									<?php echo "<img src='$link_img' alt='300'>" ?>
-								</div>
-								<?php
-                            }
-                        ?>
+						<div class="featProductText">
+							<?php
+						echo "<h2>$nome</h2>";
+						echo "<p>$descricao</p>";
+						?>
+						</div>
+						<div class="featProductImg">
+							<?php echo "<img src='$link_img' alt='300'>" ?>
+						</div>
 					</div>
 					<div class="featProduct textOnLeft">
-						<div class="featProductText">
-                        <?php
-                            $ind++;
-                            $numm = $num_rand[ind];
-                            $sql = "SELECT * FROM produtos WHERE id=$numm";
+						<?php
+							$ind++;
+						if($able){
+							$numm = $num_rand[$ind];
+							$sql = "SELECT * FROM produtos WHERE id=$numm";
 
-                            $res = pg_query($conectar, $sql);
-                            $qtd = pg_num_rows($res);
-                            if($qtd > 0)
-                            {
-                                while($prod = pg_fetch_array($res))
-                                {
+							$res = pg_query($conectar, $sql);
+							$qtd = pg_num_rows($res);
+							if ($qtd > 0) {
+								while ($prod = pg_fetch_array($res)) {
 									$nome = $prod['nome'];
 									$descricao = $prod['descricao'];
 									$link_img = $prod['link_img'];
-									
-                                    ?>
-									<div class="featProductText">
-										<?php
-											echo "<h2>$nome</h2>";
-											echo "<p>$descricao</p>";
-										?>
-									</div>
-									<?php
+								}
+							} else {
+								$nome = $prod_padrao[$ind][0];
+								$descricao = $prod_padrao[$ind][1];
+								$link_img = $prod_padrao[$ind][2];
+							}
+						}
+						else{
+							$nome = $prod_padrao[$ind][0];
+							$descricao = $prod_padrao[$ind][1];
+							$link_img = $prod_padrao[$ind][2];
+						}
+						?>
 
-									?>
-									<div class="featProductImg">
-										<?php echo "<img src='$link_img' alt='300'>" ?>
-									</div>
-									<?php
-                                }
-                            }
-                            else
-                            {			
-								$nome = $prod_padrao[ind][0];
-								$descricao = $prod_padrao[ind][1];
-								$link_img = $prod_padrao[ind][2];					
-								?>
-								<div class="featProductText">
-									<?php
-										echo "<h2>$nome</h2>";
-										echo "<p>$descricao</p>";
-									?>
-								</div>
-								<?php
-
-								?>
-								<div class="featProductImg">
-									<?php echo "<img src='$link_img' alt='300'>" ?>
-								</div>
-								<?php
-                            }
-                        ?>
+						<div class="featProductText">
+							<?php
+						echo "<h2>$nome</h2>";
+						echo "<p>$descricao</p>";
+						?>
+						</div>
+						<div class="featProductImg">
+							<?php echo "<img src='$link_img' alt='300'>" ?>
+						</div>
 					</div>
 				</div>
 			</div>

@@ -3,7 +3,7 @@
                             user=kitall password=kitallEComm2018");
     if(!$conectar)
     {
-        echo "Erro na conecao com o Banco de Dados!";
+        throw new Exception("Não foi possível conectar ao banco de dados!");
         exit;
     }
 ?>

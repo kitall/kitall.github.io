@@ -59,15 +59,26 @@
         else
         {
             echo "n entrou no if do endereco";
+            pg_close($conectar);
         }
         
         $res = pg_query($conectar, $sql);
-        $qtd = pg_num_rows($res);
+        $qtd = pg_affected_rows($res);
         
-        //eviar um email
+        if($qtd > 0)
+        {
+           //eviar um email 
+        }
+        else
+        {
+            echo "<br<br>erro na inclusão do endereço e cliente no banco";
+        }
+        
+        pg_close($conectar);
     }
     else
     {
         echo "Erro no cadastro de tudo!";
+        pg_close($conectar);
     }
 ?>

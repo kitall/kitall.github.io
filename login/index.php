@@ -1,11 +1,64 @@
 <!DOCTYPE html>
+
+<?php
+	session_start();
+	try
+	{
+		include "../php/connect_compartilhado.php";
+
+		if(isset($_POST['subLogin'])){
+			$user = $_POST['user'];
+			$pass = $_POST['senha'];
+	
+			if(strpos($user, '@')){
+				$searchcolumn = "email";
+			}
+			else{
+				$searchcolumn = "login";
+			}
+	
+			$sql = "SELECT * FROM usuario WHERE $searchcolumn = '$user'";
+				
+			$res = pg_query($conectar, $sql);
+			$lin = pg_num_rows($res);
+			if($lin > 0)
+			{
+				$userbd = pg_fetch_array($res);
+				$senha = $userbd['senha'];
+				
+				if($senha == md5($pass))
+				{
+					$_SESSION['user'] = $user;
+					$_SESSION['senha'] = $senha;
+	
+					header("Location: ../profile");
+				}
+				else
+				{
+					?> <script>
+						alert("Senha incorreta!");
+					</script>
+					<?php
+				}
+			}
+			else
+			{
+				pg_close($conectar);
+				?> <script>
+					alert("Usuário inexistente!");
+				</script>
+				<?php
+			}
+		}
+	} catch(Exception $e) {
+		?> <script>
+			alert(<?php echo $e->getMessage(); ?>);
+		</script>
+		<?php
+	}
+?>
+
 <html lang="pt-br">
-<!--
-ErrorDocument 401 
-ErrorDocument 404 
-ErrorDocument 403 
-ErrorDocument 500 
--->
 
 <head>
 	<meta charset="UTF-8">
@@ -151,30 +204,30 @@ ErrorDocument 500
 
 				<div class="loginContent">
 					<h3>Entre em sua conta</h3>
-                    <form action="../php/login.php" method="post">
-					<div class="signin">
-						<div class="username">
-							<div>
-								<label>Usuário ou email</label>
+					<form action="" method="post">
+						<div class="signin">
+							<div class="username">
+								<div>
+									<label>Usuário ou email</label>
+								</div>
+								<div>
+									<input type="text" name="user">
+								</div>
 							</div>
-							<div>
-								<input type="text" name="user">
+							<div class="password">
+								<div class="lblSenha">
+									<label for="">Senha</label>
+									<label for="" id="recu" tabindex="-1"><a href="" tabindex="-1">Esqueceu sua senha?</a></label>
+								</div>
+								<div>
+									<input type="password" name="senha">
+								</div>
+							</div>
+							<div class="btnLogin">
+								<input type="submit" name="subLogin" value="Entrar">
 							</div>
 						</div>
-						<div class="password">
-							<div class="lblSenha">
-								<label for="">Senha</label>
-								<label for="" id="recu" tabindex="-1"><a href="" tabindex="-1">Esqueceu sua senha?</a></label>
-							</div>
-							<div>
-								<input type="password" name="senha">
-							</div>
-						</div>
-						<div class="btnLogin">
-							<input type="submit" value="Entrar">
-						</div>
-					</div>
-                    </form>
+					</form>
 					<div class="signup">
 						<h4>Novo aqui? <a href="../cadastro/index.html">Crie sua conta</a></h4>
 
