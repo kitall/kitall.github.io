@@ -10,7 +10,7 @@
 	$num_rand = array(0, 0, 0);
 	try
 	{
-		include "php/conect_prod.php";
+		include "php/connect_prod.php";
 		
 		$sql = "SELECT id FROM produtos WHERE excluido=FALSE
 					ORDER BY RANDOM()

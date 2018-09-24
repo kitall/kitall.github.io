@@ -4,20 +4,19 @@
 	session_start();
 	try
 	{
-		include "../php/connect_compartilhado.php";
+		include "../php/connect_cli.php";
 
-		if(isset($_POST['subLogin'])){
+		if(isset($_POST['subLogin']))
+        {
 			$user = $_POST['user'];
 			$pass = $_POST['senha'];
 	
-			if(strpos($user, '@')){
-				$searchcolumn = "email";
-			}
-			else{
-				$searchcolumn = "login";
-			}
+			if(strpos($user, '@'))
+				$table = "email";
+			else
+				$table = "login";
 	
-			$sql = "SELECT * FROM usuario WHERE $searchcolumn = '$user'";
+			$sql = "SELECT * FROM usuario WHERE $table = '$user'";
 				
 			$res = pg_query($conectar, $sql);
 			$lin = pg_num_rows($res);
@@ -35,26 +34,31 @@
 				}
 				else
 				{
-					?> <script>
+				?> 
+                    <script>
 						alert("Senha incorreta!");
 					</script>
-					<?php
+				<?php
 				}
 			}
 			else
 			{
 				pg_close($conectar);
-				?> <script>
+            ?> 
+				<script>
 					alert("Usuário inexistente!");
 				</script>
-				<?php
+            <?php
 			}
 		}
-	} catch(Exception $e) {
-		?> <script>
+	} 
+    catch(Exception $e) 
+    {
+    ?> 
+        <script>
 			alert("<?php echo $e->getMessage(); ?>");
 		</script>
-		<?php
+    <?php
 	}
 ?>
 

@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 
 <?php
-    if(isset($_POST['subCadastro'])){
+    if(isset($_POST['subCadastro']))
+    {
         //Dados do cadastro obrigatório
 
         if($_POST['isContatoShown'] == "false")
@@ -31,7 +32,7 @@
 
         try
         {
-            include "conect_compartilhado.php";
+            include "connect_cli.php";
     
             $senha = md5($senha);
             
@@ -54,35 +55,52 @@
                 $res = pg_query($conectar, $sql);
                 $qtd = pg_affected_rows($res);
                 
-                if($qtd <= 0)
+                if($qtd <= 0) //ERRO
                 {
-                    ?> <script>
+                ?> 
+                    <script>
                         alert("Algo deu errado ao tentar realizar o cadastro!");
                     </script>
-                    <?php
+                <?php
 
                     apagaUsuario($id);
                 }
-                else if($verEndereco){
+                else if($verEndereco) //Cadastro confirmado dos dados de entrega
+                {
+                    //envia o email confirmando o cadastro e tenta fazer o cadastro do endereço
+                    mandaEmailUsuario($email, $nome);
+                    
                     if($complemento != NULL) //complemento?
                     {
                         $sql = "INSERT INTO endereco(id_endereco, id_usuario, endereco, numero, complemento, bairro, cep, cidade, estado, pais, excluido)
-                        VALUES(DEFAULT, '$id', '$endereco', '$numero', '$complemento', '$bairro', '$cep', '$cidade', '$estado', '$pais', 'n');";
+                            VALUES(DEFAULT, '$id', '$endereco', '$numero', '$complemento', '$bairro', '$cep', '$cidade', '$estado', '$pais', 'n');";
                     }
                     else
                     {
                         $sql = "INSERT INTO endereco(id_endereco, id_usuario, endereco, numero, bairro, cep, cidade, estado, pais, excluido)
-                        VALUES(DEFAULT, '$id', '$endereco', '$numero', '$bairro', '$cep', '$cidade', '$estado', '$pais', 'n');";
+                            VALUES(DEFAULT, '$id', '$endereco', '$numero', '$bairro', '$cep', '$cidade', '$estado', '$pais', 'n');";
                     }
                     $res = pg_query($conectar, $sql);
                     $qtd = pg_affected_rows($res);
 
-                    if($qtd <= 0){
-                        ?> <script>
-                        alert("Algo deu errado ao tentar cadastrar as Informações de Entrega!\n\nVocê pode tentar novamente ao finalizar a compra!");
-                    </script>
+                    if($qtd <= 0)
+                    {
+                    ?> 
+                        <script>
+                            alert("Algo deu errado ao tentar cadastrar as Informações de Entrega!\n\nVocê pode tentar novamente ao finalizar a compra!");
+                        </script>
                     <?php
                     }
+                    else
+                    {
+                        //envia o email confirmando o cadastro do endereço
+                        mandaEmailEndereco($email, $nome);
+                    }
+                }
+                else //Apenas 
+                {
+                    //envia o email confirmando o cadastro do usuário apenas
+                    mandaEmailUsuario($email, $nome);
                 }
                 
                 pg_close($conectar);
@@ -92,22 +110,63 @@
                 echo "Erro no cadastro de tudo!";
                 pg_close($conectar);
             }
-        } catch (Exception $e){
-            ?> <script>
+        } 
+        catch (Exception $e)
+        {
+        ?> 
+            <script>
                 alert("<?php echo $e->getMessage(); ?>");
             </script>
-            <?php
+        <?php
         }
     }
 
-    function apagaUsuario($user_id){
-        while(true){
+    function apagaUsuario($user_id)
+    {
+        while(true)
+        {
             $sql = "DELETE FROM usuario WHERE id_usuario = $user_id";
             $res = pg_query($conectar, $sql);
             $qtd = pg_affected_rows($res);
-            if($qtd > 0){
+            if($qtd > 0)
                 break;
-            }
+        }
+    }
+
+    function mandaEmailUsuario($to, $name)
+    {
+        include "email/email.php";
+        
+        try
+        {
+            sendEmail(
+                $to, //email do cara
+                $name, //nome que ele cadastrou
+                "Kitall - Bem Vindo!", 
+                "<h1>Bem vindo a kitall?</h1> <br> Seu usuário foi cadastrado com sucessso!"
+            );
+        } 
+        catch(Exception $e)
+        {
+            echo "\nAlgo deu errado!".$e.getMessage();
+        }
+    }
+    function mandaEmailEndereco($to, $name)
+    {
+        include "email/email.php";
+        
+        try
+        {
+            sendEmail(
+                $to, //email do cara
+                $name, //nome que ele cadastrou
+                "Kitall - Cadastro de Endereco", 
+                "<h1>Edereco registrado!</h1> <br> A equipe Kitall agradece sua preferencia!"
+            );
+        } 
+        catch(Exception $e)
+        {
+            echo "\nAlgo deu errado!".$e.getMessage();
         }
     }
 ?>
