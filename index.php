@@ -115,10 +115,10 @@
 										<li>
 											<div class="entrar">
 												<div>
-													<a href="login/index.html"><img id="user" src="" alt="Usuário"></a>
+													<a href="login/"><img id="user" src="" alt="Usuário"></a>
 												</div>
 												<div>
-													<h2><a href="login/index.html" title="Entre em sua conta!">Entre</a> ou <a href="cadastro/index.html"
+													<h2><a href="login/" title="Entre em sua conta!">Entre</a> ou <a href="cadastro/"
 														 title="Cadastre-se em nosso site!">Cadastre-se</a></h2>
 												</div>
 											</div>
@@ -156,10 +156,10 @@
 						<li>
 							<div class="entrar">
 								<div>
-									<a href="login/index.html"><img id="user" src="" alt="Usuário"></a>
+									<a href="login/"><img id="user" src="" alt="Usuário"></a>
 								</div>
 								<div>
-									<h2><a href="login/index.html" title="Entre em sua conta!">Entre</a> ou <a href="cadastro/index.html" title="Cadastre-se em nosso site!">Cadastre-se</a></h2>
+									<h2><a href="login/" title="Entre em sua conta!">Entre</a> ou <a href="cadastro/" title="Cadastre-se em nosso site!">Cadastre-se</a></h2>
 								</div>
 							</div>
 						</li>
@@ -388,10 +388,10 @@
 													<li>
 														<div class="entrar">
 															<div>
-																<a href="login/index.html"><img id="user" src="" alt="Usuário"></a>
+																<a href="login/"><img id="user" src="" alt="Usuário"></a>
 															</div>
 															<div>
-																<h2><a href="login/index.html" title="Entre em sua conta!">Entre</a> ou <a href="cadastro/index.html"
+																<h2><a href="login/" title="Entre em sua conta!">Entre</a> ou <a href="cadastro/"
 																	 title="Cadastre-se em nosso site!">Cadastre-se</a></h2>
 															</div>
 														</div>
@@ -429,10 +429,10 @@
 									<li>
 										<div class="entrar">
 											<div>
-												<a href="login/index.html"><img id="user" src="" alt="Usuário"></a>
+												<a href="login/"><img id="user" src="" alt="Usuário"></a>
 											</div>
 											<div>
-												<h2><a href="login/index.html" title="Entre em sua conta!">Entre</a> ou <a href="cadastro/index.html" title="Cadastre-se em nosso site!">Cadastre-se</a></h2>
+												<h2><a href="login/" title="Entre em sua conta!">Entre</a> ou <a href="cadastro/" title="Cadastre-se em nosso site!">Cadastre-se</a></h2>
 											</div>
 										</div>
 									</li>

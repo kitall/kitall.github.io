@@ -1,11 +1,118 @@
 <!DOCTYPE html>
+
+<?php
+    if(isset($_POST['subCadastro'])){
+        //Dados do cadastro obrigatório
+
+        if($_POST['isContatoShown'] == "false")
+            $verEndereco = false;
+        else
+            $verEndereco = true;
+
+        $nome = $_POST['nome'];
+        $sobrenome = $_POST['sobrenome'];
+        $sexo = $_POST['sexo'];
+        $data_nasc = $_POST['data_nasc'];
+        $celular = $_POST['celular'];
+
+        $login = $_POST['login'];
+        $email = $_POST['email'];
+        $senha = $_POST['senha'];
+
+        //Dados do endereço de entrega
+        $endereco = $_POST['endereco'];
+        $numero = $_POST['numero'];
+        $complemento = $_POST['complemento'];
+        $bairro = $_POST['bairro'];
+        $cidade = $_POST['cidade'];
+        $cep = $_POST['cep'];
+        $estado = $_POST['estado'];
+        $pais = $_POST['pais'];
+
+        try
+        {
+            include "conect_compartilhado.php";
+    
+            $senha = md5($senha);
+            
+            $sql = "INSERT INTO usuario(id_usuario, login, email, senha, excluido) 
+                VALUES(DEFAULT, '$login', '$email', '$senha', 'n'); 
+                SELECT id_usuario FROM usuario WHERE email='$email';";
+                
+            $res = pg_query($conectar, $sql);
+            $qtd = pg_num_rows($res);
+            if($qtd > 0)
+            {
+                //Pega o id cadastrado anteriormente
+                $prod = pg_fetch_array($res);
+                $id = $prod['id_usuario'];
+                
+                //Cadastro do cliente
+                $sql = "INSERT INTO cliente(id_usuario, nome, sobrenome, sexo, data_nasc, celular, excluido)
+                VALUES('$id', '$nome', '$sobrenome', '$sexo', '$data_nasc', '$celular', 'n');";
+                
+                $res = pg_query($conectar, $sql);
+                $qtd = pg_affected_rows($res);
+                
+                if($qtd <= 0)
+                {
+                    ?> <script>
+                        alert("Algo deu errado ao tentar realizar o cadastro!");
+                    </script>
+                    <?php
+
+                    apagaUsuario($id);
+                }
+                else if($verEndereco){
+                    if($complemento != NULL) //complemento?
+                    {
+                        $sql = "INSERT INTO endereco(id_endereco, id_usuario, endereco, numero, complemento, bairro, cep, cidade, estado, pais, excluido)
+                        VALUES(DEFAULT, '$id', '$endereco', '$numero', '$complemento', '$bairro', '$cep', '$cidade', '$estado', '$pais', 'n');";
+                    }
+                    else
+                    {
+                        $sql = "INSERT INTO endereco(id_endereco, id_usuario, endereco, numero, bairro, cep, cidade, estado, pais, excluido)
+                        VALUES(DEFAULT, '$id', '$endereco', '$numero', '$bairro', '$cep', '$cidade', '$estado', '$pais', 'n');";
+                    }
+                    $res = pg_query($conectar, $sql);
+                    $qtd = pg_affected_rows($res);
+
+                    if($qtd <= 0){
+                        ?> <script>
+                        alert("Algo deu errado ao tentar cadastrar as Informações de Entrega!\n\nVocê pode tentar novamente ao finalizar a compra!");
+                    </script>
+                    <?php
+                    }
+                }
+                
+                pg_close($conectar);
+            }
+            else
+            {
+                echo "Erro no cadastro de tudo!";
+                pg_close($conectar);
+            }
+        } catch (Exception $e){
+            ?> <script>
+                alert("<?php echo $e->getMessage(); ?>");
+            </script>
+            <?php
+        }
+    }
+
+    function apagaUsuario($user_id){
+        while(true){
+            $sql = "DELETE FROM usuario WHERE id_usuario = $user_id";
+            $res = pg_query($conectar, $sql);
+            $qtd = pg_affected_rows($res);
+            if($qtd > 0){
+                break;
+            }
+        }
+    }
+?>
+
 <html lang="pt-br">
-<!--
-ErrorDocument 401 
-ErrorDocument 404 
-ErrorDocument 403 
-ErrorDocument 500 
--->
 
 <head>
     <meta charset="UTF-8">
@@ -30,7 +137,7 @@ ErrorDocument 500
 
             <div class="header" id="topo">
                 <div class="logo">
-                    <a href="../index.php">
+                    <a href="../">
                         <img src="imgs/KITALL.png" alt="Kitall?">
                     </a>
                 </div>
@@ -38,7 +145,7 @@ ErrorDocument 500
                 <div class="menu show">
                     <ul>
                         <li>
-                            <a href="../index.php">Home</a>
+                            <a href="../">Home</a>
                         </li>
                         <li>
                             <a href="">Monte seu Kit</a>
@@ -60,7 +167,7 @@ ErrorDocument 500
                     <div class="menuMobileContent">
                         <ul>
                             <li>
-                                <a href="../index.php">Home</a>
+                                <a href="../">Home</a>
                             </li>
                             <li>
                                 <a href="">Monte seu Kit</a>
@@ -86,10 +193,10 @@ ErrorDocument 500
                                         <li>
                                             <div class="entrar">
                                                 <div>
-                                                    <a href="../login/index.html"><img id="user" src="" alt="Usuário"></a>
+                                                    <a href="../login/"><img id="user" src="" alt="Usuário"></a>
                                                 </div>
                                                 <div>
-                                                    <h2><a href="../login/index.html" title="Entre em sua conta!">Entre</a>
+                                                    <h2><a href="../login/" title="Entre em sua conta!">Entre</a>
                                                         ou <a href="" title="Cadastre-se em nosso site!">Cadastre-se</a></h2>
                                                 </div>
                                             </div>
@@ -127,10 +234,10 @@ ErrorDocument 500
                         <li>
                             <div class="entrar">
                                 <div>
-                                    <a href="../login/index.html"><img id="user" src="" alt="Usuário"></a>
+                                    <a href="../login/"><img id="user" src="" alt="Usuário"></a>
                                 </div>
                                 <div>
-                                    <h2><a href="../login/index.html" title="Entre em sua conta!">Entre</a> ou <a href=""
+                                    <h2><a href="../login/" title="Entre em sua conta!">Entre</a> ou <a href=""
                                             title="Cadastre-se em nosso site!">Cadastre-se</a></h2>
                                 </div>
                             </div>
@@ -153,7 +260,7 @@ ErrorDocument 500
             <div class="cadastro">
                 
                 <div class="cadastroContent">
-                    <form action="../php/salva_cli.php" method="post">
+                    <form action="" method="post">
                     <div class="campos">
                         <h1>Crie sua conta</h1>
                         
@@ -198,7 +305,7 @@ ErrorDocument 500
                                     <div>
                                         <div class="lblCampo"><label>Data de Nascimento</label></div>
                                     </div>
-                                    <input type="text" name="data_nasc" id="dateInput" placeholder="dd/mm/aaaa" required>
+                                    <input type="text" name="data_nasc" id="dateInput" placeholder="dd/mm/aaaa" maxlenght="10" required>
                                     <div class="descCampo" id="data_nasc">
                                         <p></p>
                                     </div>
@@ -207,7 +314,7 @@ ErrorDocument 500
                                     <div>
                                         <div class="lblCampo"><label>Celular</label></div>
                                     </div>
-                                    <input type="text" name="celular" placeholder="(DDD)55555-4444">
+                                    <input type="text" name="celular" placeholder="Insira sem pontuação (ex.: 14987626754)">
                                     <div class="descCampo" id="celular">
                                         <p></p>
                                     </div>
@@ -259,7 +366,7 @@ ErrorDocument 500
                                     </div>
                                     <input type="text" name="endereco" placeholder="R. João de Barro">
                                     <div class="descCampo" id="endereco">
-                                        <p></p>
+                                        <p>Você precisa inserir o Endereço!</p>
                                     </div>
                                 </div>
 
@@ -269,7 +376,7 @@ ErrorDocument 500
                                     </div>
                                     <input type="text" name="numero" placeholder="10-21">
                                     <div class="descCampo" id="numero">
-                                        <p></p>
+                                        <p>Você precisa inserir o Número!</p>
                                     </div>
                                 </div>
                             </div>
@@ -290,7 +397,7 @@ ErrorDocument 500
                                     </div>
                                     <input type="text" name="bairro" placeholder="Jardim dos Pinheiros">
                                     <div class="descCampo" id="bairro">
-                                        <p></p>
+                                        <p>Você precisa inserir o Bairro!</p>
                                     </div>
                                 </div>
 
@@ -304,7 +411,7 @@ ErrorDocument 500
                                     </div>
                                     <input type="text" name="cidade" placeholder="Bauru">
                                     <div class="descCampo" id="cidade">
-                                        <p></p>
+                                        <p>Você precisa inserir a Cidade!</p>
                                     </div>
                                 </div>
 
@@ -314,7 +421,7 @@ ErrorDocument 500
                                     </div>
                                     <input type="text" name="cep" placeholder="11235-813">
                                     <div class="descCampo" id="cep">
-                                        <p></p>
+                                        <p>Você precisa inserir o CEP!</p>
                                     </div>
                                 </div>
                             </div>
@@ -355,7 +462,7 @@ ErrorDocument 500
                                         <option value="TO">Tocantins</option>
                                     </select>
                                     <div class="descCampo" id="estado">
-                                        <p></p>
+                                        <p>Você precisa inserir o Estado!</p>
                                     </div>
                                 </div>
 
@@ -383,11 +490,11 @@ ErrorDocument 500
                             </label>
                         </div>
 
-
+                        <input type="hidden" name="isContatoShown" id="isContatoShown">
 
                         <div class="logGroup">
                             <div class="btnCadastro">
-                                <input type="submit" value="Criar uma conta">
+                                <input type="submit" name="subCadastro" value="Criar uma conta">
                             </div>
                         </div>
                     </div>
@@ -427,7 +534,7 @@ ErrorDocument 500
                             </div>
 
                             <div class="signinInfo">
-                                <h4>Já tem uma conta? <a href="../login/index.html">Clique aqui.</a></h4>
+                                <h4>Já tem uma conta? <a href="../login/">Clique aqui.</a></h4>
 
                             </div>
                         </div>
@@ -445,7 +552,7 @@ ErrorDocument 500
                             <div class="menuFooter show">
                                 <ul>
                                     <li>
-                                        <a href="../index.php">Home</a>
+                                        <a href="../">Home</a>
                                     </li>
                                     <li>
                                         <a href="">Monte seu Kit</a>
@@ -467,7 +574,7 @@ ErrorDocument 500
                                 <div class="menuFooterMobileContent">
                                     <ul>
                                         <li>
-                                            <a href="../index.php">Home</a>
+                                            <a href="../">Home</a>
                                         </li>
                                         <li>
                                             <a href="">Monte seu Kit</a>
@@ -493,10 +600,10 @@ ErrorDocument 500
                                                     <li>
                                                         <div class="entrar">
                                                             <div>
-                                                                <a href="../login/index.html"><img id="user" src="" alt="Usuário"></a>
+                                                                <a href="../login/"><img id="user" src="" alt="Usuário"></a>
                                                             </div>
                                                             <div>
-                                                                <h2><a href="../login/index.html" title="Entre em sua conta!">Entre</a>
+                                                                <h2><a href="../login/" title="Entre em sua conta!">Entre</a>
                                                                     ou
                                                                     <a href="" title="Cadastre-se em nosso site!">Cadastre-se</a></h2>
                                                             </div>
@@ -535,10 +642,10 @@ ErrorDocument 500
                                     <li>
                                         <div class="entrar">
                                             <div>
-                                                <a href="../login/index.html"><img id="user" src="" alt="Usuário"></a>
+                                                <a href="../login/"><img id="user" src="" alt="Usuário"></a>
                                             </div>
                                             <div>
-                                                <h2><a href="../login/index.html" title="Entre em sua conta!">Entre</a>
+                                                <h2><a href="../login/" title="Entre em sua conta!">Entre</a>
                                                     ou
                                                     <a href="" title="Cadastre-se em nosso site!">Cadastre-se</a></h2>
                                             </div>

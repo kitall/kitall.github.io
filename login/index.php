@@ -52,7 +52,7 @@
 		}
 	} catch(Exception $e) {
 		?> <script>
-			alert(<?php echo $e->getMessage(); ?>);
+			alert("<?php echo $e->getMessage(); ?>");
 		</script>
 		<?php
 	}
@@ -141,7 +141,7 @@
 													<a href=""><img id="user" src="" alt="Usuário"></a>
 												</div>
 												<div>
-													<h2><a href="" title="Entre em sua conta!">Entre</a> ou <a href="../cadastro/index.html" title="Cadastre-se em nosso site!">Cadastre-se</a></h2>
+													<h2><a href="" title="Entre em sua conta!">Entre</a> ou <a href="../cadastro/" title="Cadastre-se em nosso site!">Cadastre-se</a></h2>
 												</div>
 											</div>
 										</li>
@@ -181,7 +181,7 @@
 									<a href=""><img id="user" src="" alt="Usuário"></a>
 								</div>
 								<div>
-									<h2><a href="" title="Entre em sua conta!">Entre</a> ou <a href="../cadastro/index.html" title="Cadastre-se em nosso site!">Cadastre-se</a></h2>
+									<h2><a href="" title="Entre em sua conta!">Entre</a> ou <a href="../cadastro/" title="Cadastre-se em nosso site!">Cadastre-se</a></h2>
 								</div>
 							</div>
 						</li>
@@ -229,7 +229,7 @@
 						</div>
 					</form>
 					<div class="signup">
-						<h4>Novo aqui? <a href="../cadastro/index.html">Crie sua conta</a></h4>
+						<h4>Novo aqui? <a href="../cadastro/">Crie sua conta</a></h4>
 
 					</div>
 				</div>
@@ -264,7 +264,7 @@
 								<div class="menuFooterMobileContent">
 									<ul>
 										<li>
-											<a href="../index.html">Home</a>
+											<a href="../">Home</a>
 										</li>
 										<li>
 											<a href="">Monte seu Kit</a>
@@ -293,7 +293,7 @@
 																<a href=""><img id="user" src="" alt="Usuário"></a>
 															</div>
 															<div>
-																<h2><a href="" title="Entre em sua conta!">Entre</a> ou <a href="../cadastro/index.html" title="Cadastre-se em nosso site!">Cadastre-se</a></h2>
+																<h2><a href="" title="Entre em sua conta!">Entre</a> ou <a href="../cadastro/" title="Cadastre-se em nosso site!">Cadastre-se</a></h2>
 															</div>
 														</div>
 													</li>
@@ -333,7 +333,7 @@
 												<a href=""><img id="user" src="" alt="Usuário"></a>
 											</div>
 											<div>
-												<h2><a href="" title="Entre em sua conta!">Entre</a> ou <a href="../cadastro/index.html" title="Cadastre-se em nosso site!">Cadastre-se</a></h2>
+												<h2><a href="" title="Entre em sua conta!">Entre</a> ou <a href="../cadastro/" title="Cadastre-se em nosso site!">Cadastre-se</a></h2>
 											</div>
 										</div>
 									</li>

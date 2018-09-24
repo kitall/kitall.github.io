@@ -90,13 +90,15 @@
     padding-top: 5px;
     margin: 0;
     font-weight: normal;
+    opacity: 0;
 }
 
 .errorCampo p {
     color: rgb(235, 2, 2);
     font-weight: bold;
-
+    opacity: 1;
 }
+
 
 .selectSexo {}
 
