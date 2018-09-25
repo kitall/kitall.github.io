@@ -14,6 +14,7 @@ CREATE TABLE produtos
 DROP TABLE IF EXISTS carrinho;
 CREATE TABLE carrinho
 (
+    id_cli INT NOT NULL,
     id_prod INT REFERENCES produtos NOT NULL,
     qtd INT NOT NULL,
     val_total FLOAT NOT NULL
@@ -30,11 +31,3 @@ CREATE TABLE comprasfeitas
     excluido BOOL NOT NULL
 );
 /*--------------------------------------------------------------------------------------*/
-DROP TABLE IF EXISTS administradores;
-CREATE TABLE administradores
-(
-    id_adm SERIAL PRIMARY KEY,
-    nome CHARACTER VARYING(30),
-    senha CHARACTER VARYING(40)
-);
-INSERT INTO administradores VALUES(DEFAULT, 'Andre Creppe', 'adc49a48a7f2a861702c4306c92244be');

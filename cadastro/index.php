@@ -4,7 +4,6 @@
     if(isset($_POST['subCadastro']))
     {
         //Dados do cadastro obrigatório
-
         if($_POST['isContatoShown'] == "false")
             $verEndereco = false;
         else
@@ -32,14 +31,24 @@
 
         try
         {
-            include "connect_cli.php";
+            include "../php/connect_cli.php";
     
             $senha = md5($senha);
             
             $sql = "INSERT INTO usuario(id_usuario, login, email, senha, excluido) 
-                VALUES(DEFAULT, '$login', '$email', '$senha', 'n'); 
-                SELECT id_usuario FROM usuario WHERE email='$email';";
+                VALUES(DEFAULT, '$login', '$email', '$senha', 'n');";
                 
+            $res = pg_query($conectar, $sql);
+            $qtd = pg_affected_rows($res);            
+            if($qtd > 0)
+                //pegar o id de volta
+                $sql = "SELECT id_usuario FROM usuario WHERE email='$email';"; 
+            else
+            {
+                echo "Erro no CADASTRO do usuário<br>";
+                pg_close($conectar);
+            }
+
             $res = pg_query($conectar, $sql);
             $qtd = pg_num_rows($res);
             if($qtd > 0)
@@ -50,7 +59,7 @@
                 
                 //Cadastro do cliente
                 $sql = "INSERT INTO cliente(id_usuario, nome, sobrenome, sexo, data_nasc, celular, excluido)
-                VALUES('$id', '$nome', '$sobrenome', '$sexo', '$data_nasc', '$celular', 'n');";
+                    VALUES('$id', '$nome', '$sobrenome', '$sexo', '$data_nasc', '$celular', 'n');";
                 
                 $res = pg_query($conectar, $sql);
                 $qtd = pg_affected_rows($res);
@@ -63,19 +72,33 @@
                     </script>
                 <?php
 
-                    apagaUsuario($id);
-                }
-                else if($verEndereco) //Cadastro confirmado dos dados de entrega
+                    apagaUsuario($id);                }
+                else
                 {
-                    //envia o email confirmando o cadastro e tenta fazer o cadastro do endereço
-                    mandaEmailUsuario($email, $nome);
+                    include "../php/email/email.php";
                     
+                    sendEmail($email, $nome, //ARRUMARRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
+                             "Bem vindo a Kitall?",
+                             "<h1>Bem vindo!</h1><p>Obgrigado por escolher os nossos servicos!</p>");
+                    
+                ?> 
+                    <script>
+                        alert("Cadastro efetuado com sucesso!");
+                    </script>
+                <?php
+                    
+                    header("Location: ../");
+                }
+                
+                //Cadastro dos dados de entrega
+                if($verEndereco) 
+                {
                     if($complemento != NULL) //complemento?
                     {
                         $sql = "INSERT INTO endereco(id_endereco, id_usuario, endereco, numero, complemento, bairro, cep, cidade, estado, pais, excluido)
                             VALUES(DEFAULT, '$id', '$endereco', '$numero', '$complemento', '$bairro', '$cep', '$cidade', '$estado', '$pais', 'n');";
                     }
-                    else
+                    else //tudo
                     {
                         $sql = "INSERT INTO endereco(id_endereco, id_usuario, endereco, numero, bairro, cep, cidade, estado, pais, excluido)
                             VALUES(DEFAULT, '$id', '$endereco', '$numero', '$bairro', '$cep', '$cidade', '$estado', '$pais', 'n');";
@@ -94,20 +117,25 @@
                     else
                     {
                         //envia o email confirmando o cadastro do endereço
-                        mandaEmailEndereco($email, $nome);
+                        include "../php/email/email.php";
+                        
+                        sendEmail($email, $nome, //ARRUMARRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
+                             "Kitall? - Castro de Endereco",
+                             "<h1>Tudo certo!</h1><p>Seu endereco de entrega foi cadastrado com sucesso!</p>");
+                    ?> 
+                        <script>
+                            alert("Cadastro efetuado com sucesso!");
+                        </script>
+                    <?php
                     }
-                }
-                else //Apenas 
-                {
-                    //envia o email confirmando o cadastro do usuário apenas
-                    mandaEmailUsuario($email, $nome);
                 }
                 
                 pg_close($conectar);
             }
             else
             {
-                echo "Erro no cadastro de tudo!";
+                echo "Erro na CONSULTA do usuário!";
+                
                 pg_close($conectar);
             }
         } 
@@ -130,43 +158,6 @@
             $qtd = pg_affected_rows($res);
             if($qtd > 0)
                 break;
-        }
-    }
-
-    function mandaEmailUsuario($to, $name)
-    {
-        include "email/email.php";
-        
-        try
-        {
-            sendEmail(
-                $to, //email do cara
-                $name, //nome que ele cadastrou
-                "Kitall - Bem Vindo!", 
-                "<h1>Bem vindo a kitall?</h1> <br> Seu usuário foi cadastrado com sucessso!"
-            );
-        } 
-        catch(Exception $e)
-        {
-            echo "\nAlgo deu errado!".$e.getMessage();
-        }
-    }
-    function mandaEmailEndereco($to, $name)
-    {
-        include "email/email.php";
-        
-        try
-        {
-            sendEmail(
-                $to, //email do cara
-                $name, //nome que ele cadastrou
-                "Kitall - Cadastro de Endereco", 
-                "<h1>Edereco registrado!</h1> <br> A equipe Kitall agradece sua preferencia!"
-            );
-        } 
-        catch(Exception $e)
-        {
-            echo "\nAlgo deu errado!".$e.getMessage();
         }
     }
 ?>
