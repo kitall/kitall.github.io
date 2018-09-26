@@ -1,11 +1,15 @@
 <!DOCTYPE html>
     
 <?php
+    session_start();
+
 	$able = true;
 	$ind = -1;
-	$prod_padrao = array(array("Caderno de Anotações", "Anote tudo o que precisa ser transformado e melhorado.", "imgs/notebook.jpg"), 
-	array("Borracha de Lápis e Caneta", "Para corrigir os erros e aprender com eles.", "imgs/eraser.jpg"), 
-	array("Porta Post-It", "Aqui fica tudo o você precisa lembrar e fazer.", "imgs/postit.jpg"));
+	$prod_padrao = array(
+        array("Caderno de Anotações", "Anote tudo o que precisa ser transformado e melhorado.", "imgs/notebook.jpg"), 
+	    array("Borracha de Lápis e Caneta", "Para corrigir os erros e aprender com eles.", "imgs/eraser.jpg"), 
+	    array("Porta Post-It", "Aqui fica tudo o você precisa lembrar e fazer.", "imgs/postit.jpg")
+    );
 
 	$num_rand = array(0, 0, 0);
 	try
@@ -18,18 +22,23 @@
 
 		$res = pg_query($conectar, $sql);
 		$qtd = pg_num_rows($res);
-		if ($qtd > 0) {
+		if ($qtd > 0) 
+        {
 			$i = 0;
-			while ($prod = pg_fetch_array($res)) {
+			while ($prod = pg_fetch_array($res))
+            {
 				$num_rand[$i] = $prod['id'];
 				$i++;
 			}
 		}
-	}catch(Exception $e){
-		?> <script>
-			alert("<?php echo $e->getMessage(); ?>");
-		</script>
-		<?php
+	}
+    catch(Exception $e)
+    {
+    ?> 
+       <script>
+           alert("<?php echo $e->getMessage(); ?>");
+        </script>
+    <?php
 
 		$able = false;
 	}

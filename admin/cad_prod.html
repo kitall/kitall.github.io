@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Produtos</title>
+</head>
+<body>
+    <form action="../php/cad_prod.php" method="post">
+        <table border="1">
+            <tr>
+                <td>Nome:</td>
+                <td><input type="text" name="nome" required></td>
+            </tr>
+            <tr>
+                <td>Quantidade:</td>
+                <td><input type="number" name="qtd" required></td>
+            </tr>
+            <tr>
+                <td>Preço:</td>
+                <td><input type="number" name="preco" required></td>
+            </tr>
+            <tr>
+                <td>Descrição:</td>
+                <td><input type="text" name="descr" required></td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Cadastrar"></td>
+                <td><input type="reset" value="Limpar"></td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>

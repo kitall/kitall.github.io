@@ -5,7 +5,7 @@
     <title>Alteração</title>
 </head>
 <body>
-    <form action="alt_prod.php" method="post">
+    <form action="../php/alt_prod.php" method="post">
        (o link da imagem é mudado de acordo com o nome do produto)
         <table border="1">
             <tr>

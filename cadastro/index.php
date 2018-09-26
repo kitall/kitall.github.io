@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 
 <?php
+    session_start();
+
     if(isset($_POST['subCadastro']))
     {
         //Dados do cadastro obrigatório
@@ -72,7 +74,8 @@
                     </script>
                 <?php
 
-                    apagaUsuario($id);                }
+                    apagaUsuario($id);                
+                }
                 else
                 {
                     include "../php/email/email.php";
@@ -138,6 +141,9 @@
                 
                 pg_close($conectar);
             }
+            
+            //Logar após o cadastro
+            
         } 
         catch (Exception $e)
         {

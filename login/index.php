@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 
 <?php
+    $root_usr = "kitall";
+    $root_passwd = "kitallEComm2018";
+
 	session_start();
+
 	try
 	{
 		include "../php/connect_cli.php";
@@ -11,7 +15,8 @@
 			$user = $_POST['user'];
 			$pass = $_POST['senha'];
             
-            if($user == "kitall" && $pass == "kitallEComm2018")
+            //Admin
+            if($user == $root_usr && $pass == $root_passwd)
             {
                 header("Location: ../admin");
                 exit;
