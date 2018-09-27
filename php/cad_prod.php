@@ -3,18 +3,16 @@
     $nome = $_POST['nome'];
     $qtd = $_POST['qtd'];
     $preco = $_POST['preco'];
-    $descr = $_POST['descr'];
+    $descr = $_POST['descricao'];
 
     //outas variaveis importantes
-    $link_img = "http://200.145.153.175/andrecreppe/kitall/produtos/".$nome.".jpg";
+    $link_img = "http://200.145.153.175/andrecreppe/kitall/imgs/produtos/".$nome.".jpg";
 
     //Programa
     include "connect_prod.php";
 
     $sql = "INSERT INTO produtos VALUES
-        (DEFAULT, '$nome', '$qtd', '$preco', '$link_img', 'FALSE', '$descr')";
-
-    echo $sql;
+        (DEFAULT, '$nome', '$qtd', '$preco', '$link_img', '$descr', 'FALSE')";
 
     $res = pg_query($conectar, $sql);
     $qtd = pg_affected_rows($res);
@@ -28,7 +26,8 @@
         pg_close($conectar);
 
         echo "Cadastro efetuado com sucesso!<br><br>";
-        echo "<input type='button' value='Clique aqui para retornar'
-            onclick='location.replace(document.referrer);'>";
+    ?>
+        <button onclick="window.location.href='../admin/'">Voltar</button>
+    <?php
     }
 ?>

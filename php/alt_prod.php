@@ -4,7 +4,8 @@
     $nome = $_POST['nome'];
     $qtd = $_POST['qtd'];
     $preco = $_POST['preco'];
-    $excluido = $_POST['exclusao'];    
+    $excluido = $_POST['exclusao'];
+    $descr = $_POST['descricao'];
 
 
     //Programa
@@ -15,6 +16,7 @@
         qtd = '$qtd',
         preco = '$preco',
         link_img = 'http://200.145.153.175/andrecreppe/kitall/produtos/$nome.jpg',
+        descricao = '$descr',
         excluido = '$excluido'
             WHERE id = $id;";
 
@@ -33,6 +35,6 @@
         pg_close($conectar);
 
         echo "Produto alterado com sucesso!<br><br>";
-        echo "<a href='../admin/index.html'>Voltar</a>";
+        echo "<a href='../admin/estoque/'>Voltar</a>";
     }
 ?>

@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 
 <?php
+    session_start();
+
+    $logado = false;
+    if (!empty($_SESSION['user'])) //Teste de sessão
+    {
+        $logado = true;
+    }
+
     try 
     {
         $prod_name = $_GET['search'];
@@ -17,34 +25,24 @@
             $res = pg_query($conectar, $sql);
             $qtd = pg_num_rows($res);
 
-            if ($qtd <= 0) //erro
+            if ($qtd <= 0)
             {
+                //ERRO
                 $state = 0;
+                
                 pg_close();
             } 
-            else //similares
+            else
             {
+                //Pesquisa por Similaridade
                 $state = 1;
-                //Já está lá em baixo
-//                while ($prod = pg_fetch_array($res)) 
-//                {
-//                    $id = $prod['id'];
-//                    $nome = $prod['nome'];
-//                    $preco = $prod['preco'];
-//                    $qtd = $prod['qtd'];
-//                    $link_img = $prod['link_img'];
-//                }
             }
         } 
         else 
         {
+            //Pesquisa Específica 
             $state = 2;
-            // $prod = pg_fetch_array($res);
-            // $id = $prod['id'];
-            // $nome = $prod['nome'];
-            // $preco = $prod['preco'];
-            // $qtd = $prod['qtd'];
-            // $link_img = $prod['link_img'];
+
             pg_close();
         }
     } 
@@ -144,7 +142,16 @@
 													<a href=""><img id="user" src="" alt="Usuário"></a>
 												</div>
 												<div>
-													<h2><a href="../login/" title="Entre em sua conta!">Entre</a> ou <a href="../cadastro/" title="Cadastre-se em nosso site!">Cadastre-se</a></h2>
+													<?php
+                                                        if($logado)
+                                                        {
+                                                            ?><h2><a href="../minha_conta/" title="Minha conta."> <?php echo $_SESSION['user']; ?> </a></h2><?php
+                                                        }
+                                                        else
+                                                        {
+                                                            ?><h2><a href="../login/" title="Entre em sua conta!">Entre</a> ou <a href="cadastro/" title="Cadastre-se em nosso site!">Cadastre-se</a></h2><?php 
+                                                        } 
+                                                    ?>
 												</div>
 											</div>
 										</li>
@@ -155,7 +162,16 @@
 														<img src="" id="cesta" alt="Cesta">
 													</div>
 													<div>
-														<h2>3</h2>
+														<?php 
+                                                            if ($logado) //Teste de sessão
+                                                            {
+                                                                echo "<h2>".$_SESSION['carrinho']."</h2>";
+                                                            }
+                                                            else
+                                                            {
+                                                                echo "<h2>x</h2>"; //SEM CARRINHO
+                                                            }
+                                                        ?>
 													</div>
 												</a>
 											</div>
@@ -194,7 +210,16 @@
 									<a href=""><img id="user" src="" alt="Usuário"></a>
 								</div>
 								<div>
-									<h2><a href="../login/" title="Entre em sua conta!">Entre</a> ou <a href="../cadastro/" title="Cadastre-se em nosso site!">Cadastre-se</a></h2>
+									<?php
+                                        if($logado)
+                                        {
+                                            ?><h2><a href="../minha_conta/" title="Minha conta."> <?php echo $_SESSION['user']; ?> </a></h2><?php
+                                        }
+                                        else
+                                        {
+                                            ?><h2><a href="../login/" title="Entre em sua conta!">Entre</a> ou <a href="cadastro/" title="Cadastre-se em nosso site!">Cadastre-se</a></h2><?php 
+                                        } 
+                                    ?>
 								</div>
 							</div>
 						</li>
@@ -205,7 +230,16 @@
 										<img src="" id="cesta" alt="Cesta">
 									</div>
 									<div>
-										<h2>3</h2>
+										<?php 
+                                            if ($logado) //Teste de sessão
+                                            {
+                                                echo "<h2>".$_SESSION['carrinho']."</h2>";
+                                            }
+                                            else
+                                            {
+                                                echo "<h2>x</h2>"; //SEM CARRINHO
+                                            }
+                                        ?>
 									</div>
 								</a>
 							</div>
@@ -359,7 +393,16 @@
 																<a href=""><img id="user" src="" alt="Usuário"></a>
 															</div>
 															<div>
-																<h2><a href="../login/" title="Entre em sua conta!">Entre</a> ou <a href="../cadastro/" title="Cadastre-se em nosso site!">Cadastre-se</a></h2>
+																<?php
+                                                                    if($logado)
+                                                                    {
+                                                                        ?><h2><a href="../minha_conta/" title="Minha conta."> <?php echo $_SESSION['user']; ?> </a></h2><?php
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        ?><h2><a href="../login/" title="Entre em sua conta!">Entre</a> ou <a href="cadastro/" title="Cadastre-se em nosso site!">Cadastre-se</a></h2><?php 
+                                                                    } 
+                                                                ?>
 															</div>
 														</div>
 													</li>
@@ -370,7 +413,16 @@
 																	<img src="" id="cesta" alt="Cesta">
 																</div>
 																<div>
-																	<h2>3</h2>
+																	<?php 
+                                                                        if ($logado) //Teste de sessão
+                                                                        {
+                                                                            echo "<h2>".$_SESSION['carrinho']."</h2>";
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            echo "<h2>x</h2>"; //SEM CARRINHO
+                                                                        }
+                                                                    ?>
 																</div>
 															</a>
 														</div>
@@ -409,7 +461,16 @@
 												<a href=""><img id="user" src="" alt="Usuário"></a>
 											</div>
 											<div>
-												<h2><a href="../login/" title="Entre em sua conta!">Entre</a> ou <a href="../cadastro/" title="Cadastre-se em nosso site!">Cadastre-se</a></h2>
+												<?php
+                                                    if($logado)
+                                                    {
+                                                        ?><h2><a href="../minha_conta/" title="Minha conta."> <?php echo $_SESSION['user']; ?> </a></h2><?php
+                                                    }
+                                                    else
+                                                    {
+                                                        ?><h2><a href="../login/" title="Entre em sua conta!">Entre</a> ou <a href="cadastro/" title="Cadastre-se em nosso site!">Cadastre-se</a></h2><?php 
+                                                    } 
+                                                ?>
 											</div>
 										</div>
 									</li>
@@ -420,7 +481,16 @@
 													<img src="" id="cesta" alt="Cesta">
 												</div>
 												<div>
-													<h2>3</h2>
+													<?php 
+                                                        if ($logado) //Teste de sessão
+                                                        {
+                                                            echo "<h2>".$_SESSION['carrinho']."</h2>";
+                                                        }
+                                                        else
+                                                        {
+                                                            echo "<h2>x</h2>"; //SEM CARRINHO
+                                                        }
+                                                    ?>
 												</div>
 											</a>
 										</div>

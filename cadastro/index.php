@@ -1,164 +1,193 @@
 <!DOCTYPE html>
 
 <?php
-session_start();
+    session_start();
 
-if (isset($_POST['subCadastro'])) {
-        //Dados do cadastro obrigatório
-    if ($_POST['isContatoShown'] == "false")
-        $verEndereco = false;
-    else
-        $verEndereco = true;
+    if (!empty($_SESSION['user'])) //Teste de sessão
+    {
+        //Redireciona pois não se pode fazer o seu cadastro estando logado
+            //O usuario tentou entrar manualmente
+        header("Location: ../index.php");
+        exit;
+    }
 
-    $nome = $_POST['nome'];
-    $sobrenome = $_POST['sobrenome'];
-    $sexo = $_POST['sexo'];
-    $data_nasc = $_POST['data_nasc'];
-    $celular = $_POST['celular'];
+    if (isset($_POST['subCadastro'])) 
+    {
+            //Dados do cadastro obrigatório
+        if ($_POST['isContatoShown'] == "false")
+            $verEndereco = false;
+        else
+            $verEndereco = true;
 
-    $login = $_POST['login'];
-    $email = $_POST['email'];
-    $senha = $_POST['senha'];
+        $nome = $_POST['nome'];
+        $sobrenome = $_POST['sobrenome'];
+        $sexo = $_POST['sexo'];
+        $data_nasc = $_POST['data_nasc'];
+        $celular = $_POST['celular'];
 
-        //Dados do endereço de entrega
-    $endereco = $_POST['endereco'];
-    $numero = $_POST['numero'];
-    $complemento = $_POST['complemento'];
-    $bairro = $_POST['bairro'];
-    $cidade = $_POST['cidade'];
-    $cep = $_POST['cep'];
-    $estado = $_POST['estado'];
-    $pais = $_POST['pais'];
+        $login = $_POST['login'];
+        $email = $_POST['email'];
+        $senha = $_POST['senha'];
 
-    try {
-        include "../php/connect_cli.php";
+            //Dados do endereço de entrega
+        $endereco = $_POST['endereco'];
+        $numero = $_POST['numero'];
+        $complemento = $_POST['complemento'];
+        $bairro = $_POST['bairro'];
+        $cidade = $_POST['cidade'];
+        $cep = $_POST['cep'];
+        $estado = $_POST['estado'];
+        $pais = $_POST['pais'];
 
-        $senha = md5($senha);
+        try 
+        {
+            include "../php/connect_cli.php";
 
-        $sql = "INSERT INTO usuario(id_usuario, login, email, senha, excluido) 
-                VALUES(DEFAULT, '$login', '$email', '$senha', 'n');";
+            $senha = md5($senha);
 
-        $res = pg_query($conectar, $sql);
-        $qtd = pg_affected_rows($res);
-        if ($qtd > 0)
-                //pegar o id de volta
-        $sql = "SELECT id_usuario FROM usuario WHERE email='$email';";
-        else {
-            echo "Erro no CADASTRO do usuário<br>";
-            pg_close($conectar);
-        }
-
-        $res = pg_query($conectar, $sql);
-        $qtd = pg_num_rows($res);
-        if ($qtd > 0) {
-                //Pega o id cadastrado anteriormente
-            $prod = pg_fetch_array($res);
-            $id = $prod['id_usuario'];
-                
-                //Cadastro do cliente
-            $sql = "INSERT INTO cliente(id_usuario, nome, sobrenome, sexo, data_nasc, celular, excluido)
-                    VALUES('$id', '$nome', '$sobrenome', '$sexo', '$data_nasc', '$celular', 'n');";
+            $sql = "INSERT INTO usuario(id_usuario, login, email, senha, excluido) 
+                    VALUES(DEFAULT, '$login', '$email', '$senha', 'n');";
 
             $res = pg_query($conectar, $sql);
             $qtd = pg_affected_rows($res);
-
-            if ($qtd <= 0) //ERRO
+            if ($qtd > 0)
+                //pegar o id de volta
+                $sql = "SELECT id_usuario FROM usuario WHERE email='$email';";
+            else 
             {
-                ?> 
-                    <script>
-                        alert("Algo deu errado ao tentar realizar o cadastro!");
-                    </script>
-                <?php
-
-                apagaUsuario($id);
-            } else {
-                include "../php/email/email.php";
-
-                sendEmail(
-                    $email,
-                    $nome, //ARRUMARRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
-                    "Bem vindo a Kitall?",
-                    "<h1>Bem vindo!</h1><p>Obgrigado por escolher os nossos servicos!</p>"
-                );
-
-                ?> 
-                    <script>
-                        alert("Cadastro efetuado com sucesso!");
-                    </script>
-                <?php
-
-                header("Location: ../");
+                echo "Erro no CADASTRO do usuário<br>";
+                pg_close($conectar);
             }
-                
-                //Cadastro dos dados de entrega
-            if ($verEndereco) {
-                if ($complemento != null) //complemento?
-                {
-                    $sql = "INSERT INTO endereco(id_endereco, id_usuario, endereco, numero, complemento, bairro, cep, cidade, estado, pais, excluido)
-                            VALUES(DEFAULT, '$id', '$endereco', '$numero', '$complemento', '$bairro', '$cep', '$cidade', '$estado', '$pais', 'n');";
-                } else //tudo
-                {
-                    $sql = "INSERT INTO endereco(id_endereco, id_usuario, endereco, numero, bairro, cep, cidade, estado, pais, excluido)
-                            VALUES(DEFAULT, '$id', '$endereco', '$numero', '$bairro', '$cep', '$cidade', '$estado', '$pais', 'n');";
-                }
+
+            $res = pg_query($conectar, $sql);
+            $qtd = pg_num_rows($res);
+            if ($qtd > 0) 
+            {
+                //Pega o id cadastrado anteriormente
+                $prod = pg_fetch_array($res);
+                $id = $prod['id_usuario'];
+
+                //Cadastro do cliente
+                $sql = "INSERT INTO cliente(id_usuario, nome, sobrenome, sexo, data_nasc, celular, excluido)
+                        VALUES('$id', '$nome', '$sobrenome', '$sexo', '$data_nasc', '$celular', 'n');";
+
                 $res = pg_query($conectar, $sql);
                 $qtd = pg_affected_rows($res);
 
-                if ($qtd <= 0) {
+                if ($qtd <= 0) //ERRO
+                {
                     ?> 
                         <script>
-                            alert("Algo deu errado ao tentar cadastrar as Informações de Entrega!\n\nVocê pode tentar novamente ao finalizar a compra!");
+                            alert("Algo deu errado ao tentar realizar o cadastro!");
                         </script>
                     <?php
 
-                } else {
-                        //envia o email confirmando o cadastro do endereço
+                    apagaUsuario($id);
+                } 
+                else 
+                {
                     include "../php/email/email.php";
 
                     sendEmail(
                         $email,
                         $nome, //ARRUMARRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
-                        "Kitall? - Cadastro de Endereco",
-                        "<h1>Tudo certo!</h1><p>Seu endereco de entrega foi cadastrado com sucesso!</p>"
+                        "Bem vindo a Kitall?",
+                        "<h1>Bem vindo!</h1><p>Obgrigado por escolher os nossos servicos!</p>"
                     );
+
                     ?> 
                         <script>
                             alert("Cadastro efetuado com sucesso!");
                         </script>
                     <?php
 
+                    header("Location: ../");
                 }
+
+                    //Cadastro dos dados de entrega
+                if ($verEndereco) 
+                {
+                    if ($complemento != null) //complemento?
+                    {
+                        $sql = "INSERT INTO endereco(id_endereco, id_usuario, endereco, numero, complemento, bairro, cep, cidade, estado, pais, excluido)
+                                VALUES(DEFAULT, '$id', '$endereco', '$numero', '$complemento', '$bairro', '$cep', '$cidade', '$estado', '$pais', 'n');";
+                    } 
+                    else //tudo
+                    {
+                        $sql = "INSERT INTO endereco(id_endereco, id_usuario, endereco, numero, bairro, cep, cidade, estado, pais, excluido)
+                                VALUES(DEFAULT, '$id', '$endereco', '$numero', '$bairro', '$cep', '$cidade', '$estado', '$pais', 'n');";
+                    }
+                    $res = pg_query($conectar, $sql);
+                    $qtd = pg_affected_rows($res);
+
+                    if ($qtd <= 0) 
+                    {
+                        ?> 
+                            <script>
+                                alert("Algo deu errado ao tentar cadastrar as Informações de Entrega!\n\nVocê pode tentar novamente ao finalizar a compra!");
+                            </script>
+                        <?php
+
+                    } 
+                    else 
+                    {
+                        //envia o email confirmando o cadastro do endereço
+                        include "../php/email/email.php";
+
+                        sendEmail(
+                            $email,
+                            $nome, //ARRUMARRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
+                            "Kitall? - Cadastro de Endereco",
+                            "<h1>Cadastro finalizado!</h1><p>Seu endereco de entrega foi cadastrado com sucesso!</p>"
+                        );
+                        ?> 
+                            <script>
+                                alert("Cadastro efetuado com sucesso!");
+                            </script>
+                        <?php
+
+                    }
+                }
+                
+                //Tudo OK
+                pg_close($conectar);
+                
+                //LOGAR 
+                $_SESSION['user'] = $login;
+                $_SESSION['senha'] = $senha;
+                $_SESSION['carrinho'] = 0;
+
+                header("Location: ../");
+            } 
+            else 
+            {
+                echo "Erro na CONSULTA do usuário!";
+
+                pg_close($conectar);
             }
 
-            pg_close($conectar);
-        } else {
-            echo "Erro na CONSULTA do usuário!";
+        } 
+        catch (Exception $e) 
+        {
+            ?> 
+                <script>
+                    alert("<?php echo $e->getMessage(); ?>");
+                </script>
+            <?php
 
-            pg_close($conectar);
         }
-            
-            //Logar após o cadastro
-
-    } catch (Exception $e) {
-        ?> 
-            <script>
-                alert("<?php echo $e->getMessage(); ?>");
-            </script>
-        <?php
-
     }
-}
 
-function apagaUsuario($user_id)
-{
-    while (true) {
-        $sql = "DELETE FROM usuario WHERE id_usuario = $user_id";
-        $res = pg_query($conectar, $sql);
-        $qtd = pg_affected_rows($res);
-        if ($qtd > 0)
-            break;
+    function apagaUsuario($user_id)
+    {
+        while (true) {
+            $sql = "DELETE FROM usuario WHERE id_usuario = $user_id";
+            $res = pg_query($conectar, $sql);
+            $qtd = pg_affected_rows($res);
+            if ($qtd > 0)
+                break;
+        }
     }
-}
 ?>
 
 <html lang="pt-br">
@@ -258,7 +287,7 @@ function apagaUsuario($user_id)
                                                         <img src="" id="cesta" alt="Cesta">
                                                     </div>
                                                     <div>
-                                                        <h2>3</h2>
+                                                        <h2>x</h2>
                                                     </div>
                                                 </a>
                                             </div>
@@ -309,7 +338,7 @@ function apagaUsuario($user_id)
                                         <img src="" id="cesta" alt="Cesta">
                                     </div>
                                     <div>
-                                        <h2>3</h2>
+                                        <h2>x</h2>
                                     </div>
                                 </a>
                             </div>
@@ -676,7 +705,7 @@ function apagaUsuario($user_id)
                                                                     <img src="" id="cesta" alt="Cesta">
                                                                 </div>
                                                                 <div>
-                                                                    <h2>3</h2>
+                                                                    <h2>x</h2>
                                                                 </div>
                                                             </a>
                                                         </div>
@@ -728,7 +757,7 @@ function apagaUsuario($user_id)
                                                     <img src="" id="cesta" alt="Cesta">
                                                 </div>
                                                 <div>
-                                                    <h2>3</h2>
+                                                    <h2>x</h2>
                                                 </div>
                                             </a>
                                         </div>

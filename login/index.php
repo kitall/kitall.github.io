@@ -1,69 +1,101 @@
 <!DOCTYPE html>
 
 <?php
-$root_usr = "kitall";
-$root_passwd = "kitallEComm2018";
+    session_start();
 
-session_start();
+    $logado = false;
+    if (!empty($_SESSION['user'])) //Teste de sessão
+    {
+        $logado = true;
+    }
 
-try {
+    $root_usr = "kitall";
+    $root_passwd = "kitallEComm2018";
 
-	if (isset($_POST['subLogin'])) {
-		include "../php/connect_cli.php";
-		$user = $_POST['user'];
-		$pass = $_POST['senha'];
-            
-            //Admin
-		if ($user == $root_usr && $pass == $root_passwd) {
-			header("Location: ../admin");
-			exit;
-		}
+    session_start();
 
-		if (strpos($user, '@'))
-			$table = "email";
-		else
-			$table = "login";
+    if (!empty($_SESSION['user'])) //tem alguém logado?
+    {
+        ?> 
+        <script>
+            alert("Ja tem alguém logado!");
+        </script>
+        <?php
+        header("Location: ../index.php");
+    }
 
-		$sql = "SELECT * FROM usuario WHERE $table = '$user'";
+    try 
+    {
+        if (isset($_POST['subLogin'])) 
+        {
 
-		$res = pg_query($conectar, $sql);
-		$lin = pg_num_rows($res);
-		if ($lin > 0) {
-			$userbd = pg_fetch_array($res);
-			$senha = $userbd['senha'];
+            include "../php/connect_cli.php";
 
-			if ($senha == md5($pass)) {
-				$_SESSION['user'] = $user;
-				$_SESSION['senha'] = $senha;
+            $user = $_POST['user'];
+            $pass = $_POST['senha'];
 
-				header("Location: ../profile");
-			} else {
-				?> 
+                //Admin
+            if ($user == $root_usr && $pass == $root_passwd) 
+            {
+                header("Location: ../admin");
+                exit;
+            }
+
+            if (strpos($user, '@'))
+                $table = "email";
+            else
+                $table = "login";
+
+            $sql = "SELECT * FROM usuario WHERE $table = '$user'";
+
+            $res = pg_query($conectar, $sql);
+            $lin = pg_num_rows($res);
+            if ($lin > 0) 
+            {
+                $userbd = pg_fetch_array($res);
+                $senha = $userbd['senha'];
+
+                if ($senha == md5($pass)) 
+                {
+                    $_SESSION['user'] = $user;
+                    $_SESSION['senha'] = $senha;
+                    
+                    $_SESSION['carrinho'] = 0;
+
+                    header("Location: ../index.php"); //home
+                } 
+                else 
+                {
+
+                ?> 
                     <script>
-						alert("Senha incorreta!");
-					</script>
-				<?php
-
-		}
-	} else {
-		pg_close($conectar);
-		?> 
-				<script>
-					alert("Usuário inexistente!");
-				</script>
+                        alert("Senha incorreta para este usuário!");
+                    </script>
+                <?php
+                }
+            } 
+            else 
+            {
+                pg_close($conectar);
+            ?> 
+                <script>
+                    alert("Usuário inexistente!");
+                </script>
             <?php
 
-										}
-									}
-								} catch (Exception $e) {
-									?> 
-        <script>
-			alert("<?php echo $e->getMessage(); ?>");
-		</script>
-    <?php
+            }
+        }
+    } 
+    catch (Exception $e) 
+    {
+        ?> 
+            <script>
+                alert("<?php echo $e->getMessage(); ?>");
+            </script>
+        <?php
 
-		}
-		?>
+        }
+?>
 
 <html lang="pt-br">
 
@@ -160,7 +192,7 @@ try {
 														<img src="" id="cesta" alt="Cesta">
 													</div>
 													<div>
-														<h2>3</h2>
+														<h2>x</h2>
 													</div>
 												</a>
 											</div>
@@ -210,7 +242,7 @@ try {
 										<img src="" id="cesta" alt="Cesta">
 									</div>
 									<div>
-										<h2>3</h2>
+										<h2>x</h2>
 									</div>
 								</a>
 							</div>
@@ -322,7 +354,7 @@ try {
 																	<img src="" id="cesta" alt="Cesta">
 																</div>
 																<div>
-																	<h2>3</h2>
+																	<h2>x</h2>
 																</div>
 															</a>
 														</div>
@@ -372,7 +404,7 @@ try {
 													<img src="" id="cesta" alt="Cesta">
 												</div>
 												<div>
-													<h2>3</h2>
+													<h2>x</h2>
 												</div>
 											</a>
 										</div>

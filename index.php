@@ -1,43 +1,50 @@
 <!DOCTYPE html>
     
 <?php
-session_start();
+    session_start();
 
-$able = true;
-$ind = -1;
-$prod_padrao = array(
-	array("Caderno de Anotações", "Anote tudo o que precisa ser transformado e melhorado.", "imgs/notebook.png"),
-	array("Borracha de Lápis e Caneta", "Para corrigir os erros e aprender com eles.", "imgs/eraser.png"),
-	array("Porta Post-It", "Aqui fica tudo o você precisa lembrar e fazer.", "imgs/postit.png")
-);
+    $logado = false;
+    if (!empty($_SESSION['user'])) //Teste de sessão
+    {
+        $logado = true;
+    }
 
-$num_rand = array(0, 0, 0);
-try {
-	include "php/connect_prod.php";
+    $able = true;
+    $ind = -1;
+    $prod_padrao = array(
+        array("Caderno de Anotações", "Anote tudo o que precisa ser transformado e melhorado.", "imgs/notebook.png"),
+        array("Borracha de Lápis e Caneta", "Para corrigir os erros e aprender com eles.", "imgs/eraser.png"),
+        array("Porta Post-It", "Aqui fica tudo o você precisa lembrar e fazer.", "imgs/postit.png")
+    );
 
-	$sql = "SELECT id FROM produtos WHERE excluido=FALSE
-					ORDER BY RANDOM()
-					LIMIT 3";
+    $num_rand = array(0, 0, 0);
+    try 
+    {
+        include "php/connect_prod.php";
 
-	$res = pg_query($conectar, $sql);
-	$qtd = pg_num_rows($res);
-	if ($qtd > 0) {
-		$i = 0;
-		while ($prod = pg_fetch_array($res)) {
-			$num_rand[$i] = $prod['id'];
-			$i++;
-		}
-	}
-} catch (Exception $e) {
-	?> 
-       <!-- <script>
-           alert("<?php echo $e->getMessage(); ?>");
-        </script> -->
-    <?php
+        $sql = "SELECT id FROM produtos WHERE excluido=FALSE
+                        ORDER BY RANDOM()
+                        LIMIT 3";
 
-			$able = false;
-		}
-		?>
+        $res = pg_query($conectar, $sql);
+        $qtd = pg_num_rows($res);
+        if ($qtd > 0) 
+        {
+            $i = 0;
+            while ($prod = pg_fetch_array($res)) 
+            {
+                $num_rand[$i] = $prod['id'];
+                $i++;
+            }
+        }
+    } 
+    catch (Exception $e) 
+    {
+        echo $e->getMessage();
+
+        $able = false;
+    }
+?>
 
 <html lang="pt-br">
 <head>
@@ -135,7 +142,7 @@ try {
 														<img src="" id="cesta" alt="Cesta">
 													</div>
 													<div>
-														<h2>3</h2>
+														<h2>x</h2>
 													</div>
 												</a>
 											</div>
@@ -174,7 +181,16 @@ try {
 									<a href="login/"><img id="user" src="" alt="Usuário"></a>
 								</div>
 								<div>
-									<h2><a href="login/" title="Entre em sua conta!">Entre</a> ou <a href="cadastro/" title="Cadastre-se em nosso site!">Cadastre-se</a></h2>
+								    <?php
+                                        if($logado)
+                                        {
+                                            ?><h2><a href="minha_conta/" title="Minha conta."> <?php echo $_SESSION['user']; ?> </a></h2><?php
+                                        }
+                                        else
+                                        {
+                                            ?><h2><a href="login/" title="Entre em sua conta!">Entre</a> ou <a href="cadastro/" title="Cadastre-se em nosso site!">Cadastre-se</a></h2><?php 
+                                        } 
+                                    ?>
 								</div>
 							</div>
 						</li>
@@ -185,7 +201,16 @@ try {
 										<img src="" id="cesta" alt="Cesta">
 									</div>
 									<div>
-										<h2>3</h2>
+									    <?php 
+                                            if ($logado) //Teste de sessão
+                                            {
+                                                echo "<h2>".$_SESSION['carrinho']."</h2>";
+                                            }
+                                            else
+                                            {
+                                                echo "<h2>x</h2>"; //SEM CARRINHO
+                                            }
+                                        ?>
 									</div>
 								</a>
 							</div>
@@ -213,75 +238,84 @@ try {
 					<div class="featProduct textOnLeft">
 						<?php
 					$ind++;
-					if ($able) {
+					if ($able) 
+                    {
 						$numm = $num_rand[$ind];
 						$sql = "SELECT * FROM produtos WHERE id=$numm";
 
 						$res = pg_query($conectar, $sql);
 						$qtd = pg_num_rows($res);
-						if ($qtd > 0) {
-							while ($prod = pg_fetch_array($res)) {
+						if ($qtd > 0) 
+                        {
+							while ($prod = pg_fetch_array($res)) 
+                            {
 								$nome = $prod['nome'];
 								$descricao = $prod['descricao'];
 								$link_img = $prod['link_img'];
 							}
-						} else {
+						} 
+                        else 
+                        {
 							$nome = $prod_padrao[$ind][0];
 							$descricao = $prod_padrao[$ind][1];
 							$link_img = $prod_padrao[$ind][2];
 						}
-					} else {
+					} 
+                    else 
+                    {
 						$nome = $prod_padrao[$ind][0];
 						$descricao = $prod_padrao[$ind][1];
 						$link_img = $prod_padrao[$ind][2];
 					}
 					?>
 							<div class="featProductText">
-								<?php
-							echo "<h2>$nome</h2>";
-							echo "<p>$descricao</p>";
+				            <?php
+                                echo "<h2>$nome</h2>";
+                                echo "<p>$descricao</p>";
 							?>
 							</div>
-							<?php
-
-						?>
 							<div class="featProductImg">
 								<?php echo "<img src='$link_img' alt='300'>" ?>
 							</div>
-							<?php
-						?>
 					</div>
 					<div class="featProduct textOnRight">
-						<?php
-					$ind++;
-					if ($able) {
-						$numm = $num_rand[$ind];
-						$sql = "SELECT * FROM produtos WHERE id=$numm";
+				    <?php
+                        $ind++;
+                                
+                        if ($able) 
+                        {
+                            $numm = $num_rand[$ind];
+                            $sql = "SELECT * FROM produtos WHERE id=$numm";
 
-						$res = pg_query($conectar, $sql);
-						$qtd = pg_num_rows($res);
-						if ($qtd > 0) {
-							while ($prod = pg_fetch_array($res)) {
-								$nome = $prod['nome'];
-								$descricao = $prod['descricao'];
-								$link_img = $prod['link_img'];
-							}
-						} else {
-							$nome = $prod_padrao[$ind][0];
-							$descricao = $prod_padrao[$ind][1];
-							$link_img = $prod_padrao[$ind][2];
-						}
-					} else {
-						$nome = $prod_padrao[$ind][0];
-						$descricao = $prod_padrao[$ind][1];
-						$link_img = $prod_padrao[$ind][2];
-					}
+                            $res = pg_query($conectar, $sql);
+                            $qtd = pg_num_rows($res);
+                            if ($qtd > 0) 
+                            {
+                                while ($prod = pg_fetch_array($res)) 
+                                {
+                                    $nome = $prod['nome'];
+                                    $descricao = $prod['descricao'];
+                                    $link_img = $prod['link_img'];
+                                }
+                            } 
+                            else 
+                            {
+                                $nome = $prod_padrao[$ind][0];
+                                $descricao = $prod_padrao[$ind][1];
+                                $link_img = $prod_padrao[$ind][2];
+                            }
+                        } 
+                        else 
+                        {
+                            $nome = $prod_padrao[$ind][0];
+                            $descricao = $prod_padrao[$ind][1];
+                            $link_img = $prod_padrao[$ind][2];
+                        }
 					?>
-
 						<div class="featProductText">
-							<?php
-						echo "<h2>$nome</h2>";
-						echo "<p>$descricao</p>";
+				        <?php
+                            echo "<h2>$nome</h2>";
+                            echo "<p>$descricao</p>";
 						?>
 						</div>
 						<div class="featProductImg">
@@ -289,36 +323,43 @@ try {
 						</div>
 					</div>
 					<div class="featProduct textOnLeft">
-						<?php
-					$ind++;
-					if ($able) {
-						$numm = $num_rand[$ind];
-						$sql = "SELECT * FROM produtos WHERE id=$numm";
+				    <?php
+                        $ind++;
+                        if ($able) 
+                        {
+                            $numm = $num_rand[$ind];
+                            $sql = "SELECT * FROM produtos WHERE id=$numm";
 
-						$res = pg_query($conectar, $sql);
-						$qtd = pg_num_rows($res);
-						if ($qtd > 0) {
-							while ($prod = pg_fetch_array($res)) {
-								$nome = $prod['nome'];
-								$descricao = $prod['descricao'];
-								$link_img = $prod['link_img'];
-							}
-						} else {
-							$nome = $prod_padrao[$ind][0];
-							$descricao = $prod_padrao[$ind][1];
-							$link_img = $prod_padrao[$ind][2];
-						}
-					} else {
-						$nome = $prod_padrao[$ind][0];
-						$descricao = $prod_padrao[$ind][1];
-						$link_img = $prod_padrao[$ind][2];
-					}
+                            $res = pg_query($conectar, $sql);
+                            $qtd = pg_num_rows($res);
+                            if ($qtd > 0) 
+                            {
+                                while ($prod = pg_fetch_array($res)) 
+                                {
+                                    $nome = $prod['nome'];
+                                    $descricao = $prod['descricao'];
+                                    $link_img = $prod['link_img'];
+                                }
+                            } 
+                            else 
+                            {
+                                $nome = $prod_padrao[$ind][0];
+                                $descricao = $prod_padrao[$ind][1];
+                                $link_img = $prod_padrao[$ind][2];
+                            }
+                        } 
+                        else 
+                        {
+                            $nome = $prod_padrao[$ind][0];
+                            $descricao = $prod_padrao[$ind][1];
+                            $link_img = $prod_padrao[$ind][2];
+					    }
 					?>
 
 						<div class="featProductText">
-							<?php
-						echo "<h2>$nome</h2>";
-						echo "<p>$descricao</p>";
+				        <?php
+						  echo "<h2>$nome</h2>";
+						  echo "<p>$descricao</p>";
 						?>
 						</div>
 						<div class="featProductImg">
@@ -403,8 +444,16 @@ try {
 																<a href="login/"><img id="user" src="" alt="Usuário"></a>
 															</div>
 															<div>
-																<h2><a href="login/" title="Entre em sua conta!">Entre</a> ou <a href="cadastro/"
-																	 title="Cadastre-se em nosso site!">Cadastre-se</a></h2>
+																<?php
+                                                                    if($logado)
+                                                                    {
+                                                                        ?><h2><a href="minha_conta/" title="Minha conta."> <?php echo $_SESSION['user']; ?> </a></h2><?php
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        ?><h2><a href="login/" title="Entre em sua conta!">Entre</a> ou <a href="cadastro/" title="Cadastre-se em nosso site!">Cadastre-se</a></h2><?php 
+                                                                    } 
+                                                                ?>
 															</div>
 														</div>
 													</li>
@@ -414,9 +463,16 @@ try {
 																<div>
 																	<img src="" id="cesta" alt="Cesta">
 																</div>
-																<div>
-																	<h2>3</h2>
-																</div>
+																<?php 
+                                                                    if ($logado) //Teste de sessão
+                                                                    {
+                                                                        echo "<h2>".$_SESSION['carrinho']."</h2>";
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        echo "<h2>x</h2>"; //SEM CARRINHO
+                                                                    }
+                                                                ?>
 															</a>
 														</div>
 													</li>
@@ -454,7 +510,16 @@ try {
 												<a href="login/"><img id="user" src="" alt="Usuário"></a>
 											</div>
 											<div>
-												<h2><a href="login/" title="Entre em sua conta!">Entre</a> ou <a href="cadastro/" title="Cadastre-se em nosso site!">Cadastre-se</a></h2>
+												<?php
+                                                    if($logado)
+                                                    {
+                                                        ?><h2><a href="minha_conta/" title="Minha conta."> <?php echo $_SESSION['user']; ?> </a></h2><?php
+                                                    }
+                                                    else
+                                                    {
+                                                        ?><h2><a href="login/" title="Entre em sua conta!">Entre</a> ou <a href="cadastro/" title="Cadastre-se em nosso site!">Cadastre-se</a></h2><?php 
+                                                    } 
+                                                ?>
 											</div>
 										</div>
 									</li>
@@ -465,7 +530,16 @@ try {
 													<img src="" id="cesta" alt="Cesta">
 												</div>
 												<div>
-													<h2>3</h2>
+													<?php 
+                                                        if ($logado) //Teste de sessão
+                                                        {
+                                                            echo "<h2>".$_SESSION['carrinho']."</h2>";
+                                                        }
+                                                        else
+                                                        {
+                                                            echo "<h2>x</h2>"; //SEM CARRINHO
+                                                        }
+                                                    ?>
 												</div>
 											</a>
 										</div>
