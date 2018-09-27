@@ -1,55 +1,62 @@
-
-
 <!DOCTYPE html>
 
 <?php
+    try 
+    {
+        $prod_name = $_GET['search'];
+        
+        include "../php/connect_prod.php";
 
-try {
-    $prod_name = $_GET['search'];
-    // include "../php/connect_prod.php";
-
-    $sql = "SELECT * FROM produtos WHERE nome = '$prod_name' AND excluido = 'f'";
-    $res = pg_query($conectar, $sql);
-    $qtd = pg_num_rows($res);
-
-    if ($qtd <= 0) {
-        $sql = "SELECT * FROM produtos WHERE nome LIKE '%$prod_name%' AND excluido = 'f'";
+        $sql = "SELECT * FROM produtos WHERE nome = '$prod_name' AND excluido = 'f'";
         $res = pg_query($conectar, $sql);
         $qtd = pg_num_rows($res);
 
-        if ($qtd <= 0) //erro
+        if ($qtd <= 0) 
         {
-            $state = 0;
-            pg_close();
-        } else //similares
-        {
-            $state = 1;
-            while ($prod = pg_fetch_array($res)) {
-                $id = $prod['id'];
-                $nome = $prod['nome'];
-                $preco = $prod['preco'];
-                $qtd = $prod['qtd'];
-                $link_img = $prod['link_img'];
-            }
-        }
-    } else {
-        $state = 2;
-        // $prod = pg_fetch_array($res);
-        // $id = $prod['id'];
-        // $nome = $prod['nome'];
-        // $preco = $prod['preco'];
-        // $qtd = $prod['qtd'];
-        // $link_img = $prod['link_img'];
-        pg_close();
-    }
-} catch (Exception $e) {
-    ?> 
-    <script>
-        alert("<?php echo $e->getMessage(); ?>");
-    </script>
-<?php
+            $sql = "SELECT * FROM produtos WHERE nome LIKE '%$prod_name%' AND excluido = 'f'";
+            $res = pg_query($conectar, $sql);
+            $qtd = pg_num_rows($res);
 
-}
+            if ($qtd <= 0) //erro
+            {
+                $state = 0;
+                pg_close();
+            } 
+            else //similares
+            {
+                $state = 1;
+                //Já está lá em baixo
+//                while ($prod = pg_fetch_array($res)) 
+//                {
+//                    $id = $prod['id'];
+//                    $nome = $prod['nome'];
+//                    $preco = $prod['preco'];
+//                    $qtd = $prod['qtd'];
+//                    $link_img = $prod['link_img'];
+//                }
+            }
+        } 
+        else 
+        {
+            $state = 2;
+            // $prod = pg_fetch_array($res);
+            // $id = $prod['id'];
+            // $nome = $prod['nome'];
+            // $preco = $prod['preco'];
+            // $qtd = $prod['qtd'];
+            // $link_img = $prod['link_img'];
+            pg_close();
+        }
+    } 
+    catch (Exception $e) 
+    {
+    ?> 
+        <script>
+            alert("<?php echo $e->getMessage(); ?>");
+        </script>
+    <?php
+
+    }
 ?>
 
 <html lang="pt-br">
@@ -210,10 +217,12 @@ try {
             <div class="catalogo">
 
                 <?php 
-                switch (state) {
+                switch($state) 
+                {
                     case 0:
                         ?>
                             <h1>Nenhum produto foi encontrado!</h1>
+                            <br><br><br>
                             <h2>Tente novamente com outros termos</h2>
 
                             <h1 class="gig">:(</h1>
@@ -222,12 +231,12 @@ try {
 
                     case 1:
                         ?>
-
                         <div class="catalogoProds">
                             <div class="prods">
                                 
                                 <?php
-                                while ($prod = pg_fetch_array($res)) {
+                                while ($prod = pg_fetch_array($res)) 
+                                {
                                     $id = $prod['id'];
                                     $nome = $prod['nome'];
                                     $preco = $prod['preco'];
