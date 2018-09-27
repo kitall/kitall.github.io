@@ -39,6 +39,20 @@ function showContato() {
     document.getElementById('isContatoShown').value = contatoShown;
 }
 
+//function validaCamposCadastro(){
+//    var formCad = document.getElementById('cadastro');
+//    var login = document.getElementById('login');
+//    var loginInput = document.getElementsByName('login')[0];
+//    
+//    if(loginInput.value.indexOf('@') > -1){
+//        login.innerHTML = "<p>O Login não pode conter '@'!</p>";
+//        login.classList.toggle('errorCampo');
+//        loginInput.classList.toggle('wrongInput');
+//    }
+//    else{
+//        formCad.submit();
+//    }
+//}
 
 window.onclick = function (event) {
     if (!(event.target.matches('.menuMobileButton'))) {

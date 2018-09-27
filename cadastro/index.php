@@ -320,7 +320,7 @@ function apagaUsuario($user_id)
             <div class="cadastro">
                 
                 <div class="cadastroContent">
-                    <form action="" method="post">
+                    <form action="" method="post" id="cadastro">
                     <div class="campos">
                         <h1>Crie sua conta</h1>
                         
@@ -330,29 +330,29 @@ function apagaUsuario($user_id)
 
                                 <div class="campo">
                                     <div>
-                                        <div class="lblCampo"><label>Nome</label></div>
+                                        <div class="lblCampo"><label>Nome*</label></div>
                                     </div>
-                                    <input type="text" name="nome" placeholder="Albert" autofocus>
+                                    <input type="text" name="nome" placeholder="Albert" autofocus maxlength="30" required>
                                     <div class="descCampo" id="nome">
                                         <p></p>
                                     </div>
                                 </div>
                                 <div class="campo">
                                     <div>
-                                        <div class="lblCampo"><label>Sobrenome</label></div>
+                                        <div class="lblCampo"><label>Sobrenome*</label></div>
                                     </div>
-                                    <input type="text" name="sobrenome" placeholder="Einstein">
+                                    <input type="text" name="sobrenome" placeholder="Einstein" maxlength="40" required>
                                     <div class="descCampo" id="sobrenome">
                                         <p></p>
                                     </div>
                                 </div>
                                 <div class="campo">
                                     <div>
-                                        <div class="lblCampo"><label>Sexo</label></div>
+                                        <div class="lblCampo"><label>Sexo*</label></div>
                                     </div>
                                     <br>
                                     <div class="selectSexo">
-                                        <input type="radio" name="sexo" value="M" id="sexoM"><label for="sexoM">Masculino</label>
+                                        <input type="radio" name="sexo" value="M" id="sexoM" required><label for="sexoM">Masculino</label>
                                         <input type="radio" name="sexo" value="F" id="sexoF"><label for="sexoF">Feminino</label>
                                         <input type="radio" name="sexo" value="N" id="sexoN"><label for="sexoN">Prefiro
                                             não dizer</label>
@@ -363,18 +363,18 @@ function apagaUsuario($user_id)
                                 </div>
                                 <div class="campo">
                                     <div>
-                                        <div class="lblCampo"><label>Data de Nascimento</label></div>
+                                        <div class="lblCampo"><label>Data de Nascimento*</label></div>
                                     </div>
-                                    <input type="text" name="data_nasc" id="dateInput" placeholder="dd/mm/aaaa" maxlenght="10" required>
+                                    <input type="date" name="data_nasc" max="2018-10-08" min="1910-01-01" maxlenght="10" required>
                                     <div class="descCampo" id="data_nasc">
                                         <p></p>
                                     </div>
                                 </div>
                                 <div class="campo">
                                     <div>
-                                        <div class="lblCampo"><label>Celular</label></div>
+                                        <div class="lblCampo"><label>Celular*</label></div>
                                     </div>
-                                    <input type="text" name="celular" placeholder="Insira sem pontuação (ex.: 14987626754)">
+                                    <input type="text" name="celular" placeholder="Insira sem pontuação (ex.: 14987626754)" required>
                                     <div class="descCampo" id="celular">
                                         <p></p>
                                     </div>
@@ -387,9 +387,9 @@ function apagaUsuario($user_id)
 
                                 <div class="campo">
                                     <div>
-                                        <div class="lblCampo"><label>Login</label></div>
+                                        <div class="lblCampo"><label>Login*</label></div>
                                     </div>
-                                    <input type="text" name="login" placeholder="albEinstein123">
+                                    <input type="text" name="login" placeholder="albEinstein123 (não pode conter '@')" pattern="[^@\x22]+" required>
                                     <div class="descCampo" id="login">
                                         <p></p>
                                     </div>
@@ -397,9 +397,9 @@ function apagaUsuario($user_id)
 
                                 <div class="campo">
                                     <div>
-                                        <div class="lblCampo"><label>Email</label></div>
+                                        <div class="lblCampo"><label>Email*</label></div>
                                     </div>
-                                    <input type="text" name="email" placeholder="albert@einstein.com">
+                                    <input type="text" name="email" placeholder="albert@einstein.com" required>
                                     <div class="descCampo" id="email">
                                         <p></p>
                                     </div>
@@ -407,9 +407,9 @@ function apagaUsuario($user_id)
 
                                 <div class="campo">
                                     <div>
-                                        <div class="lblCampo"><label>Senha</label></div>
+                                        <div class="lblCampo"><label>Senha*</label></div>
                                     </div>
-                                    <input type="password" name="senha" placeholder="Sua nova senha aqui...">
+                                    <input type="password" name="senha" placeholder="Sua nova senha aqui..." required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters">
                                     <div class="descCampo" id="senha">
                                         <p></p>
                                     </div>
