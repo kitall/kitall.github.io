@@ -1,69 +1,56 @@
+
+
 <!DOCTYPE html>
 
 <?php
-$root_usr = "kitall";
-$root_passwd = "kitallEComm2018";
-
-session_start();
 
 try {
+    $prod_name = $_GET['search'];
+    // include "../php/connect_prod.php";
 
-	if (isset($_POST['subLogin'])) {
-		include "../php/connect_cli.php";
-		$user = $_POST['user'];
-		$pass = $_POST['senha'];
-            
-            //Admin
-		if ($user == $root_usr && $pass == $root_passwd) {
-			header("Location: ../admin");
-			exit;
-		}
+    $sql = "SELECT * FROM produtos WHERE nome = '$prod_name' AND excluido = 'f'";
+    $res = pg_query($conectar, $sql);
+    $qtd = pg_num_rows($res);
 
-		if (strpos($user, '@'))
-			$table = "email";
-		else
-			$table = "login";
+    if ($qtd <= 0) {
+        $sql = "SELECT * FROM produtos WHERE nome LIKE '%$prod_name%' AND excluido = 'f'";
+        $res = pg_query($conectar, $sql);
+        $qtd = pg_num_rows($res);
 
-		$sql = "SELECT * FROM usuario WHERE $table = '$user'";
+        if ($qtd <= 0) //erro
+        {
+            $state = 0;
+            pg_close();
+        } else //similares
+        {
+            $state = 1;
+            while ($prod = pg_fetch_array($res)) {
+                $id = $prod['id'];
+                $nome = $prod['nome'];
+                $preco = $prod['preco'];
+                $qtd = $prod['qtd'];
+                $link_img = $prod['link_img'];
+            }
+        }
+    } else {
+        $state = 2;
+        // $prod = pg_fetch_array($res);
+        // $id = $prod['id'];
+        // $nome = $prod['nome'];
+        // $preco = $prod['preco'];
+        // $qtd = $prod['qtd'];
+        // $link_img = $prod['link_img'];
+        pg_close();
+    }
+} catch (Exception $e) {
+    ?> 
+    <script>
+        alert("<?php echo $e->getMessage(); ?>");
+    </script>
+<?php
 
-		$res = pg_query($conectar, $sql);
-		$lin = pg_num_rows($res);
-		if ($lin > 0) {
-			$userbd = pg_fetch_array($res);
-			$senha = $userbd['senha'];
-
-			if ($senha == md5($pass)) {
-				$_SESSION['user'] = $user;
-				$_SESSION['senha'] = $senha;
-
-				header("Location: ../profile");
-			} else {
-				?> 
-                    <script>
-						alert("Senha incorreta!");
-					</script>
-				<?php
-
-		}
-	} else {
-		pg_close($conectar);
-		?> 
-				<script>
-					alert("Usuário inexistente!");
-				</script>
-            <?php
-
-										}
-									}
-								} catch (Exception $e) {
-									?> 
-        <script>
-			alert("<?php echo $e->getMessage(); ?>");
-		</script>
-    <?php
-
-		}
-		?>
+}
+?>
 
 <html lang="pt-br">
 
@@ -78,9 +65,10 @@ try {
 	<link rel="stylesheet" href="../css/header.css">
 	<link rel="stylesheet" href="../css/presentation.css">
 	<link rel="stylesheet" href="../css/login.css">
-	<link rel="stylesheet" href="../css/search.css">
+    <link rel="stylesheet" href="../css/search.css">
+	<link rel="stylesheet" href="../css/catalogo.css">
 
-	<title>Faça seu Login</title>
+	<title>Resultados da Pesquisa</title>
 </head>
 
 <body>
@@ -149,7 +137,7 @@ try {
 													<a href=""><img id="user" src="" alt="Usuário"></a>
 												</div>
 												<div>
-													<h2><a href="" title="Entre em sua conta!">Entre</a> ou <a href="../cadastro/" title="Cadastre-se em nosso site!">Cadastre-se</a></h2>
+													<h2><a href="../login/" title="Entre em sua conta!">Entre</a> ou <a href="../cadastro/" title="Cadastre-se em nosso site!">Cadastre-se</a></h2>
 												</div>
 											</div>
 										</li>
@@ -182,7 +170,7 @@ try {
 									</div>
 								</a>
 								<div class="searchBar">
-									<form action="../pesquisa/">
+									<form action="">
 										<div class="searchField">
 											<input type="search" name="search" class="searchInput" placeholder="Pesquise" required>
 										</div>
@@ -199,7 +187,7 @@ try {
 									<a href=""><img id="user" src="" alt="Usuário"></a>
 								</div>
 								<div>
-									<h2><a href="" title="Entre em sua conta!">Entre</a> ou <a href="../cadastro/" title="Cadastre-se em nosso site!">Cadastre-se</a></h2>
+									<h2><a href="../login/" title="Entre em sua conta!">Entre</a> ou <a href="../cadastro/" title="Cadastre-se em nosso site!">Cadastre-se</a></h2>
 								</div>
 							</div>
 						</li>
@@ -217,41 +205,92 @@ try {
 						</li>
 					</ul>
 				</div>
-			</div>
-			<div class="login">
+            </div>
+            
+            <div class="catalogo">
 
-				<div class="loginContent">
-					<h3>Entre em sua conta</h3>
-					<form action="" method="post">
-						<div class="signin">
-							<div class="username">
-								<div>
-									<label>Usuário ou email</label>
-								</div>
-								<div>
-									<input type="text" name="user">
-								</div>
-							</div>
-							<div class="password">
-								<div class="lblSenha">
-									<label for="">Senha</label>
-									<label for="" id="recu" tabindex="-1"><a href="" tabindex="-1">Esqueceu sua senha?</a></label>
-								</div>
-								<div>
-									<input type="password" name="senha">
-								</div>
-							</div>
-							<div class="btnLogin">
-								<input type="submit" name="subLogin" value="Entrar">
-							</div>
-						</div>
-					</form>
-					<div class="signup">
-						<h4>Novo aqui? <a href="../cadastro/">Crie sua conta</a></h4>
+                <?php 
+                switch (state) {
+                    case 0:
+                        ?>
+                            <h1>Nenhum produto foi encontrado!</h1>
+                            <h2>Tente novamente com outros termos</h2>
 
-					</div>
-				</div>
-			</div>
+                            <h1 class="gig">:(</h1>
+                        <?php
+                        break;
+
+                    case 1:
+                        ?>
+
+                        <div class="catalogoProds">
+                            <div class="prods">
+                                
+                                <?php
+                                while ($prod = pg_fetch_array($res)) {
+                                    $id = $prod['id'];
+                                    $nome = $prod['nome'];
+                                    $preco = $prod['preco'];
+                                    $qtd = $prod['qtd'];
+                                    $link_img = $prod['link_img'];
+
+                                    $emEstoque = $qtd > 0;
+
+                                    ?>
+
+                                    <div class="prod">
+                                        <div class="prodImage">
+                                            <div class="prodImg">
+                                                <img src="<?php echo $link_img; ?>" alt="<?php echo $nome; ?>">
+                                            </div>
+                                        </div>
+                                        <div class="prodText">
+                                            <div class="prodTextContent">
+                                                <div class="prodInfo">
+                                                    <h3>
+                                                    <?php echo $nome; ?>
+                                                    </h3>
+                                                    <div>
+                                                    <?php echo $preco; ?>
+                                                    </div>
+                                                </div>
+                                                <div class="prodBtn  <?php if ($emEstoque) echo "emEstoque";
+                                                                    else echo "semEstoque"; ?>">
+                                                    <a href="" class="standby"><?php if ($emEstoque) echo "EM ESTOQUE";
+                                                                                else echo "INDISPONÍVEL"; ?></a>
+                                                    <a href="" class="active"><?php if ($emEstoque) echo "COMPRAR";
+                                                                                else echo "VISUALIZAR"; ?></a>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <?php
+
+                                }
+                                ?>
+                                 
+                            </div>
+                        </div>
+                        <?php
+                        pg_close();
+                        break;
+
+                    case 2:
+
+                        ?> 
+                            <script>
+                                alert("A página de visualização individual ainda está sendo desenvolvida.\n\nAgradecemos a compreensão.");
+                            </script>
+                        <?php
+
+                        header("Location: ../");
+
+                        break;
+                }
+                ?>
+            </div>
+
 			<div class="footer">
 				<div class="footerContent">
 					<div class="footerMenu">
@@ -311,7 +350,7 @@ try {
 																<a href=""><img id="user" src="" alt="Usuário"></a>
 															</div>
 															<div>
-																<h2><a href="" title="Entre em sua conta!">Entre</a> ou <a href="../cadastro/" title="Cadastre-se em nosso site!">Cadastre-se</a></h2>
+																<h2><a href="../login/" title="Entre em sua conta!">Entre</a> ou <a href="../cadastro/" title="Cadastre-se em nosso site!">Cadastre-se</a></h2>
 															</div>
 														</div>
 													</li>
@@ -344,7 +383,7 @@ try {
 												</div>
 											</a>
 											<div class="footerSearchBar">
-												<form action="../pesquisa/">
+												<form action="">
 													<div class="searchField">
 														<input type="search" name="search" class="searchInput" placeholder="Pesquise" required>
 													</div>
@@ -361,7 +400,7 @@ try {
 												<a href=""><img id="user" src="" alt="Usuário"></a>
 											</div>
 											<div>
-												<h2><a href="" title="Entre em sua conta!">Entre</a> ou <a href="../cadastro/" title="Cadastre-se em nosso site!">Cadastre-se</a></h2>
+												<h2><a href="../login/" title="Entre em sua conta!">Entre</a> ou <a href="../cadastro/" title="Cadastre-se em nosso site!">Cadastre-se</a></h2>
 											</div>
 										</div>
 									</li>

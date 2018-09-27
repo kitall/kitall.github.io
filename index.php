@@ -1,48 +1,43 @@
 <!DOCTYPE html>
     
 <?php
-    session_start();
+session_start();
 
-	$able = true;
-	$ind = -1;
-	$prod_padrao = array(
-        array("Caderno de Anotações", "Anote tudo o que precisa ser transformado e melhorado.", "imgs/notebook.jpg"), 
-	    array("Borracha de Lápis e Caneta", "Para corrigir os erros e aprender com eles.", "imgs/eraser.jpg"), 
-	    array("Porta Post-It", "Aqui fica tudo o você precisa lembrar e fazer.", "imgs/postit.jpg")
-    );
+$able = true;
+$ind = -1;
+$prod_padrao = array(
+	array("Caderno de Anotações", "Anote tudo o que precisa ser transformado e melhorado.", "imgs/notebook.png"),
+	array("Borracha de Lápis e Caneta", "Para corrigir os erros e aprender com eles.", "imgs/eraser.png"),
+	array("Porta Post-It", "Aqui fica tudo o você precisa lembrar e fazer.", "imgs/postit.png")
+);
 
-	$num_rand = array(0, 0, 0);
-	try
-	{
-		include "php/connect_prod.php";
-		
-		$sql = "SELECT id FROM produtos WHERE excluido=FALSE
+$num_rand = array(0, 0, 0);
+try {
+	include "php/connect_prod.php";
+
+	$sql = "SELECT id FROM produtos WHERE excluido=FALSE
 					ORDER BY RANDOM()
 					LIMIT 3";
 
-		$res = pg_query($conectar, $sql);
-		$qtd = pg_num_rows($res);
-		if ($qtd > 0) 
-        {
-			$i = 0;
-			while ($prod = pg_fetch_array($res))
-            {
-				$num_rand[$i] = $prod['id'];
-				$i++;
-			}
+	$res = pg_query($conectar, $sql);
+	$qtd = pg_num_rows($res);
+	if ($qtd > 0) {
+		$i = 0;
+		while ($prod = pg_fetch_array($res)) {
+			$num_rand[$i] = $prod['id'];
+			$i++;
 		}
 	}
-    catch(Exception $e)
-    {
-    ?> 
-       <script>
+} catch (Exception $e) {
+	?> 
+       <!-- <script>
            alert("<?php echo $e->getMessage(); ?>");
-        </script>
+        </script> -->
     <?php
 
-		$able = false;
-	}
-?>
+			$able = false;
+		}
+		?>
 
 <html lang="pt-br">
 <head>
@@ -55,6 +50,7 @@
 	<link rel="stylesheet" href="css/header.css">
 	<link rel="stylesheet" href="css/presentation.css">
 	<link rel="stylesheet" href="css/footer.css">
+	<link rel="stylesheet" href="css/search.css">
 	<link rel="icon" type="image/png" href="favicon.png">
 	<link rel="manifest" href="manifest.json">
 
@@ -155,11 +151,21 @@
 					<ul>
 						<li>
 							<div class="pesquisa">
-								<a href="" title="Pesquisar">
+								<a title="Pesquisar" onclick="searchDropdown()" class="searchButton">
 									<div>
-										<img src="" id="search" alt="Pesquisa" title="Clique aqui para pesquisar algo!">
+										<img src="imgs/search_icon.png" id="search" alt="Pesquisa" title="Clique aqui para pesquisar algo!">
 									</div>
 								</a>
+								<div class="searchBar">
+									<form action="pesquisa/">
+										<div class="searchField">
+											<input type="search" name="search" class="searchInput" placeholder="Pesquise" required>
+										</div>
+										<div class="searchSubmit">
+											<button type="submit" id="subSearchBtn" title="Pesquisar!"><img src="imgs/search_icon.png" alt="" id="search"></button>
+										</div>
+									</form>
+								</div>
 							</div>
 						</li>
 						<li>
@@ -185,7 +191,7 @@
 							</div>
 						</li>
 					</ul>
-				</div>
+				</div>				
 			</div>
 			<div class="presentation">
 				<img src="imgs/paperwork.jpg" alt="">
@@ -206,8 +212,8 @@
 				<div class="featProductsContent">
 					<div class="featProduct textOnLeft">
 						<?php
-							$ind++;
-					if($able){
+					$ind++;
+					if ($able) {
 						$numm = $num_rand[$ind];
 						$sql = "SELECT * FROM produtos WHERE id=$numm";
 
@@ -224,8 +230,7 @@
 							$descricao = $prod_padrao[$ind][1];
 							$link_img = $prod_padrao[$ind][2];
 						}
-					}
-					else{
+					} else {
 						$nome = $prod_padrao[$ind][0];
 						$descricao = $prod_padrao[$ind][1];
 						$link_img = $prod_padrao[$ind][2];
@@ -248,8 +253,8 @@
 					</div>
 					<div class="featProduct textOnRight">
 						<?php
-						$ind++;
-					if($able){
+					$ind++;
+					if ($able) {
 						$numm = $num_rand[$ind];
 						$sql = "SELECT * FROM produtos WHERE id=$numm";
 
@@ -266,13 +271,12 @@
 							$descricao = $prod_padrao[$ind][1];
 							$link_img = $prod_padrao[$ind][2];
 						}
-					}
-					else{
+					} else {
 						$nome = $prod_padrao[$ind][0];
 						$descricao = $prod_padrao[$ind][1];
 						$link_img = $prod_padrao[$ind][2];
 					}
-						?>
+					?>
 
 						<div class="featProductText">
 							<?php
@@ -286,31 +290,30 @@
 					</div>
 					<div class="featProduct textOnLeft">
 						<?php
-							$ind++;
-						if($able){
-							$numm = $num_rand[$ind];
-							$sql = "SELECT * FROM produtos WHERE id=$numm";
+					$ind++;
+					if ($able) {
+						$numm = $num_rand[$ind];
+						$sql = "SELECT * FROM produtos WHERE id=$numm";
 
-							$res = pg_query($conectar, $sql);
-							$qtd = pg_num_rows($res);
-							if ($qtd > 0) {
-								while ($prod = pg_fetch_array($res)) {
-									$nome = $prod['nome'];
-									$descricao = $prod['descricao'];
-									$link_img = $prod['link_img'];
-								}
-							} else {
-								$nome = $prod_padrao[$ind][0];
-								$descricao = $prod_padrao[$ind][1];
-								$link_img = $prod_padrao[$ind][2];
+						$res = pg_query($conectar, $sql);
+						$qtd = pg_num_rows($res);
+						if ($qtd > 0) {
+							while ($prod = pg_fetch_array($res)) {
+								$nome = $prod['nome'];
+								$descricao = $prod['descricao'];
+								$link_img = $prod['link_img'];
 							}
-						}
-						else{
+						} else {
 							$nome = $prod_padrao[$ind][0];
 							$descricao = $prod_padrao[$ind][1];
 							$link_img = $prod_padrao[$ind][2];
 						}
-						?>
+					} else {
+						$nome = $prod_padrao[$ind][0];
+						$descricao = $prod_padrao[$ind][1];
+						$link_img = $prod_padrao[$ind][2];
+					}
+					?>
 
 						<div class="featProductText">
 							<?php
@@ -427,12 +430,22 @@
 							<div class="btns showBtns">
 								<ul>
 									<li>
-										<div class="pesquisa">
-											<a href="" title="Pesquisar">
+										<div class="pesquisaFooter">
+											<a title="Pesquisar" onclick="footerSearchDropdown()" class="footerSearchButton">
 												<div>
-													<img src="" id="search" alt="Pesquisa" title="Clique aqui para pesquisar algo!">
+													<img src="imgs/search_icon.png" id="search" alt="Pesquisa" title="Clique aqui para pesquisar algo!">
 												</div>
 											</a>
+											<div class="footerSearchBar">
+												<form action="pesquisa/">
+													<div class="searchField">
+														<input type="search" name="search" class="searchInput" placeholder="Pesquise" required>
+													</div>
+													<div class="searchSubmit">
+														<button type="submit" id="subSearchBtn" title="Pesquisar!"><img src="imgs/search_icon.png" alt="" id="search"></button>
+													</div>
+												</form>
+											</div>
 										</div>
 									</li>
 									<li>
@@ -512,5 +525,9 @@
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script type="text/javascript" src="js/header.js"></script>
 <script type="text/javascript" src="js/footerMenu.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="js/search.js"></script>
+
+
 
 </html>

@@ -38,3 +38,43 @@ function showContato() {
 
     document.getElementById('isContatoShown').value = contatoShown;
 }
+
+
+window.onclick = function (event) {
+    if (!(event.target.matches('.menuMobileButton'))) {
+        var menusContent = menuContent;
+        for (var i = 0; i < menusContent.length; i++) {
+            var droppedMenu = menusContent[i];
+            if (droppedMenu.classList.contains('menuMobileContentShow')) {
+                droppedMenu.classList.remove('menuMobileContentShow');
+                menuButton[i].innerHTML = "▼";
+            }
+        }
+    }
+    if (!event.target.matches('.menuFooterMobileButton')) {
+        var menusFooterContent = menuFooterContent;
+        for (var i = 0; i < menusFooterContent.length; i++) {
+            var droppedMenuFooter = menusFooterContent[i];
+            if (droppedMenuFooter.classList.contains('menuFooterMobileContentShow')) {
+                droppedMenuFooter.classList.remove('menuFooterMobileContentShow');
+                menuFooterButton[i].innerHTML = "▲";
+            }
+        }
+    }
+    // if (!event.target.matches('.searchButton')) {
+    //     var searchBars = searchBar;
+    //     for (var i = 0; i < searchBars.length; i++) {
+    //         var droppedSearchBar = searchBars[i];
+    //         if (droppedSearchBar.classList.contains('searchBarShow'))
+    //             droppedSearchBar.classList.remove('searchBarShow');
+    //     }
+    // }
+    // if (!event.target.matches('.footerSearchButton')) {
+    //     var footerSearchBars = footerSearchBar;
+    //     for (var i = 0; i < footerSearchBars.length; i++) {
+    //         var droppedSearchBar = footerSearchBars[i];
+    //         if (droppedSearchBar.classList.contains('footerSearchBarShow'))
+    //             droppedSearchBar.classList.remove('footerSearchBarShow');
+    //     }
+    // }
+}

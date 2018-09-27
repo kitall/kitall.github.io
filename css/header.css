@@ -253,10 +253,15 @@
     max-height: 25px;
     padding: 17px;
     width: auto;
+    cursor: pointer;
 }
 
 li#active .pesquisa #search {
     content: url("../imgs/active_search_icon.png");
+}
+
+.pesquisa a {
+    cursor: pointer;
 }
 
 #user {

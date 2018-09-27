@@ -2,7 +2,7 @@
 
 Options FollowSymLinks
 
-<Files "scripts/">
+<Files "php/">
 	Require all denied
 </Files>
 
@@ -18,11 +18,19 @@ Options FollowSymLinks
 	Require all denied
 </Files>
 
-<Files "icons/">
+<Files ".git/">
 	Require all denied
 </Files>
 
-<Files ".git/">
+<Files ".vscode/">
+	Require all denied
+</Files>
+
+<Files ".images/">
+	Require all denied
+</Files>
+
+<Files "bd/">
 	Require all denied
 </Files>
 

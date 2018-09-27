@@ -1,171 +1,164 @@
 <!DOCTYPE html>
 
 <?php
-    session_start();
+session_start();
 
-    if(isset($_POST['subCadastro']))
-    {
+if (isset($_POST['subCadastro'])) {
         //Dados do cadastro obrigatório
-        if($_POST['isContatoShown'] == "false")
-            $verEndereco = false;
-        else
-            $verEndereco = true;
+    if ($_POST['isContatoShown'] == "false")
+        $verEndereco = false;
+    else
+        $verEndereco = true;
 
-        $nome = $_POST['nome'];
-        $sobrenome = $_POST['sobrenome'];
-        $sexo = $_POST['sexo'];
-        $data_nasc = $_POST['data_nasc'];
-        $celular = $_POST['celular'];
+    $nome = $_POST['nome'];
+    $sobrenome = $_POST['sobrenome'];
+    $sexo = $_POST['sexo'];
+    $data_nasc = $_POST['data_nasc'];
+    $celular = $_POST['celular'];
 
-        $login = $_POST['login'];
-        $email = $_POST['email'];
-        $senha = $_POST['senha'];
+    $login = $_POST['login'];
+    $email = $_POST['email'];
+    $senha = $_POST['senha'];
 
         //Dados do endereço de entrega
-        $endereco = $_POST['endereco'];
-        $numero = $_POST['numero'];
-        $complemento = $_POST['complemento'];
-        $bairro = $_POST['bairro'];
-        $cidade = $_POST['cidade'];
-        $cep = $_POST['cep'];
-        $estado = $_POST['estado'];
-        $pais = $_POST['pais'];
+    $endereco = $_POST['endereco'];
+    $numero = $_POST['numero'];
+    $complemento = $_POST['complemento'];
+    $bairro = $_POST['bairro'];
+    $cidade = $_POST['cidade'];
+    $cep = $_POST['cep'];
+    $estado = $_POST['estado'];
+    $pais = $_POST['pais'];
 
-        try
-        {
-            include "../php/connect_cli.php";
-    
-            $senha = md5($senha);
-            
-            $sql = "INSERT INTO usuario(id_usuario, login, email, senha, excluido) 
+    try {
+        include "../php/connect_cli.php";
+
+        $senha = md5($senha);
+
+        $sql = "INSERT INTO usuario(id_usuario, login, email, senha, excluido) 
                 VALUES(DEFAULT, '$login', '$email', '$senha', 'n');";
-                
-            $res = pg_query($conectar, $sql);
-            $qtd = pg_affected_rows($res);            
-            if($qtd > 0)
-                //pegar o id de volta
-                $sql = "SELECT id_usuario FROM usuario WHERE email='$email';"; 
-            else
-            {
-                echo "Erro no CADASTRO do usuário<br>";
-                pg_close($conectar);
-            }
 
-            $res = pg_query($conectar, $sql);
-            $qtd = pg_num_rows($res);
-            if($qtd > 0)
-            {
+        $res = pg_query($conectar, $sql);
+        $qtd = pg_affected_rows($res);
+        if ($qtd > 0)
+                //pegar o id de volta
+        $sql = "SELECT id_usuario FROM usuario WHERE email='$email';";
+        else {
+            echo "Erro no CADASTRO do usuário<br>";
+            pg_close($conectar);
+        }
+
+        $res = pg_query($conectar, $sql);
+        $qtd = pg_num_rows($res);
+        if ($qtd > 0) {
                 //Pega o id cadastrado anteriormente
-                $prod = pg_fetch_array($res);
-                $id = $prod['id_usuario'];
+            $prod = pg_fetch_array($res);
+            $id = $prod['id_usuario'];
                 
                 //Cadastro do cliente
-                $sql = "INSERT INTO cliente(id_usuario, nome, sobrenome, sexo, data_nasc, celular, excluido)
+            $sql = "INSERT INTO cliente(id_usuario, nome, sobrenome, sexo, data_nasc, celular, excluido)
                     VALUES('$id', '$nome', '$sobrenome', '$sexo', '$data_nasc', '$celular', 'n');";
-                
-                $res = pg_query($conectar, $sql);
-                $qtd = pg_affected_rows($res);
-                
-                if($qtd <= 0) //ERRO
-                {
+
+            $res = pg_query($conectar, $sql);
+            $qtd = pg_affected_rows($res);
+
+            if ($qtd <= 0) //ERRO
+            {
                 ?> 
                     <script>
                         alert("Algo deu errado ao tentar realizar o cadastro!");
                     </script>
                 <?php
 
-                    apagaUsuario($id);                
-                }
-                else
-                {
-                    include "../php/email/email.php";
-                    
-                    sendEmail($email, $nome, //ARRUMARRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
-                             "Bem vindo a Kitall?",
-                             "<h1>Bem vindo!</h1><p>Obgrigado por escolher os nossos servicos!</p>");
-                    
+                apagaUsuario($id);
+            } else {
+                include "../php/email/email.php";
+
+                sendEmail(
+                    $email,
+                    $nome, //ARRUMARRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
+                    "Bem vindo a Kitall?",
+                    "<h1>Bem vindo!</h1><p>Obgrigado por escolher os nossos servicos!</p>"
+                );
+
                 ?> 
                     <script>
                         alert("Cadastro efetuado com sucesso!");
                     </script>
                 <?php
-                    
-                    header("Location: ../");
-                }
+
+                header("Location: ../");
+            }
                 
                 //Cadastro dos dados de entrega
-                if($verEndereco) 
+            if ($verEndereco) {
+                if ($complemento != null) //complemento?
                 {
-                    if($complemento != NULL) //complemento?
-                    {
-                        $sql = "INSERT INTO endereco(id_endereco, id_usuario, endereco, numero, complemento, bairro, cep, cidade, estado, pais, excluido)
+                    $sql = "INSERT INTO endereco(id_endereco, id_usuario, endereco, numero, complemento, bairro, cep, cidade, estado, pais, excluido)
                             VALUES(DEFAULT, '$id', '$endereco', '$numero', '$complemento', '$bairro', '$cep', '$cidade', '$estado', '$pais', 'n');";
-                    }
-                    else //tudo
-                    {
-                        $sql = "INSERT INTO endereco(id_endereco, id_usuario, endereco, numero, bairro, cep, cidade, estado, pais, excluido)
+                } else //tudo
+                {
+                    $sql = "INSERT INTO endereco(id_endereco, id_usuario, endereco, numero, bairro, cep, cidade, estado, pais, excluido)
                             VALUES(DEFAULT, '$id', '$endereco', '$numero', '$bairro', '$cep', '$cidade', '$estado', '$pais', 'n');";
-                    }
-                    $res = pg_query($conectar, $sql);
-                    $qtd = pg_affected_rows($res);
+                }
+                $res = pg_query($conectar, $sql);
+                $qtd = pg_affected_rows($res);
 
-                    if($qtd <= 0)
-                    {
+                if ($qtd <= 0) {
                     ?> 
                         <script>
                             alert("Algo deu errado ao tentar cadastrar as Informações de Entrega!\n\nVocê pode tentar novamente ao finalizar a compra!");
                         </script>
                     <?php
-                    }
-                    else
-                    {
+
+                } else {
                         //envia o email confirmando o cadastro do endereço
-                        include "../php/email/email.php";
-                        
-                        sendEmail($email, $nome, //ARRUMARRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
-                             "Kitall? - Castro de Endereco",
-                             "<h1>Tudo certo!</h1><p>Seu endereco de entrega foi cadastrado com sucesso!</p>");
+                    include "../php/email/email.php";
+
+                    sendEmail(
+                        $email,
+                        $nome, //ARRUMARRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
+                        "Kitall? - Cadastro de Endereco",
+                        "<h1>Tudo certo!</h1><p>Seu endereco de entrega foi cadastrado com sucesso!</p>"
+                    );
                     ?> 
                         <script>
                             alert("Cadastro efetuado com sucesso!");
                         </script>
                     <?php
-                    }
+
                 }
-                
-                pg_close($conectar);
             }
-            else
-            {
-                echo "Erro na CONSULTA do usuário!";
-                
-                pg_close($conectar);
-            }
+
+            pg_close($conectar);
+        } else {
+            echo "Erro na CONSULTA do usuário!";
+
+            pg_close($conectar);
+        }
             
             //Logar após o cadastro
-            
-        } 
-        catch (Exception $e)
-        {
+
+    } catch (Exception $e) {
         ?> 
             <script>
                 alert("<?php echo $e->getMessage(); ?>");
             </script>
         <?php
-        }
-    }
 
-    function apagaUsuario($user_id)
-    {
-        while(true)
-        {
-            $sql = "DELETE FROM usuario WHERE id_usuario = $user_id";
-            $res = pg_query($conectar, $sql);
-            $qtd = pg_affected_rows($res);
-            if($qtd > 0)
-                break;
-        }
     }
+}
+
+function apagaUsuario($user_id)
+{
+    while (true) {
+        $sql = "DELETE FROM usuario WHERE id_usuario = $user_id";
+        $res = pg_query($conectar, $sql);
+        $qtd = pg_affected_rows($res);
+        if ($qtd > 0)
+            break;
+    }
+}
 ?>
 
 <html lang="pt-br">
@@ -182,6 +175,7 @@
     <link rel="stylesheet" href="../css/cadastro.css">
     <link rel="stylesheet" href="../css/presentation.css">
     <link rel="stylesheet" href="../css/login.css">
+	<link rel="stylesheet" href="../css/search.css">
 
     <title>Crie sua conta!</title>
 </head>
@@ -279,14 +273,24 @@
                 <div class="btns showBtns">
                     <ul>
                         <li>
-                            <div class="pesquisa">
-                                <a href="" title="Pesquisar">
-                                    <div>
-                                        <img src="" id="search" alt="Pesquisa" title="Clique aqui para pesquisar algo!">
-                                    </div>
-                                </a>
-                            </div>
-                        </li>
+							<div class="pesquisa">
+								<a title="Pesquisar" onclick="searchDropdown()" class="searchButton">
+									<div>
+										<img src="../imgs/search_icon.png" id="search" alt="Pesquisa" title="Clique aqui para pesquisar algo!">
+									</div>
+								</a>
+								<div class="searchBar">
+									<form action="../pesquisa/">
+										<div class="searchField">
+											<input type="search" name="search" class="searchInput" placeholder="Pesquise" required>
+										</div>
+										<div class="searchSubmit">
+											<button type="submit" id="subSearchBtn" title="Pesquisar!"><img src="../imgs/search_icon.png" alt="" id="search"></button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</li>
                         <li>
                             <div class="entrar">
                                 <div>
@@ -687,14 +691,24 @@
                             <div class="btns showBtns">
                                 <ul>
                                     <li>
-                                        <div class="pesquisa">
-                                            <a href="" title="Pesquisar">
-                                                <div>
-                                                    <img src="" id="search" alt="Pesquisa" title="Clique aqui para pesquisar algo!">
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </li>
+										<div class="pesquisaFooter">
+											<a title="Pesquisar" onclick="footerSearchDropdown()" class="footerSearchButton">
+												<div>
+													<img src="imgs/search_icon.png" id="search" alt="Pesquisa" title="Clique aqui para pesquisar algo!">
+												</div>
+											</a>
+											<div class="footerSearchBar">
+												<form action="../pesquisa/">
+													<div class="searchField">
+														<input type="search" name="search" class="searchInput" placeholder="Pesquise" required>
+													</div>
+													<div class="searchSubmit">
+														<button type="submit" id="subSearchBtn" title="Pesquisar!"><img src="imgs/search_icon.png" alt="" id="search"></button>
+													</div>
+												</form>
+											</div>
+										</div>
+									</li>
                                     <li>
                                         <div class="entrar">
                                             <div>
@@ -777,7 +791,5 @@
 <script type="text/javascript" src="../js/footerMenu.js"></script>
 <script type="text/javascript" src="../js/dateInput.js"></script>
 <script type="text/javascript" src="../js/main.js"></script>
-<link rel="manifest" href="../config/manifest.json">
-<script src="../config/app.js"></script>
-
+<script type="text/javascript" src="../js/search.js"></script>
 </html>

@@ -315,6 +315,10 @@
         width: 100vw;
         bottom: 50px;
     }
+
+    .marginBottom {
+        bottom: 50px;
+    }
 }
 
 @media only screen and (max-width: 390px) {
@@ -330,6 +334,10 @@
 
         .menuFooterMobileContent {
             width: 95vw;
+            bottom: 50px;
+        }
+
+        .marginBottom {
             bottom: 50px;
         }
     }
@@ -348,6 +356,10 @@
 
         .menuFooterMobileContent {
             width: 90vw;
+            bottom: 50px;
+        }
+
+        .marginBottom {
             bottom: 50px;
         }
     }
@@ -376,6 +388,10 @@
                 width: 70vw;
             }
         }
+
+        .marginBottom {
+            bottom: 50px;
+        }
     }
 }
 
@@ -394,6 +410,10 @@
             min-width: 40vw;
             bottom: 70px;
         }
+
+        .marginBottom {
+            bottom: 70px;
+        }
     }
 }
 
@@ -410,6 +430,10 @@
 
     .menuFooterMobileContent {
         min-width: 40vw;
+        bottom: 70px;
+    }
+
+    .marginBottom {
         bottom: 70px;
     }
 }
