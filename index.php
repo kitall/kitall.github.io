@@ -20,9 +20,9 @@
     $num_rand = array(0, 0, 0);
     try 
     {
-        include "php/connect_prod.php";
+        include "php/connect.php";
 
-        $sql = "SELECT id FROM produtos WHERE excluido=FALSE
+        $sql = "SELECT id_prod FROM p_produtos WHERE excluido=FALSE
                         ORDER BY RANDOM()
                         LIMIT 3";
 
@@ -33,7 +33,7 @@
             $i = 0;
             while ($prod = pg_fetch_array($res)) 
             {
-                $num_rand[$i] = $prod['id'];
+                $num_rand[$i] = $prod['id_prod'];
                 $i++;
             }
         }
@@ -241,7 +241,7 @@
 					if ($able) 
                     {
 						$numm = $num_rand[$ind];
-						$sql = "SELECT * FROM produtos WHERE id=$numm";
+						$sql = "SELECT * FROM p_produtos WHERE id_prod=$numm";
 
 						$res = pg_query($conectar, $sql);
 						$qtd = pg_num_rows($res);
@@ -285,7 +285,7 @@
                         if ($able) 
                         {
                             $numm = $num_rand[$ind];
-                            $sql = "SELECT * FROM produtos WHERE id=$numm";
+                            $sql = "SELECT * FROM p_produtos WHERE id_prod=$numm";
 
                             $res = pg_query($conectar, $sql);
                             $qtd = pg_num_rows($res);
@@ -328,7 +328,7 @@
                         if ($able) 
                         {
                             $numm = $num_rand[$ind];
-                            $sql = "SELECT * FROM produtos WHERE id=$numm";
+                            $sql = "SELECT * FROM p_produtos WHERE id_prod=$numm";
 
                             $res = pg_query($conectar, $sql);
                             $qtd = pg_num_rows($res);

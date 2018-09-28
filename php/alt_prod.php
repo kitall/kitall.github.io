@@ -4,21 +4,22 @@
     $nome = $_POST['nome'];
     $qtd = $_POST['qtd'];
     $preco = $_POST['preco'];
-    $excluido = $_POST['exclusao'];
+    $custo = $_POST['custo'];
     $descr = $_POST['descricao'];
-
+    $excluido = $_POST['exclusao'];
 
     //Programa
-    include "connect_prod.php";
+    include "connect.php";
 
-    $sql = "UPDATE produtos SET
+    $sql = "UPDATE p_produtos SET
         nome = '$nome',
         qtd = '$qtd',
         preco = '$preco',
-        link_img = 'http://200.145.153.175/andrecreppe/kitall/produtos/$nome.jpg',
+        custo = '$custo',
         descricao = '$descr',
+        link_img = 'http://200.145.153.175/andrecreppe/kitall/imgs/produtos/$nome.jpg',
         excluido = '$excluido'
-            WHERE id = $id;";
+            WHERE id_prod = $id;";
 
     $res = pg_query($conectar, $sql);
     $qtd = pg_affected_rows($res);

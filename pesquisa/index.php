@@ -13,15 +13,15 @@
     {
         $prod_name = $_GET['search'];
         
-        include "../php/connect_prod.php";
+        include "../php/connect.php";
 
-        $sql = "SELECT * FROM produtos WHERE nome = '$prod_name' AND excluido = 'f'";
+        $sql = "SELECT * FROM p_produtos WHERE nome = '$prod_name' AND excluido = 'f'";
         $res = pg_query($conectar, $sql);
         $qtd = pg_num_rows($res);
 
         if ($qtd <= 0) 
         {
-            $sql = "SELECT * FROM produtos WHERE nome LIKE '%$prod_name%' AND excluido = 'f'";
+            $sql = "SELECT * FROM p_produtos WHERE nome LIKE '%$prod_name%' AND excluido = 'f'";
             $res = pg_query($conectar, $sql);
             $qtd = pg_num_rows($res);
 
@@ -271,7 +271,7 @@
                                 <?php
                                 while ($prod = pg_fetch_array($res)) 
                                 {
-                                    $id = $prod['id'];
+                                    $id = $prod['id_prod'];
                                     $nome = $prod['nome'];
                                     $preco = $prod['preco'];
                                     $qtd = $prod['qtd'];
