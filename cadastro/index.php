@@ -41,18 +41,18 @@
 
         try 
         {
-            include "../php/connect_cli.php";
+            include "../php/connect.php";
 
             $senha = md5($senha);
 
-            $sql = "INSERT INTO usuario(id_usuario, login, email, senha, excluido) 
+            $sql = "INSERT INTO c_usuario(id_usuario, login, email, senha, excluido) 
                     VALUES(DEFAULT, '$login', '$email', '$senha', 'n');";
 
             $res = pg_query($conectar, $sql);
             $qtd = pg_affected_rows($res);
             if ($qtd > 0)
-                //pegar o id de volta
-                $sql = "SELECT id_usuario FROM usuario WHERE email='$email';";
+                //Pegar o id de volta
+                $sql = "SELECT id_usuario FROM c_usuario WHERE email='$email';";
             else 
             {
                 echo "Erro no CADASTRO do usuário<br>";
@@ -68,7 +68,7 @@
                 $id = $prod['id_usuario'];
 
                 //Cadastro do cliente
-                $sql = "INSERT INTO cliente(id_usuario, nome, sobrenome, sexo, data_nasc, celular, excluido)
+                $sql = "INSERT INTO c_cliente(id_usuario, nome, sobrenome, sexo, data_nasc, celular, excluido)
                         VALUES('$id', '$nome', '$sobrenome', '$sexo', '$data_nasc', '$celular', 'n');";
 
                 $res = pg_query($conectar, $sql);
@@ -109,12 +109,12 @@
                 {
                     if ($complemento != null) //complemento?
                     {
-                        $sql = "INSERT INTO endereco(id_endereco, id_usuario, endereco, numero, complemento, bairro, cep, cidade, estado, pais, excluido)
+                        $sql = "INSERT INTO c_endereco(id_endereco, id_usuario, endereco, numero, complemento, bairro, cep, cidade, estado, pais, excluido)
                                 VALUES(DEFAULT, '$id', '$endereco', '$numero', '$complemento', '$bairro', '$cep', '$cidade', '$estado', '$pais', 'n');";
                     } 
                     else //tudo
                     {
-                        $sql = "INSERT INTO endereco(id_endereco, id_usuario, endereco, numero, bairro, cep, cidade, estado, pais, excluido)
+                        $sql = "INSERT INTO c_endereco(id_endereco, id_usuario, endereco, numero, bairro, cep, cidade, estado, pais, excluido)
                                 VALUES(DEFAULT, '$id', '$endereco', '$numero', '$bairro', '$cep', '$cidade', '$estado', '$pais', 'n');";
                     }
                     $res = pg_query($conectar, $sql);
@@ -181,7 +181,7 @@
     function apagaUsuario($user_id)
     {
         while (true) {
-            $sql = "DELETE FROM usuario WHERE id_usuario = $user_id";
+            $sql = "DELETE FROM c_usuario WHERE id_usuario = $user_id";
             $res = pg_query($conectar, $sql);
             $qtd = pg_affected_rows($res);
             if ($qtd > 0)

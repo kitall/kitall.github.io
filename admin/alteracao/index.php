@@ -37,6 +37,13 @@
                 </td>
             </tr>
             <tr>
+                <td>Custo de <br>Fabricação:</td>
+                <td>
+                    <input type="number" name="custo"
+                        value="<?php echo $_GET['custo']; ?>">
+                </td>
+            </tr>
+            <tr>
                 <td>Descrição:</td>
                 <td>
                     <textarea rows="4" cols="50" name="descricao"><?php echo $_GET['descricao']; ?></textarea>
