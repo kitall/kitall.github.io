@@ -1,16 +1,14 @@
 <!DOCTYPE html>
 
 <?php
-    session_start();
+    $root_usr = "kitall";
+    $root_passwd = "kitallEComm2018";
 
     $logado = false;
     if (!empty($_SESSION['user'])) //Teste de sessão
     {
         $logado = true;
     }
-
-    $root_usr = "kitall";
-    $root_passwd = "kitallEComm2018";
 
     session_start();
 
@@ -29,7 +27,7 @@
         if (isset($_POST['subLogin'])) 
         {
 
-            include "../php/connect_cli.php";
+            include "../php/connect.php";
 
             $user = $_POST['user'];
             $pass = $_POST['senha'];
@@ -46,7 +44,7 @@
             else
                 $table = "login";
 
-            $sql = "SELECT * FROM usuario WHERE $table = '$user'";
+            $sql = "SELECT * FROM c_usuario WHERE $table = '$user'";
 
             $res = pg_query($conectar, $sql);
             $lin = pg_num_rows($res);
