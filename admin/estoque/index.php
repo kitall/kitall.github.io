@@ -5,8 +5,9 @@
     <title>Estoque</title>
 </head>
 <body>
+   <h1><a href="../">Voltar</a></h1>
     <?php
-        include "../../php/connect_prod.php";
+        include "../../php/connect.php";
 
         $sql = "SELECT * FROM p_produtos;";
         $res = pg_query($conectar, $sql);
