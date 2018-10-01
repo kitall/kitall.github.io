@@ -368,7 +368,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="presentVideo">
+			<div class="video">
 				<div class="presentVideoOrganizer">
 					<div class="presentVideoGrid">
 						<div class="presentVideo">

@@ -29,7 +29,7 @@
         $email = $_POST['email'];
         $senha = $_POST['senha'];
 
-            //Dados do endereço de entrega
+        //Dados do endereço de entrega
         $endereco = $_POST['endereco'];
         $numero = $_POST['numero'];
         $complemento = $_POST['complemento'];

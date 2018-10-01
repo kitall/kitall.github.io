@@ -342,7 +342,7 @@ li#active .cesta #cesta {
     }
 
     .showMobile {
-        display: block;
+        display: flex;
     }
 
     .show {
@@ -404,7 +404,7 @@ li#active .cesta #cesta {
         }
 
         .showMobile {
-            display: block;
+            display: flex;
         }
 
         .show {
@@ -467,7 +467,7 @@ li#active .cesta #cesta {
         }
 
         .showMobile {
-            display: block;
+            display: flex;
         }
 
         .show {
@@ -565,7 +565,7 @@ li#active .cesta #cesta {
         .logo a img {}
 
         .showMobile {
-            display: block;
+            display: flex;
         }
 
         .show {
@@ -631,7 +631,7 @@ li#active .cesta #cesta {
         }
 
         .showMobile {
-            display: block;
+            display: flex;
         }
 
         .show {
