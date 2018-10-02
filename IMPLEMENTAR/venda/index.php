@@ -25,9 +25,11 @@
     ?>
     <h1>Compra de produtos</h1>
     <p>Deseja efetuar a compra de <b><?php echo $nome; ?></b> ?</p>
-    <?php 
-        echo "<img src='$link_img' alt='300'>";
-        echo "<a href='../../php/comprar.php?id_prod=$id'>Confirmar</a>";
-    ?>
+    <?php  echo "<img src='$link_img' alt='300'>";  ?>
+    <br>
+    <br>
+    <form action="../../vender.php" method="post">
+        
+    </form>
 </body>
 </html>
