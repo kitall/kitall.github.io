@@ -6,6 +6,7 @@
     $preco = $_POST['preco'];
     $custo = $_POST['custo'];
     $descr = $_POST['descricao'];
+    $link_img = $_POST['link_img'];
     $excluido = $_POST['exclusao'];
 
     //Programa
@@ -17,7 +18,7 @@
         preco = '$preco',
         custo = '$custo',
         descricao = '$descr',
-        link_img = 'http://200.145.153.175/andrecreppe/kitall/imgs/produtos/$nome.jpg',
+        link_img = '$link_img',
         excluido = '$excluido'
             WHERE id_prod = $id;";
 

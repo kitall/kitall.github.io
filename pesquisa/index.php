@@ -4,19 +4,25 @@
     session_start();
 
 	$logado = false;
-	// $state = 0;
-	$order = "name";
+	$state = 0;
+	$order = "nome";
 
-	if(isset($_GET['order'])){
+    $link_venda = "../IMPLEMENTAR/venda/index.php?id_prod=";
+
+	if(isset($_GET['order']))
+    {
 		$getOrder = $_POST['order'];
 
-		if($getOrder == "alf"){
-			$order = "name";
+		if($getOrder == "alf")
+        {
+			$order = "nome";
 		}
-		else if($getOrder == "men"){
+		else if($getOrder == "men")
+        {
 			$order = "preco ASC";
 		}
-		else {
+		else 
+        {
 			$order = "preco DESC";
 		}
 	}
@@ -41,12 +47,12 @@
             $sql = "SELECT * FROM p_produtos WHERE nome LIKE '%$prod_name%' AND excluido = 'f' ORDER BY $order";
             $res = pg_query($conectar, $sql);
             $qtd = pg_num_rows($res);
-
+            
             if ($qtd <= 0)
             {
                 //ERRO
                 $state = 0;
-                
+
                 pg_close();
             } 
             else
@@ -338,7 +344,7 @@
                                                                     else echo "semEstoque"; ?>">
                                                     <a href="" class="standby"><?php if ($emEstoque) echo "EM ESTOQUE";
                                                                                 else echo "INDISPONÍVEL"; ?></a>
-                                                    <a href="" class="active"><?php if ($emEstoque) echo "COMPRAR";
+                                                    <a href="<?php echo $link_venda.$id ?>" class="active"><?php if ($emEstoque) echo "COMPRAR";
                                                                                 else echo "VISUALIZAR"; ?></a>
                                             </div>
                                             </div>
