@@ -91,10 +91,34 @@ CREATE TABLE c_endereco
     CONSTRAINT fk_endereco FOREIGN KEY (id_usuario) REFERENCES c_usuario(id_usuario)
 );
 /*-----------------------------------------------------------------------------------------*/
+/* Script do banco de dados de FLUXO DE CAIXA da 'Kitall?' */
+DROP TABLE IF EXISTS f_lancamento;
+DROP SEQUENCE IF EXISTS lancamento_id_seq;
 
-must doo
-INSERT INTO blabla VALUES (
-    DEFAULT, kelvin, kenvin@arroba.com, senha, DEFAULT,
-    NULL -- data exclusao
-    false -- excluido
-)
+CREATE SEQUENCE lancamento_id_seq;
+CREATE TABLE f_lancamento
+(
+	id_lancamento	INTEGER			NOT NULL DEFAULT	NEXTVAL('lancamento_id_seq'),
+	dia				DATE			NOT NULL,
+	descricao		VARCHAR(30)		NOT NULL,
+	tipo			CHARACTER(01)	NOT NULL, -- E=Entrada e S=Saida
+	valor			NUMERIC(8,2) 	NOT NULL,
+	CONSTRAINT pk_caixa PRIMARY KEY (id_lancamento)
+);
+
+DROP TABLE IF EXISTS f_fluxocaixa;
+DROP SEQUENCE IF EXISTS fluxocaixa_id_seq;
+
+CREATE SEQUENCE fluxocaixa_id_seq;
+CREATE TABLE f_fluxocaixa
+(
+	id_fluxocaixa	INTEGER			NOT NULL DEFAULT	NEXTVAL('fluxocaixa_id_seq'),
+	dia				DATE			NOT NULL,
+	descricao		VARCHAR(30)		NOT NULL,
+	saldoant		NUMERIC(8,2)	NOT NULL,
+	entrada			NUMERIC(8,2) 	NOT NULL,
+	saida			NUMERIC(8,2)	NOT NULL,
+	saldoatual		NUMERIC(8,2)	NOT NULL,
+	CONSTRAINT pk_fluxocaixa PRIMARY KEY (id_fluxocaixa)
+);
+/*-----------------------------------------------------------------------------------------*/
