@@ -677,6 +677,10 @@ li#active .cesta #cesta {
         display: none;
     }
 
+    .show {
+        display: flex;
+    }
+
     .showBtns {
         display: flex;
     }

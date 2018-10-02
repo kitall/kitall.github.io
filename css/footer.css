@@ -57,7 +57,7 @@
 .footerContatoIconsContent {
     margin: auto;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     padding: 0;
 }
 
@@ -138,7 +138,7 @@
     padding: 0;
     width: 100%;
     font-size: 1.5ch;
-    down: 0;
+    bottom: 0;
 }
 
 .menuFooter {

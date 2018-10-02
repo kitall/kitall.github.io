@@ -3,7 +3,24 @@
 <?php
     session_start();
 
-    $logado = false;
+	$logado = false;
+	$state = 0;
+	$order = "name";
+
+	if(isset($_GET['order'])){
+		$getOrder = $_POST['order'];
+
+		if($getOrder == "alf"){
+			$order = "name";
+		}
+		else if($getOrder == "men"){
+			$order = "preco ASC";
+		}
+		else {
+			$order = "preco DESC";
+		}
+	}
+
     if (!empty($_SESSION['user'])) //Teste de sessão
     {
         $logado = true;
@@ -21,7 +38,7 @@
 
         if ($qtd <= 0) 
         {
-            $sql = "SELECT * FROM p_produtos WHERE nome LIKE '%$prod_name%' AND excluido = 'f'";
+            $sql = "SELECT * FROM p_produtos WHERE nome LIKE '%$prod_name%' AND excluido = 'f' ORDER BY $order";
             $res = pg_query($conectar, $sql);
             $qtd = pg_num_rows($res);
 
@@ -169,7 +186,7 @@
                                                             }
                                                             else
                                                             {
-                                                                echo "<h2>x</h2>"; //SEM CARRINHO
+                                                                echo "<h2>0</h2>"; //SEM CARRINHO
                                                             }
                                                         ?>
 													</div>
@@ -237,7 +254,7 @@
                                             }
                                             else
                                             {
-                                                echo "<h2>x</h2>"; //SEM CARRINHO
+                                                echo "<h2>0</h2>"; //SEM CARRINHO
                                             }
                                         ?>
 									</div>
@@ -248,23 +265,43 @@
 				</div>
             </div>
             
-            <div class="catalogo">
 
-                <?php 
+                <div class="catalogoStruct">
+				<?php 
                 switch($state) 
                 {
                     case 0:
                         ?>
-                            <h1>Nenhum produto foi encontrado!</h1>
-                            <br><br><br>
-                            <h2>Tente novamente com outros termos</h2>
-
-                            <h1 class="gig">:(</h1>
+                            <div class="catFeedback">
+								<h1>Nenhum produto foi encontrado!</h1>
+								<h2>Para a pesquisa de "<?php echo $prod_name ?>"</h2>
+								<h1 class="gig">:(</h1>
+							</div>
                         <?php
                         break;
 
                     case 1:
-                        ?>
+						?>
+						<div class="catFeedback">
+							<h1>Esses foram os produtos encontrados!</h1>
+							<h2>Para a pesquisa de "<?php echo $prod_name ?>"</h2>
+						</div>
+
+						<div class="orderBar">
+							<div class="orderOrg">
+								<div class="order">
+									<form action="" id="frmOrder">
+										<select name="order" id="selOrder" onchange="frmOrderSubmit()">
+											<option value="alf">Ordem Alfabética</option>
+											<option value="men">Menor Preço ↑</option>
+											<option value="mai">Maior Preço ↓</option>
+										</select>
+									</form>
+								</div>
+							</div>
+						</div>
+
+            <div class="catalogo">
                         <div class="catalogoProds">
                             <div class="prods">
                                 
@@ -315,6 +352,7 @@
                                  
                             </div>
                         </div>
+            </div>
                         <?php
                         pg_close();
                         break;
@@ -332,7 +370,7 @@
                         break;
                 }
                 ?>
-            </div>
+				</div>
 
 			<div class="footer">
 				<div class="footerContent">
@@ -420,7 +458,7 @@
                                                                         }
                                                                         else
                                                                         {
-                                                                            echo "<h2>x</h2>"; //SEM CARRINHO
+                                                                            echo "<h2>0</h2>"; //SEM CARRINHO
                                                                         }
                                                                     ?>
 																</div>
@@ -488,7 +526,7 @@
                                                         }
                                                         else
                                                         {
-                                                            echo "<h2>x</h2>"; //SEM CARRINHO
+                                                            echo "<h2>0</h2>"; //SEM CARRINHO
                                                         }
                                                     ?>
 												</div>
@@ -507,13 +545,10 @@
 							</div>
 							<div class="footerContatoIcons">
 								<div class="footerContatoIconsContent">
-									<a href="" id="aface"><img src="imgs/facebook.png" id="face" alt="">
+									<a href="https://www.facebook.com/kitallCTI" id="aface" target="_blank"><img src="imgs/facebook.png" id="face" alt="">
 										<div></div>
 									</a>
-									<a href="" id="ainsta"><img src="imgs/instagram.png" id="insta" alt="">
-										<div></div>
-									</a>
-									<a href="" id="atwitter"><img src="imgs/twitter.png" id="twitter" alt="">
+									<a href="https://www.instagram.com/kitallcti/" id="ainsta" target="_blank"><img src="imgs/instagram.png" id="insta" alt="">
 										<div></div>
 									</a>
 								</div>
