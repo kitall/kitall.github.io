@@ -15,6 +15,11 @@
 	transition-duration: 0.2s;
 }
 
+*::selection {
+	background-color: #1CCE00;
+	color: white;
+}
+
 /* *:focus {
 	outline: none;
 } */

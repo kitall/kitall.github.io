@@ -90,7 +90,7 @@
     padding-top: 5px;
     margin: 0;
     font-weight: normal;
-    opacity: 0;
+    /* opacity: 0; */
 }
 
 .errorCampo p {
@@ -101,8 +101,36 @@
 
 .wrongInput {
     border-color: red;
+
 }
 
+/* .errorCampo#endereco {
+    content: "Você precisa inserir o Endereço!";
+}
+
+.errorCampo#numero {
+    content: "Você precisa inserir o Número!";
+}
+
+.errorCampo#bairro {
+    content: "Você precisa inserir o Bairro!";
+}
+
+.errorCampo#cidade {
+    content: "Você precisa inserir a Cidade!";
+}
+
+.errorCampo#cep {
+    content: "Você precisa inserir o CEP!";
+}
+
+.errorCampo#estado {
+    content: "Você precisa inserir o Estado!";
+}
+
+.errorCampo#pais {
+    content: "Você precisa inserir o País!";
+} */
 
 .selectSexo {}
 

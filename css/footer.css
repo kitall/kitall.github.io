@@ -57,7 +57,7 @@
 .footerContatoIconsContent {
     margin: auto;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     padding: 0;
 }
 
@@ -138,13 +138,13 @@
     padding: 0;
     width: 100%;
     font-size: 1.5ch;
-    down: 0;
+    bottom: 0;
 }
 
 .menuFooter {
     /* background: red; */
     grid-area: menuFooter;
-    display: flex;
+    /* display: flex; */
     width: 100%;
     padding: 0;
     margin: 0;
@@ -247,7 +247,7 @@
 
 .menuFooterMobileContent ul {
     padding: 0;
-    margin: 0;
+    margin: auto;
     overflow: hidden;
     /* background: #fcfcfc; */
     /* border: solid 1px #149d00; */
@@ -436,4 +436,8 @@
     .marginBottom {
         bottom: 70px;
     }
+}
+
+.btns ul li a {
+    padding: 0;
 }

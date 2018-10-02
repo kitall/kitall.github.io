@@ -261,7 +261,7 @@
  * VIDEO - VIDEO PROMOCIONAL
  *
  */
-.presentVideo {
+.video {
     grid-area: video;
     display: flex;
     margin: auto;
@@ -282,24 +282,31 @@
     display: grid;
     grid-template-rows: 550px 1fr;
     grid-row-gap: 1em;
-    grid-template-areas: "video""txt";
+    grid-template-areas: "presentVideo""presentTxt";
 }
 
 .presentVideo {
     display: flex;
-    grid-area: video;
+    grid-area: presentVideo;
     /* background: red; */
+    width: 100%;
+    /* padding-top: 56.25%; */
+    position: relative;
 }
 
 .presentVideo iframe {
+    position: relative;
+    top: 0;
+    /* left: 0; */
     width: 80%;
-    height: 550px;
+    height: 100%;
     margin: auto;
     padding: 0;
 }
 
 .presentVideoDescription {
-    grid-area: txt;
+    grid-area: presentTxt;
+    /* position: absolute; */
     text-align: center;
     height: auto;
     margin: auto;
