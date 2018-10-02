@@ -40,7 +40,7 @@
                     echo "<br>Excluido = Nao";
 
                 //Salva suas propriedades para enviar para a alteração
-                $to_send = "id=$id&nome=$nome&qtd=$qtd&preco=$preco&excluido=$excluido&descricao=$descricao&custo=$custo";
+                $to_send = "id=$id&nome=$nome&qtd=$qtd&preco=$preco&excluido=$excluido&descricao=$descricao&custo=$custo&link_img=$link_img";
                         //não pode tabular porque ele envia os espaços do tab
 
                 echo "<br><a href='../alteracao/index.php?".$to_send."'>Editar Produto</a>";

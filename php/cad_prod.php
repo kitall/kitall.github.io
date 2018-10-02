@@ -5,9 +5,10 @@
     $preco = $_POST['preco'];
     $custo = $_POST['custo'];
     $descr = $_POST['descricao'];
+    $nome_link = $_POST['nome_link'];
 
     //outas variaveis importantes
-    $link_img = "http://200.145.153.175/andrecreppe/kitall/imgs/produtos/".$nome.".jpg";
+    $link_img = "http://200.145.153.175/andrecreppe/kitall/imgs/produtos/$nome_link.png";
 
     //Programa
     include "connect.php";

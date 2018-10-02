@@ -50,6 +50,12 @@
                 </td>
             </tr>
             <tr>
+                <td>Link Imagem</td>
+                <td>
+                    <textarea rows="4" cols="50" name="link_img"><?php echo $_GET['link_img']; ?></textarea>
+                </td>
+            </tr>
+            <tr>
                 <td>Excluído:</td>
                 <td>
                     <?php
