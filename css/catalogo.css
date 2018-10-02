@@ -1,6 +1,33 @@
+.catalogoStruct {
+    width: 100%;
+}
+
 .catalogo {
     width: 100%;
     display: flex;
+}
+
+.catFeedback {
+    margin: auto;
+    display: block;
+    text-align: center;
+}
+
+.orderBar {
+    width: 100%;
+    display: flex;
+}
+
+.orderOrg {
+    width: 80%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas: "none none orderbar";
+}
+
+.order {
+    grid-area: orderbar;
 }
 
 .catalogoProds {
@@ -23,7 +50,7 @@
     grid-template-columns: 1fr 1fr;
     box-sizing: border-box;
     /* text-align: center; */
-
+    height: 100%;
     padding: 10px;
     margin: 10px;
 }

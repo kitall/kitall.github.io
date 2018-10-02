@@ -39,6 +39,11 @@ function showContato() {
     document.getElementById('isContatoShown').value = contatoShown;
 }
 
+function frmOrderSubmit() {
+    var frm = document.getElementById("frmOrder");
+    frm.submit();
+}
+
 //function validaCamposCadastro(){
 //    var formCad = document.getElementById('cadastro');
 //    var login = document.getElementById('login');

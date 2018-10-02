@@ -190,7 +190,7 @@
 														<img src="" id="cesta" alt="Cesta">
 													</div>
 													<div>
-														<h2>x</h2>
+														<h2>0</h2>
 													</div>
 												</a>
 											</div>
@@ -240,7 +240,7 @@
 										<img src="" id="cesta" alt="Cesta">
 									</div>
 									<div>
-										<h2>x</h2>
+										<h2>0</h2>
 									</div>
 								</a>
 							</div>
@@ -352,7 +352,7 @@
 																	<img src="" id="cesta" alt="Cesta">
 																</div>
 																<div>
-																	<h2>x</h2>
+																	<h2>0</h2>
 																</div>
 															</a>
 														</div>
@@ -402,7 +402,7 @@
 													<img src="" id="cesta" alt="Cesta">
 												</div>
 												<div>
-													<h2>x</h2>
+													<h2>0</h2>
 												</div>
 											</a>
 										</div>
@@ -419,13 +419,10 @@
 							</div>
 							<div class="footerContatoIcons">
 								<div class="footerContatoIconsContent">
-									<a href="" id="aface"><img src="imgs/facebook.png" id="face" alt="">
+									<a href="https://www.facebook.com/kitallCTI" id="aface" target="_blank"><img src="imgs/facebook.png" id="face" alt="">
 										<div></div>
 									</a>
-									<a href="" id="ainsta"><img src="imgs/instagram.png" id="insta" alt="">
-										<div></div>
-									</a>
-									<a href="" id="atwitter"><img src="imgs/twitter.png" id="twitter" alt="">
+									<a href="https://www.instagram.com/kitallcti/" id="ainsta" target="_blank"><img src="imgs/instagram.png" id="insta" alt="">
 										<div></div>
 									</a>
 								</div>

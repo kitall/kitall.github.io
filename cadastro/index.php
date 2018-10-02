@@ -6,7 +6,7 @@
     if (!empty($_SESSION['user'])) //Teste de sessão
     {
         //Redireciona pois não se pode fazer o seu cadastro estando logado
-            //O usuario tentou entrar manualmente
+        //O usuario tentou entrar manualmente
         header("Location: ../index.php");
         exit;
     }
@@ -287,7 +287,7 @@
                                                         <img src="" id="cesta" alt="Cesta">
                                                     </div>
                                                     <div>
-                                                        <h2>x</h2>
+                                                        <h2>0</h2>
                                                     </div>
                                                 </a>
                                             </div>
@@ -338,7 +338,7 @@
                                         <img src="" id="cesta" alt="Cesta">
                                     </div>
                                     <div>
-                                        <h2>x</h2>
+                                        <h2>0</h2>
                                     </div>
                                 </a>
                             </div>
@@ -361,7 +361,7 @@
                                     <div>
                                         <div class="lblCampo"><label>Nome*</label></div>
                                     </div>
-                                    <input type="text" name="nome" placeholder="Albert" autofocus maxlength="30" required>
+                                    <input type="text" name="nome" placeholder="ex.: Albert" autofocus maxlength="30" required title="Insira seu nome!">
                                     <div class="descCampo" id="nome">
                                         <p></p>
                                     </div>
@@ -370,7 +370,7 @@
                                     <div>
                                         <div class="lblCampo"><label>Sobrenome*</label></div>
                                     </div>
-                                    <input type="text" name="sobrenome" placeholder="Einstein" maxlength="40" required>
+                                    <input type="text" name="sobrenome" placeholder="ex.: Einstein" maxlength="40" required title="Insira seu sobrenome!">
                                     <div class="descCampo" id="sobrenome">
                                         <p></p>
                                     </div>
@@ -380,7 +380,7 @@
                                         <div class="lblCampo"><label>Sexo*</label></div>
                                     </div>
                                     <br>
-                                    <div class="selectSexo">
+                                    <div class="selectSexo" title="Insira seu sexo!">
                                         <input type="radio" name="sexo" value="M" id="sexoM" required><label for="sexoM">Masculino</label>
                                         <input type="radio" name="sexo" value="F" id="sexoF"><label for="sexoF">Feminino</label>
                                         <input type="radio" name="sexo" value="N" id="sexoN"><label for="sexoN">Prefiro
@@ -394,18 +394,18 @@
                                     <div>
                                         <div class="lblCampo"><label>Data de Nascimento*</label></div>
                                     </div>
-                                    <input type="date" name="data_nasc" max="2018-10-08" min="1910-01-01" maxlenght="10" required>
+                                    <input type="date" name="data_nasc" max="2018-10-08" min="1910-01-01" maxlenght="10" required title="Insira sua data de nascimento!">
                                     <div class="descCampo" id="data_nasc">
                                         <p></p>
                                     </div>
                                 </div>
                                 <div class="campo">
                                     <div>
-                                        <div class="lblCampo"><label>Celular*</label></div>
+                                        <div class="lblCampo"><label>Celular ou Telefone*</label></div>
                                     </div>
-                                    <input type="text" name="celular" placeholder="Insira sem pontuação (ex.: 14987626754)" required>
+                                    <input type="text" name="celular" placeholder="ex.: 14987626754" required title="Insira seu número de celular ou telefone!">
                                     <div class="descCampo" id="celular">
-                                        <p></p>
+                                        <p>Insira sem qualquer formatação.</p>
                                     </div>
                                 </div>
                             </div>
@@ -418,9 +418,9 @@
                                     <div>
                                         <div class="lblCampo"><label>Login*</label></div>
                                     </div>
-                                    <input type="text" name="login" placeholder="albEinstein123 (não pode conter '@')" pattern="[^@\x22]+" required>
+                                    <input type="text" name="login" placeholder="ex.: albEinstein123" pattern="[^@\x22]+" required title="Insira seu login!">
                                     <div class="descCampo" id="login">
-                                        <p></p>
+                                        <p>O nome de usuário que utilizará para entrar em sua conta. Não pode conter '@'.</p>
                                     </div>
                                 </div>
 
@@ -428,9 +428,9 @@
                                     <div>
                                         <div class="lblCampo"><label>Email*</label></div>
                                     </div>
-                                    <input type="text" name="email" placeholder="albert@einstein.com" required>
+                                    <input type="text" name="email" placeholder="ex.: albert@einstein.com" required title="Insira seu email!">
                                     <div class="descCampo" id="email">
-                                        <p></p>
+                                        <p>Seu email será verificado.</p>
                                     </div>
                                 </div>
 
@@ -438,9 +438,9 @@
                                     <div>
                                         <div class="lblCampo"><label>Senha*</label></div>
                                     </div>
-                                    <input type="password" name="senha" placeholder="Sua nova senha aqui..." required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters">
+                                    <input type="password" name="senha" placeholder="ex.: ********" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Insira sua senha!">
                                     <div class="descCampo" id="senha">
-                                        <p></p>
+                                        <p>Deve conter pelo menos um número, uma letra maiúscula e uma letra minúscula, e pelo menos 8 caracteres.</p>
                                     </div>
                                 </div>
                             </div>
@@ -453,9 +453,9 @@
                                     <div>
                                         <div class="lblCampo"><label>Endereço</label></div>
                                     </div>
-                                    <input type="text" name="endereco" placeholder="R. João de Barro">
+                                    <input type="text" name="endereco" placeholder="ex.: R. João de Barro" title="Insira a rua ou avenida de sua casa!">
                                     <div class="descCampo" id="endereco">
-                                        <p>Você precisa inserir o Endereço!</p>
+                                        <p></p>
                                     </div>
                                 </div>
 
@@ -463,9 +463,9 @@
                                     <div>
                                         <div class="lblCampo"><label>Número</label></div>
                                     </div>
-                                    <input type="text" name="numero" placeholder="10-21">
+                                    <input type="text" name="numero" placeholder="ex.: 10-21" title="Insira o número de sua casa!">
                                     <div class="descCampo" id="numero">
-                                        <p>Você precisa inserir o Número!</p>
+                                        <p></p>
                                     </div>
                                 </div>
                             </div>
@@ -475,7 +475,7 @@
                                     <div>
                                         <div class="lblCampo"><label>Complemento</label></div>
                                     </div>
-                                    <input type="text" name="complemento" placeholder="Portão 3, Apto. 12">
+                                    <input type="text" name="complemento" placeholder="ex.: Portão 3, Apto. 12" title="Insira, se houver, o complemento de seu endereço!">
                                     <div class="descCampo" id="complemento">
                                         <p></p>
                                     </div>
@@ -484,9 +484,9 @@
                                     <div>
                                         <div class="lblCampo"><label>Bairro</label></div>
                                     </div>
-                                    <input type="text" name="bairro" placeholder="Jardim dos Pinheiros">
+                                    <input type="text" name="bairro" placeholder="ex.: Jardim dos Pinheiros" title="Insira seu bairro!">
                                     <div class="descCampo" id="bairro">
-                                        <p>Você precisa inserir o Bairro!</p>
+                                        <p></p>
                                     </div>
                                 </div>
 
@@ -498,9 +498,9 @@
                                     <div>
                                         <div class="lblCampo"><label>Cidade</label></div>
                                     </div>
-                                    <input type="text" name="cidade" placeholder="Bauru">
+                                    <input type="text" name="cidade" placeholder="ex.: Bauru" title="Insira sua cidade!">
                                     <div class="descCampo" id="cidade">
-                                        <p>Você precisa inserir a Cidade!</p>
+                                        <p></p>
                                     </div>
                                 </div>
 
@@ -508,9 +508,9 @@
                                     <div>
                                         <div class="lblCampo"><label>CEP</label></div>
                                     </div>
-                                    <input type="text" name="cep" placeholder="11235-813">
+                                    <input type="text" name="cep" placeholder="ex.: 11235-813" title="Insira seu CEP!">
                                     <div class="descCampo" id="cep">
-                                        <p>Você precisa inserir o CEP!</p>
+                                        <p></p>
                                     </div>
                                 </div>
                             </div>
@@ -520,7 +520,7 @@
                                     <div>
                                         <div class="lblCampo"><label>Estado</label></div>
                                     </div>
-                                    <select name="estado">
+                                    <select name="estado" title="Insira seu estado!">
                                         <option value="" disabled selected>Unidade Federativa</option>
                                         <option value="AC">Acre</option>
                                         <option value="AL">Alagoas</option>
@@ -551,7 +551,7 @@
                                         <option value="TO">Tocantins</option>
                                     </select>
                                     <div class="descCampo" id="estado">
-                                        <p>Você precisa inserir o Estado!</p>
+                                        <p></p>
                                     </div>
                                 </div>
 
@@ -559,7 +559,7 @@
                                     <div>
                                         <div class="lblCampo"><label>País</label></div>
                                     </div>
-                                    <input type="text" name="pais" placeholder="Brasil">
+                                    <input type="text" name="pais" placeholder="ex.: Brasil" title="Insira seu país!">
                                     <div class="descCampo" id="pais">
                                         <p></p>
                                     </div>
@@ -705,7 +705,7 @@
                                                                     <img src="" id="cesta" alt="Cesta">
                                                                 </div>
                                                                 <div>
-                                                                    <h2>x</h2>
+                                                                    <h2>0</h2>
                                                                 </div>
                                                             </a>
                                                         </div>
@@ -757,7 +757,7 @@
                                                     <img src="" id="cesta" alt="Cesta">
                                                 </div>
                                                 <div>
-                                                    <h2>x</h2>
+                                                    <h2>0</h2>
                                                 </div>
                                             </a>
                                         </div>
@@ -768,25 +768,22 @@
                     </div>
 
                     <div class="footerContato">
-                        <div class="footerContatoContent">
-                            <div class="footerContatoTxt">
-                                <h2>Entre em <a class="bold" href="">Contato</a>!</h2>
-                            </div>
-                            <div class="footerContatoIcons">
-                                <div class="footerContatoIconsContent">
-                                    <a href="" id="aface"><img src="imgs/facebook.png" id="face" alt="">
-                                        <div></div>
-                                    </a>
-                                    <a href="" id="ainsta"><img src="imgs/instagram.png" id="insta" alt="">
-                                        <div></div>
-                                    </a>
-                                    <a href="" id="atwitter"><img src="imgs/twitter.png" id="twitter" alt="">
-                                        <div></div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+						<div class="footerContatoContent">
+							<div class="footerContatoTxt">
+								<h2>Entre em <a class="bold" href="">Contato</a>!</h2>
+							</div>
+							<div class="footerContatoIcons">
+								<div class="footerContatoIconsContent">
+									<a href="https://www.facebook.com/kitallCTI" id="aface" target="_blank"><img src="imgs/facebook.png" id="face" alt="">
+										<div></div>
+									</a>
+									<a href="https://www.instagram.com/kitallcti/" id="ainsta" target="_blank"><img src="imgs/instagram.png" id="insta" alt="">
+										<div></div>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
 
                     <div class="footerTopo">
                         <div class="footerTopoContent">
