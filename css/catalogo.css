@@ -2,11 +2,6 @@
     width: 100%;
 }
 
-.catalogo {
-    width: 100%;
-    display: flex;
-}
-
 .catFeedback {
     margin: auto;
     display: block;
@@ -22,18 +17,24 @@
     width: 80%;
     margin: auto;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: auto auto auto;
     grid-template-areas: "none none orderbar";
 }
 
 .order {
     grid-area: orderbar;
+    width: 50%;
+}
+
+
+.catalogo {
+    width: 100%;
+    /* display: flex; */
 }
 
 .catalogoProds {
-    margin: auto;
     width: 100%;
-    display: flex;
+    display: block;
 }
 
 .prods {

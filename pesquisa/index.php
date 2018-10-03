@@ -172,7 +172,7 @@
                                                         }
                                                         else
                                                         {
-                                                            ?><h2><a href="../login/" title="Entre em sua conta!">Entre</a> ou <a href="cadastro/" title="Cadastre-se em nosso site!">Cadastre-se</a></h2><?php 
+                                                            ?><h2><a href="../login/" title="Entre em sua conta!">Entre</a> ou <a href="../cadastro/" title="Cadastre-se em nosso site!">Cadastre-se</a></h2><?php 
                                                         } 
                                                     ?>
 												</div>
@@ -240,7 +240,7 @@
                                         }
                                         else
                                         {
-                                            ?><h2><a href="../login/" title="Entre em sua conta!">Entre</a> ou <a href="cadastro/" title="Cadastre-se em nosso site!">Cadastre-se</a></h2><?php 
+                                            ?><h2><a href="../login/" title="Entre em sua conta!">Entre</a> ou <a href="../cadastro/" title="Cadastre-se em nosso site!">Cadastre-se</a></h2><?php 
                                         } 
                                     ?>
 								</div>
@@ -302,6 +302,9 @@
 											<option value="men">Menor Preço ↑</option>
 											<option value="mai">Maior Preço ↓</option>
 										</select>
+
+										<input type="hidden" name="search" value="<?php echo $prod_name; ?>">
+
 									</form>
 								</div>
 							</div>
@@ -312,8 +315,18 @@
                             <div class="prods">
                                 
                                 <?php
+
+								$i = 0;
                                 while ($prod = pg_fetch_array($res)) 
                                 {
+
+									if($i >= 3){
+										?> 
+											</div>
+											<div class="prods"> 
+										<?php
+									}
+
                                     $id = $prod['id_prod'];
                                     $nome = $prod['nome'];
                                     $preco = $prod['preco'];
@@ -352,11 +365,10 @@
                                     </div>
 
                                     <?php
-
-                                }
-                                ?>
-                                 
-                            </div>
+									$i++;
+								}
+								?> 
+								</div>
                         </div>
             </div>
                         <?php
@@ -444,7 +456,7 @@
                                                                     }
                                                                     else
                                                                     {
-                                                                        ?><h2><a href="../login/" title="Entre em sua conta!">Entre</a> ou <a href="cadastro/" title="Cadastre-se em nosso site!">Cadastre-se</a></h2><?php 
+                                                                        ?><h2><a href="../login/" title="Entre em sua conta!">Entre</a> ou <a href="../cadastro/" title="Cadastre-se em nosso site!">Cadastre-se</a></h2><?php 
                                                                     } 
                                                                 ?>
 															</div>
@@ -512,7 +524,7 @@
                                                     }
                                                     else
                                                     {
-                                                        ?><h2><a href="../login/" title="Entre em sua conta!">Entre</a> ou <a href="cadastro/" title="Cadastre-se em nosso site!">Cadastre-se</a></h2><?php 
+                                                        ?><h2><a href="../login/" title="Entre em sua conta!">Entre</a> ou <a href="../cadastro/" title="Cadastre-se em nosso site!">Cadastre-se</a></h2><?php 
                                                     } 
                                                 ?>
 											</div>
