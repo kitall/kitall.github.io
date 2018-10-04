@@ -121,4 +121,7 @@ CREATE TABLE f_fluxocaixa
 	saldoatual		NUMERIC(8,2)	NOT NULL,
 	CONSTRAINT pk_fluxocaixa PRIMARY KEY (id_fluxocaixa)
 );
+
+INSERT INTO f_lancamento VALUES(DEFAULT, '04-10-2018', 'Capital inicial', 'E', '50.00');
+INSERT INTO f_fluxocaixa VALUES(DEFAULT, '04-10-2018', 'Capital inicial', '0.00', '50.00', '0.00', '50.00');
 /*-----------------------------------------------------------------------------------------*/

@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <?php
     $root_usr = "kitall";
     $root_passwd = "kitallEComm2018";
@@ -56,6 +55,7 @@
                 if ($senha == md5($pass)) 
                 {
                     $_SESSION['user'] = $user;
+                    $_SESSION['user_id'] = $userbd['id_usuario'];
                     $_SESSION['senha'] = $senha;
                     
                     $_SESSION['carrinho'] = 0;
