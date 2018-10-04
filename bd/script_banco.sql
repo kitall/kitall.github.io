@@ -1,6 +1,5 @@
 /* Script do banco de dados de PRODUTOS da 'Kitall?' */
 DROP TABLE IF EXISTS p_produtos CASCADE;
-DROP TABLE IF EXISTS p_carrinho;
 DROP TABLE IF EXISTS p_vendas;
 
 CREATE TABLE p_produtos
@@ -13,15 +12,6 @@ CREATE TABLE p_produtos
     descricao   CHARACTER VARYING(300) NOT NULL,
     link_img    CHARACTER VARYING(120) NOT NULL,
     excluido    BOOL NOT NULL
-);
-
-CREATE TABLE p_carrinho
-(
-    id_cli          INT NOT NULL,
-    id_prod         INT NOT NULL
-                        REFERENCES p_produtos,
-    qtd             INT NOT NULL,
-    preco_prod      FLOAT NOT NULL
 );
 
 CREATE TABLE p_vendas
