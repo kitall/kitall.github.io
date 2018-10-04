@@ -6,6 +6,8 @@
 </head>
 <body>
     <?php
+        session_start();
+    
         $id = $_GET['id_prod'];
     
         include "../../php/connect.php";
@@ -20,6 +22,10 @@
                 $nome = $prod['nome'];
                 $descricao = $prod['descricao'];
                 $link_img = $prod['link_img'];
+                $preco = $prod['preco'];
+                $qtd = $prod['qtd'];
+                
+                $_SESSION['id_venda'] = $prod['id_prod'];
             }
         } 
     ?>
@@ -27,9 +33,16 @@
     <p>Deseja efetuar a compra de <b><?php echo $nome; ?></b> ?</p>
     <?php  echo "<img src='$link_img' alt='300'>";  ?>
     <br>
-    <br>
-    <form action="../../vender.php" method="post">
-        
+    <form action="../../php/vender.php" method="post">
+        Preço (R$):
+        <?php echo "<input type='text' name='preco' value='$preco' readonly>"; ?>
+        <br>
+        Quantidade:
+        <?php echo "<input type='number' name='qtd' max='$qtd' required>"; ?>
+        <br>
+        <input type="submit" value="Confirmar">
+        <br>
+        <a href="../../index.php">Cancelar Compra</a>
     </form>
 </body>
 </html>

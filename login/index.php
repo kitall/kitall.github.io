@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <?php
     $root_usr = "kitall";
     $root_passwd = "kitallEComm2018";
