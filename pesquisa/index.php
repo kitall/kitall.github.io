@@ -11,7 +11,7 @@
 
 	$selorder = false;
 
-    $link_venda = "../IMPLEMENTAR/venda/index.php?id_prod=";
+    $link_venda = "../venda/index.php?id_prod=";
 
 	if(isset($_GET['order']))
     {
