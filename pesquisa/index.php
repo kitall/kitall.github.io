@@ -320,12 +320,12 @@
                                 while ($prod = pg_fetch_array($res)) 
                                 {
 
-									if($i >= 3){
-										?> 
-											</div>
-											<div class="prods"> 
-										<?php
-									}
+									// if($i >= 3){
+									// 	?> 
+									// 		</div>
+									// 		<div class="prods"> 
+									// 	<?php
+									// }
 
                                     $id = $prod['id_prod'];
                                     $nome = $prod['nome'];
@@ -336,36 +336,38 @@
                                     $emEstoque = $qtd > 0;
 
                                     ?>
-
-                                    <div class="prod">
+									<div class="prod">
                                         <div class="prodImage">
                                             <div class="prodImg">
                                                 <img src="<?php echo $link_img; ?>" alt="<?php echo $nome; ?>">
                                             </div>
                                         </div>
-                                        <div class="prodText">
-                                            <div class="prodTextContent">
-                                                <div class="prodInfo">
+										<div class="prodText">
+											<div class="prodTextContent">
+												<div class="prodInfo">
                                                     <h3>
                                                     <?php echo $nome; ?>
                                                     </h3>
-                                                    <div>
-                                                    <?php echo $preco; ?>
-                                                    </div>
-                                                </div>
-                                                <div class="prodBtn  <?php if ($emEstoque) echo "emEstoque";
-                                                                    else echo "semEstoque"; ?>">
-                                                    <a href="" class="standby"><?php if ($emEstoque) echo "EM ESTOQUE";
-                                                                                else echo "INDISPONÍVEL"; ?></a>
-                                                    <a href="<?php echo $link_venda.$id ?>" class="active"><?php if ($emEstoque) echo "COMPRAR";
-                                                                                else echo "VISUALIZAR"; ?></a>
-                                            </div>
-                                            </div>
-                                        </div>
-                                    </div>
+												</div>
+											</div>
+
+											<div class="prodPriceContent">
+												<div class="prodPrice">R$
+                                                    <?php echo $preco; ?></div>
+											</div>
+
+											<div class="prodBtnContent">
+												
+												<div class="prodBtn  <?php if ($emEstoque) echo "emEstoque"; else echo "semEstoque"; ?>">
+                                                    <a href="" class="standby"><?php if ($emEstoque) echo "EM ESTOQUE"; else echo "INDISPONÍVEL"; ?></a>
+                                                    <a href="<?php echo $link_venda.$id ?>" class="active"><?php if ($emEstoque) echo "COMPRAR"; else echo "VISUALIZAR"; ?></a>
+                                            	</div>
+											</div>
+										</div>
+									</div>
 
                                     <?php
-									$i++;
+									// $i++;
 								}
 								?> 
 								</div>
