@@ -9,7 +9,7 @@
     <?php
         include "../../php/connect.php";
 
-        $sql = "SELECT * FROM p_produtos;";
+        $sql = "SELECT * FROM p_produtos ORDER BY id_prod;";
         $res = pg_query($conectar, $sql);
         $qtd = pg_num_rows($res);
         if($qtd > 0)
