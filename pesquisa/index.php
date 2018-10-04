@@ -15,7 +15,7 @@
 
 	if(isset($_GET['order']))
     {
-		$getOrder = $_POST['order'];
+		$getOrder = $_GET['order'];
 
 		if($getOrder == "alf")
         {

@@ -24,8 +24,6 @@
 .order {
     grid-area: orderbar;
     width: 50%;
-    margin: auto;
-    right: 0;
 }
 
 
@@ -51,8 +49,8 @@
     margin: auto;
     /* background: green; */
     display: inline-grid;
-    max-width: 300px;
-    grid-template-rows: 1fr 1fr;
+    width: 300px;
+    /* grid-template-rows: 1fr 1fr; */
     box-sizing: border-box;
     /* text-align: center; */
     /* height: 300px; */
@@ -112,7 +110,7 @@
 .prodInfo h3 {
     margin: 0;
     font-weight: normal;
-    /* font-size: 1.5ch; */
+    font-size: 1.5ch;
 }
 
 .prodPriceContent {
