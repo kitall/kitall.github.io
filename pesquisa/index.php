@@ -7,6 +7,10 @@
 	$state = 0;
 	$order = "nome";
 
+	$getOrder = " ";
+
+	$selorder = false;
+
     $link_venda = "../IMPLEMENTAR/venda/index.php?id_prod=";
 
 	if(isset($_GET['order']))
@@ -25,6 +29,8 @@
         {
 			$order = "preco DESC";
 		}
+
+		$selorder = true;
 	}
 
     if (!empty($_SESSION['user'])) //Teste de sessão
@@ -35,16 +41,18 @@
     try 
     {
         $prod_name = $_GET['search'];
-        
+		
+		$lower_prod_name = strtolower($prod_name);
+		
         include "../php/connect.php";
 
-        $sql = "SELECT * FROM p_produtos WHERE nome = '$prod_name' AND excluido = 'f'";
+        $sql = "SELECT * FROM p_produtos WHERE lower(nome) = '$lower_prod_name' AND excluido = 'f'";
         $res = pg_query($conectar, $sql);
         $qtd = pg_num_rows($res);
 
         if ($qtd <= 0) 
         {
-            $sql = "SELECT * FROM p_produtos WHERE nome LIKE '%$prod_name%' AND excluido = 'f' ORDER BY $order";
+            $sql = "SELECT * FROM p_produtos WHERE lower(nome) LIKE '%$lower_prod_name%' AND excluido = 'f' ORDER BY $order";
             $res = pg_query($conectar, $sql);
             $qtd = pg_num_rows($res);
             
@@ -297,10 +305,12 @@
 							<div class="orderOrg">
 								<div class="order">
 									<form action="" id="frmOrder">
+										<input type="hidden" name="search" value="<?php echo $prod_name; ?>">
+
 										<select name="order" id="selOrder" onchange="frmOrderSubmit()">
-											<option value="alf">Ordem Alfabética</option>
-											<option value="men">Menor Preço ↑</option>
-											<option value="mai">Maior Preço ↓</option>
+											<option value="alf" <?php if($selorder && $getOrder == "alf") echo "selected"; ?>>Ordem Alfabética</option>
+											<option value="men" <?php if($selorder && $getOrder == "men") echo "selected"; ?>>Menor Preço ↑</option>
+											<option value="mai" <?php if($selorder && $getOrder == "mai") echo "selected"; ?>>Maior Preço ↓</option>
 										</select>
 
 										<input type="hidden" name="search" value="<?php echo $prod_name; ?>">
@@ -319,13 +329,6 @@
 								$i = 0;
                                 while ($prod = pg_fetch_array($res)) 
                                 {
-
-									// if($i >= 3){
-									// 	?> 
-									// 		</div>
-									// 		<div class="prods"> 
-									// 	<?php
-									// }
 
                                     $id = $prod['id_prod'];
                                     $nome = $prod['nome'];
