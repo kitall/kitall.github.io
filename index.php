@@ -7,6 +7,7 @@
     if (!empty($_SESSION['user'])) //Teste de sessão
     {
         $logado = true;
+        $carrinho = $_SESSION['carrinho'];
     }
 
     $able = true;
@@ -145,7 +146,7 @@
 														<?php 
 															if ($logado) //Teste de sessão
 															{
-																echo "<h2>".$_SESSION['carrinho']."</h2>";
+																echo "<h2>".$carrinho."</h2>";
 															}
 															else
 															{
@@ -213,7 +214,7 @@
 									    <?php 
                                             if ($logado) //Teste de sessão
                                             {
-                                                echo "<h2>".$_SESSION['carrinho']."</h2>";
+                                                echo "<h2>".$carrinho."</h2>";
                                             }
                                             else
                                             {
@@ -284,7 +285,7 @@
 							?>
 							</div>
 							<div class="featProductImg">
-								<?php echo "<img src='$link_img' alt='300'>" ?>
+								<?php echo "<a href='venda/index.php?id_prod=$numm'><img src='$link_img' alt='300'></a>" ?>
 							</div>
 					</div>
 					<div class="featProduct textOnRight">
@@ -328,7 +329,7 @@
 						?>
 						</div>
 						<div class="featProductImg">
-							<?php echo "<img src='$link_img' alt='300'>" ?>
+							<?php echo "<a href='venda/index.php?id_prod=$numm'><img src='$link_img' alt='300'></a>" ?>
 						</div>
 					</div>
 					<div class="featProduct textOnLeft">
@@ -372,7 +373,7 @@
 						?>
 						</div>
 						<div class="featProductImg">
-							<?php echo "<img src='$link_img' alt='300'>" ?>
+							<?php echo "<a href='venda/index.php?id_prod=$numm'><img src='$link_img' alt='300'></a>" ?>
 						</div>
 					</div>
 				</div>
@@ -475,7 +476,7 @@
 																<?php 
                                                                     if ($logado) //Teste de sessão
                                                                     {
-                                                                        echo "<h2>".$_SESSION['carrinho']."</h2>";
+                                                                        echo "<h2>".$carrinho."</h2>";
                                                                     }
                                                                     else
                                                                     {
@@ -542,7 +543,7 @@
 													<?php 
                                                         if ($logado) //Teste de sessão
                                                         {
-                                                            echo "<h2>".$_SESSION['carrinho']."</h2>";
+                                                            echo "<h2>".$carrinho."</h2>";
                                                         }
                                                         else
                                                         {

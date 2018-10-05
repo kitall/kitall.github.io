@@ -1,5 +1,4 @@
 <?php
-    
 	function sendEmail ($email, $nome, $subject, $message){
 		require_once("class.phpmailer.php");
 		require_once("class.smtp.php");

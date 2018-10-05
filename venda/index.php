@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Venda de produtos - BETA</title>
+    <title>Venda - BETA</title>
 </head>
 <body>
     <?php
@@ -10,7 +10,7 @@
     
         $id = $_GET['id_prod'];
     
-        include "../../php/connect.php";
+        include "../php/connect.php";
     
         $sql = "SELECT * FROM p_produtos WHERE id_prod=$id";
         $res = pg_query($conectar, $sql);
@@ -26,23 +26,23 @@
                 $qtd = $prod['qtd'];
                 
                 $_SESSION['id_venda'] = $prod['id_prod'];
+                $_SESSION['preco_venda'] = $preco;
             }
         } 
     ?>
-    <h1>Compra de produtos</h1>
-    <p>Deseja efetuar a compra de <b><?php echo $nome; ?></b> ?</p>
-    <?php  echo "<img src='$link_img' alt='300'>";  ?>
+    <h2>Deseja adicionar "<b><?php echo $nome; ?></b>" ao carrinho?</h2>
+    <?php  echo "<img src='$link_img' height='300'>";  ?>
     <br>
-    <form action="../../php/vender.php" method="post">
+    <form action="../carrinho/index.php" method="post">
         Preço (R$):
         <?php echo "<input type='text' name='preco' value='$preco' readonly>"; ?>
         <br>
         Quantidade:
-        <?php echo "<input type='number' name='qtd' max='$qtd' required>"; ?>
+        <?php echo "<input type='number' name='qtd' max='$qtd' min='1' size='10' required>"; ?>
         <br>
         <input type="submit" value="Confirmar">
         <br>
-        <a href="../../index.php">Cancelar Compra</a>
+        <h4><a href="../index.php">Cancelar</a></h4>
     </form>
 </body>
 </html>

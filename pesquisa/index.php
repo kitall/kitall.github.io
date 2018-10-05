@@ -11,7 +11,7 @@
 
 	$selorder = false;
 
-    $link_venda = "../IMPLEMENTAR/venda/index.php?id_prod=";
+    $link_venda = "../venda/index.php?id_prod=";
 
 	if(isset($_GET['order']))
     {
@@ -36,6 +36,7 @@
     if (!empty($_SESSION['user'])) //Teste de sessão
     {
         $logado = true;
+        $carrinho = $_SESSION['carrinho'];
     }
 
     try 
@@ -196,7 +197,7 @@
 														<?php 
                                                             if ($logado) //Teste de sessão
                                                             {
-                                                                echo "<h2>".$_SESSION['carrinho']."</h2>";
+                                                                echo "<h2>".$carrinho."</h2>";
                                                             }
                                                             else
                                                             {
@@ -264,7 +265,7 @@
 										<?php 
                                             if ($logado) //Teste de sessão
                                             {
-                                                echo "<h2>".$_SESSION['carrinho']."</h2>";
+                                                echo "<h2>".$carrinho."</h2>";
                                             }
                                             else
                                             {
@@ -381,14 +382,10 @@
                         break;
 
                     case 2:
+                        
+                        echo "Pesquisa especifica";
 
-                        ?> 
-                            <script>
-                                alert("A página de visualização individual ainda está sendo desenvolvida.\n\nAgradecemos a compreensão.");
-                            </script>
-                        <?php
-
-                        header("Location: ../");
+                        header("Location: ../venda/index.php?$id");
 
                         break;
                 }
@@ -477,7 +474,7 @@
 																	<?php 
                                                                         if ($logado) //Teste de sessão
                                                                         {
-                                                                            echo "<h2>".$_SESSION['carrinho']."</h2>";
+                                                                            echo "<h2>".$carrinho."</h2>";
                                                                         }
                                                                         else
                                                                         {
@@ -545,7 +542,7 @@
 													<?php 
                                                         if ($logado) //Teste de sessão
                                                         {
-                                                            echo "<h2>".$_SESSION['carrinho']."</h2>";
+                                                            echo "<h2>".$carrinho."</h2>";
                                                         }
                                                         else
                                                         {
