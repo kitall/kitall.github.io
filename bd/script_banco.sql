@@ -82,20 +82,6 @@ CREATE TABLE c_endereco
 );
 /*-----------------------------------------------------------------------------------------*/
 /* Script do banco de dados de FLUXO DE CAIXA da 'Kitall?' */
-DROP TABLE IF EXISTS f_lancamento;
-DROP SEQUENCE IF EXISTS lancamento_id_seq;
-
-CREATE SEQUENCE lancamento_id_seq;
-CREATE TABLE f_lancamento
-(
-	id_lancamento	INTEGER			NOT NULL DEFAULT	NEXTVAL('lancamento_id_seq'),
-	dia				DATE			NOT NULL,
-	descricao		VARCHAR(30)		NOT NULL,
-	tipo			CHARACTER(01)	NOT NULL, -- E=Entrada e S=Saida
-	valor			NUMERIC(8,2) 	NOT NULL,
-	CONSTRAINT pk_caixa PRIMARY KEY (id_lancamento)
-);
-
 DROP TABLE IF EXISTS f_fluxocaixa;
 DROP SEQUENCE IF EXISTS fluxocaixa_id_seq;
 
@@ -112,6 +98,22 @@ CREATE TABLE f_fluxocaixa
 	CONSTRAINT pk_fluxocaixa PRIMARY KEY (id_fluxocaixa)
 );
 
-INSERT INTO f_lancamento VALUES(DEFAULT, '04-10-2018', 'Capital inicial', 'E', '50.00');
+DROP TABLE IF EXISTS f_fluxoestoque;
+DROP SEQUENCE IF EXISTS fluxoestoque_id_seq;
+
+CREATE SEQUENCE fluxoestoque_id_seq;
+CREATE TABLE f_fluxoestoque
+(
+    id_fluxoestoque	INTEGER			NOT NULL DEFAULT	NEXTVAL('fluxocaixa_id_seq'),
+    dia				DATE			NOT NULL,
+	descricao		VARCHAR(30)		NOT NULL,
+    id_prod         INTEGER         NOT NULL, -- Juntar depois com a tabela de PRODUTOS (nome dele)
+	saldoant		INTEGER	        NOT NULL,
+	entrada			INTEGER 	    NOT NULL,
+	saida			INTEGER	        NOT NULL,
+	qtdatual		INTEGER         NOT NULL,
+	CONSTRAINT pk_fluxoestoque PRIMARY KEY (id_fluxoestoque)
+);
+
 INSERT INTO f_fluxocaixa VALUES(DEFAULT, '04-10-2018', 'Capital inicial', '0.00', '50.00', '0.00', '50.00');
 /*-----------------------------------------------------------------------------------------*/

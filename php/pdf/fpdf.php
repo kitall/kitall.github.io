@@ -578,7 +578,7 @@ function Cell($w, $h=0, $txt='', $border=0, $ln=0, $align='', $fill=false, $link
 	// Output a cell
 	$k = $this->k;
 	if($this->y+$h>$this->PageBreakTrigger && !$this->InHeader && !$this->InFooter && $this->AcceptPageBreak())
-	{
+	{        
 		// Automatic page break
 		$x = $this->x;
 		$ws = $this->ws;
@@ -621,6 +621,8 @@ function Cell($w, $h=0, $txt='', $border=0, $ln=0, $align='', $fill=false, $link
 	}
 	if($txt!=='')
 	{
+        $txt = iconv('utf-8', 'cp1252', $txt);
+        
 		if(!isset($this->CurrentFont))
 			$this->Error('No font has been set');
 		if($align=='R')

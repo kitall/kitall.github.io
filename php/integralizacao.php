@@ -1,5 +1,5 @@
 <?php
-    $valor_gasto = $_POST['val'];
+    $valor_introduzido = $_POST['val'];
 
     $data = date("d-m-Y");
 
@@ -17,7 +17,7 @@
             $saldoanterior = $fluxocaixa['saldoatual'];
         }
         
-        $saldoatual = $saldoanterior - $valor_gasto;
+        $saldoatual = $saldoanterior + $valor_introduzido;
     }
     else
     {
@@ -27,8 +27,8 @@
 
     //Montar as strings de adição
     $sql = "INSERT INTO f_fluxocaixa VALUES
-        (DEFAULT, '$data', 'Aquisicao de produtos', '$saldoanterior', '0.00', '$valor_gasto', '$saldoatual')";
-
+        (DEFAULT, '$data', 'Integralizacao', '$saldoanterior', '$valor_introduzido', '0.00', '$saldoatual');";
+    
     $res = pg_query($conectar, $sql);
     $qtd = pg_affected_rows($res);
     if ($qtd > 0) 
