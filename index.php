@@ -23,9 +23,9 @@
     {
         include "php/connect.php";
 
-        $sql = "SELECT id_prod FROM p_produtos WHERE excluido=FALSE
-                        ORDER BY RANDOM()
-                        LIMIT 3";
+        $sql = "SELECT id_prod FROM p_produtos 
+                    WHERE excluido=FALSE AND qtd>0
+                    ORDER BY RANDOM() LIMIT 3";
 
         $res = pg_query($conectar, $sql);
         $qtd = pg_num_rows($res);

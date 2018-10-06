@@ -27,6 +27,7 @@
                 
                 $_SESSION['id_venda'] = $prod['id_prod'];
                 $_SESSION['preco_venda'] = $preco;
+                $_SESSION['estoque_venda'] = $qtd;
             }
         } 
     ?>
@@ -38,7 +39,16 @@
         <?php echo "<input type='text' name='preco' value='$preco' readonly>"; ?>
         <br>
         Quantidade:
-        <?php echo "<input type='number' name='qtd' max='$qtd' min='1' size='10' required>"; ?>
+        <?php 
+            if($qtd < 1)
+            {
+                echo "Produto fora de estoque!";
+                echo "<h4><a href='../index.php'>Cancelar</a></h4>";
+                exit;
+            }
+            else
+                echo "<input type='number' name='qtd' max='$qtd' min='1' size='10' required>"; 
+        ?>
         <br>
         <input type="submit" value="Confirmar">
         <br>

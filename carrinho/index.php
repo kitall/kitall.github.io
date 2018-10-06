@@ -11,35 +11,35 @@
     }
         
     $qtd_comprada = $_POST['qtd'];
-    
-    //Esta recebendo produtos para serem adicionados
-    if($qtd_comprada > 0)
+
+    if(!empty($_SESSION['carrinho']))
     {
-        if(!empty($_SESSION['carrinho']))
-        {
-            array_push($_SESSION['carrinho_id'], $_SESSION['id_venda']);
+        array_push($_SESSION['carrinho_id'], $_SESSION['id_venda']);
 
-            array_push($_SESSION['carrinho_qtd'], $qtd_comprada);
+        array_push($_SESSION['carrinho_qtd'], (string)$qtd_comprada);
 
-            array_push($_SESSION['carrinho_preco'], $_SESSION['preco_venda']);
+        array_push($_SESSION['carrinho_preco'], $_SESSION['preco_venda']);
+        
+        array_push($_SESSION['carrinho_estoque'], $_SESSION['estoque_venda']);
 
-            $_SESSION['carrinho'] += 1;
-        }
-        else
-        {
-            $_SESSION['carrinho_id'] = array($_SESSION['id_venda']);
-
-            $_SESSION['carrinho_qtd'] = $qtd_comprada;
-
-            $_SESSION['carrinho_preco'] = array($_SESSION['preco_venda']);
-
-            $_SESSION['carrinho'] = 1;
-        }
-
-        $_SESSION['id_venda'] = NULL;
-        $_SESSION['qtd_venda'] = NULL;
-        $_SESSION['preco_venda'] = NULL;
+        $_SESSION['carrinho'] += 1;
     }
+    else
+    {
+        $_SESSION['carrinho_id'] = array($_SESSION['id_venda']);
+
+        $_SESSION['carrinho_qtd'] = array((string)$qtd_comprada);
+
+        $_SESSION['carrinho_preco'] = array($_SESSION['preco_venda']);
+        
+        $_SESSION['carrinho_estoque'] = array($_SESSION['estoque_venda']);
+
+        $_SESSION['carrinho'] = 1;
+    }
+
+    //$_SESSION['id_venda'] = NULL;
+    //$_SESSION['qtd_venda'] = NULL;
+    //$_SESSION['preco_venda'] = NULL
 ?>
     
     
