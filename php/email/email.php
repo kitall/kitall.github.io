@@ -14,6 +14,7 @@
 		$mail->Password = 'EKTf$%pcDn=z^Frrjg!xK_ex7Yd-f8?xnb8C%ux5fAh6!xq-HHw=4b-Sr+eHtVVvqYXXfNBCZVa*-r*Rv%V3s@gmc_%rKhqL9!N';
 		$mail->SetFrom('kitall.contato@gmail.com','Kitall?'); 
 		$mail->AddAddress("$email","$nome"); //Muda Aqui para as variaveis que vem do SELECT
+        $mail->AddEmbeddedImage('../images/icons/icon-128x128.png', 'kitall_logo', 'kitall_logo.png');
 		$mail->IsHTML(true); 
 		$mail->CharSet = 'utf-8'; 
 		$mail->Subject  = $subject; // Assunto da mensagem
@@ -23,8 +24,173 @@
 		$mail->ClearAttachments();
 		if (!$enviado) 
 		{
-			throw new Exception("Não foi possível conectar ao banco de dados!");
+			throw new Exception("Ocorreu um erro no envio do Email!");
        		exit;
 		} 
 	}
+
+    function mandaEmail($email, $nome, $op)
+    {
+        if($op == 1) //Email do cadastro
+        {
+            sendEmail($email, $nome, "Kitall? - Bem-Vindo!", "
+     
+<!DOCTYPE html>
+<html lang='pt-br' style='transition-property: border, background, opacity;transition-duration: 0.2s;margin: 0;padding: 0;display: block;background-color: #fafafa;max-width: 100vw;'>
+<head style='transition-property: border, background, opacity;transition-duration: 0.2s;'>
+    <meta charset='UTF-8' style='transition-property: border, background, opacity;transition-duration: 0.2s;'>
+    <style type='text/css' style='transition-property: border, background, opacity;transition-duration: 0.2s;'>
+        @import url('https://fonts.googleapis.com/css?family=Quicksand:300,regular,500,700');
+
+        * {
+            font-family: 'Quicksand', sans-serif;
+            /* font-family: 'Arial', sans-serif; */
+            color: #191919;
+        }
+
+        *,
+        *::before,
+        *::after {
+            transition-property: color;
+            transition-duration: 0;
+            transition-property: border, background, opacity;
+            transition-duration: 0.2s;
+        }
+
+        *::selection {
+            background-color: #1CCE00;
+            color: white;
+        }
+        
+        /*--------------------------------------------------*/
+        
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            display: block;
+        }
+
+        html {
+            background-color: #fafafa;
+            max-width: 100vw;
+        }
+        
+        #email {
+            background-color: #eaeaea;
+            
+            text-align: center;
+            
+            width: 700px;
+        }
+        
+    </style>
+</head>
+<body style='transition-property: border, background, opacity;transition-duration: 0.2s;margin: 0;padding: 0;display: block;'>
+    <center style='transition-property: border, background, opacity;transition-duration: 0.2s;'>
+        <div id='email' style='transition-property: border, background, opacity;transition-duration: 0.2s;background-color: #eaeaea;text-align: center;width: 700px;'>
+            <h1 style='transition-property: border, background, opacity;transition-duration: 0.2s;'>Bem-vindo Sr(a) $nome!!</h1>
+
+            <p style='transition-property: border, background, opacity;transition-duration: 0.2s;'>O cadastro dos seus dados no nosso sistema foi efetuado com sucesso!</p>
+            <p style='transition-property: border, background, opacity;transition-duration: 0.2s;'>Agora você pode usufruir livremente os nossos serviços de compra online.</p>
+            <p style='transition-property: border, background, opacity;transition-duration: 0.2s;'>Obrigado pela preferência!</p>
+            <p style='transition-property: border, background, opacity;transition-duration: 0.2s;'>Att, Equipe 'Kitall?'</p>
+
+            <a href='https://200.145.153.175/andrecreppe/kitall' style='transition-property: border, background, opacity;transition-duration: 0.2s;'><img src='\&quot;cid:kitall_logo\&quot;' style='transition-property: border, background, opacity;transition-duration: 0.2s;'></a>
+
+            <br style='transition-property: border, background, opacity;transition-duration: 0.2s;'>
+            <br style='transition-property: border, background, opacity;transition-duration: 0.2s;'>
+
+            <a href='https://200.145.153.175/andrecreppe/kitall' style='transition-property: border, background, opacity;transition-duration: 0.2s;'>Bora então comprar um kit? Kitall?</a>
+        </div>
+    </center>
+</body>
+</html>
+            
+");
+        }
+        else if($op == 2) //Email do cad_endereço
+        {
+            sendEmail($email, $nome, "Kitall? - Cadastro do Endereço", "
+            
+<!DOCTYPE html>
+<html lang='pt-br' style='transition-property: border, background, opacity;transition-duration: 0.2s;margin: 0;padding: 0;display: block;background-color: #fafafa;max-width: 100vw;'>
+<head style='transition-property: border, background, opacity;transition-duration: 0.2s;'>
+    <meta charset='UTF-8' style='transition-property: border, background, opacity;transition-duration: 0.2s;'>
+    <style type='text/css' style='transition-property: border, background, opacity;transition-duration: 0.2s;'>
+        @import url('https://fonts.googleapis.com/css?family=Quicksand:300,regular,500,700');
+
+        * {
+            font-family: 'Quicksand', sans-serif;
+            /* font-family: 'Arial', sans-serif; */
+            color: #191919;
+        }
+
+        *,
+        *::before,
+        *::after {
+            transition-property: color;
+            transition-duration: 0;
+            transition-property: border, background, opacity;
+            transition-duration: 0.2s;
+        }
+
+        *::selection {
+            background-color: #1CCE00;
+            color: white;
+        }
+        
+        /*--------------------------------------------------*/
+        
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            display: block;
+        }
+
+        html {
+            background-color: #fafafa;
+            max-width: 100vw;
+        }
+        
+        #email {
+            background-color: #eaeaea;
+            
+            text-align: center;
+            
+            width: 800px;
+        }
+        
+    </style>
+</head>
+<body style='transition-property: border, background, opacity;transition-duration: 0.2s;margin: 0;padding: 0;display: block;'>
+    <center style='transition-property: border, background, opacity;transition-duration: 0.2s;'>
+        <div id='email' style='transition-property: border, background, opacity;transition-duration: 0.2s;background-color: #eaeaea;text-align: center;width: 800px;'>
+            <h1 style='transition-property: border, background, opacity;transition-duration: 0.2s;'>Endereço cadastrado com sucesso Sr(a) [nome]!!</h1>
+
+            <p style='transition-property: border, background, opacity;transition-duration: 0.2s;'>O cadastro dos seus dados de entrega foi concluido com sucesso!</p>
+            <p style='transition-property: border, background, opacity;transition-duration: 0.2s;'>Agora nós podemos entregar os produtos requisitados na porta da sua casa!</p>
+            <p style='transition-property: border, background, opacity;transition-duration: 0.2s;'>Obrigado por optar os nossos produtos!</p>
+            <p style='transition-property: border, background, opacity;transition-duration: 0.2s;'>Att, Equipe 'Kitall?'</p>
+
+            <a href='200.145.153.175/andrecreppe/kitall' style='transition-property: border, background, opacity;transition-duration: 0.2s;'><img src='../images/icons/icon-128x128.png' alt='' style='transition-property: border, background, opacity;transition-duration: 0.2s;'></a>
+
+            <br style='transition-property: border, background, opacity;transition-duration: 0.2s;'>
+            <br style='transition-property: border, background, opacity;transition-duration: 0.2s;'>
+
+            <a href='200.145.153.175/andrecreppe/kitall' style='transition-property: border, background, opacity;transition-duration: 0.2s;'>Bora então comprar um kit? Kitall?</a>
+        </div>
+    </center>
+</body>
+</html>            
+            
+");
+        }
+        else
+        {
+            echo "Erro na OP!";
+            exit;
+        }
+    }
 ?>

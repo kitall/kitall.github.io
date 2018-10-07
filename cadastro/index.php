@@ -13,12 +13,7 @@
 
     if (isset($_POST['subCadastro'])) 
     {
-            //Dados do cadastro obrigatório
-        if ($_POST['isContatoShown'] == "false")
-            $verEndereco = false;
-        else
-            $verEndereco = true;
-
+        //Dados do cadastro obrigatório
         $nome = $_POST['nome'];
         $sobrenome = $_POST['sobrenome'];
         $sexo = $_POST['sexo'];
@@ -30,141 +25,113 @@
         $senha = $_POST['senha'];
 
         //Dados do endereço de entrega
-        $endereco = $_POST['endereco'];
-        $numero = $_POST['numero'];
-        $complemento = $_POST['complemento'];
-        $bairro = $_POST['bairro'];
-        $cidade = $_POST['cidade'];
-        $cep = $_POST['cep'];
-        $estado = $_POST['estado'];
-        $pais = $_POST['pais'];
-
+        if ($_POST['isContatoShown'] == "false")
+            $verEndereco = false;
+        else
+            $verEndereco = true;
+        
+        if($verEndereco)
+        {
+            $endereco = $_POST['endereco'];
+            $numero = $_POST['numero'];
+            $complemento = $_POST['complemento'];
+            $bairro = $_POST['bairro'];
+            $cidade = $_POST['cidade'];
+            $cep = $_POST['cep'];
+            $estado = $_POST['estado'];
+            $pais = $_POST['pais'];
+        }
+        
         try 
         {
             include "../php/connect.php";
+            include "../php/email/email.php";
 
             $senha = md5($senha);
 
             $sql = "INSERT INTO c_usuario(id_usuario, login, email, senha, excluido) 
-                    VALUES(DEFAULT, '$login', '$email', '$senha', 'n');";
+                VALUES (DEFAULT, '$login', '$email', '$senha', 'n');";
 
             $res = pg_query($conectar, $sql);
             $qtd = pg_affected_rows($res);
-            if ($qtd > 0)
-                //Pegar o id de volta
-                $sql = "SELECT id_usuario FROM c_usuario WHERE email='$email';";
-            else 
+            if ($qtd <= 0)
             {
                 echo "Erro no CADASTRO do usuário<br>";
+                
                 pg_close($conectar);
+                
+                header("Location: ../");
+                exit;
             }
-
+            
+            //--------------------------------------------------------------------
+            
+            $sql = "SELECT id_usuario FROM c_usuario WHERE email='$email';";
             $res = pg_query($conectar, $sql);
             $qtd = pg_num_rows($res);
-            if ($qtd > 0) 
-            {
-                //Pega o id cadastrado anteriormente
-                $prod = pg_fetch_array($res);
-                $id = $prod['id_usuario'];
-
-                //Cadastro do cliente
-                $sql = "INSERT INTO c_cliente(id_usuario, nome, sobrenome, sexo, data_nasc, celular, excluido)
-                        VALUES('$id', '$nome', '$sobrenome', '$sexo', '$data_nasc', '$celular', 'n');";
-
-                $res = pg_query($conectar, $sql);
-                $qtd = pg_affected_rows($res);
-
-                if ($qtd <= 0) //ERRO
-                {
-                    ?> 
-                        <script>
-                            alert("Algo deu errado ao tentar realizar o cadastro!");
-                        </script>
-                    <?php
-
-                    apagaUsuario($id);
-                } 
-                else 
-                {
-                    include "../php/email/email.php";
-
-                    sendEmail(
-                        $email,
-                        $nome, //ARRUMARRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
-                        "Bem vindo a Kitall?",
-                        "<h1>Bem vindo!</h1><p>Obgrigado por escolher os nossos servicos!</p>"
-                    );
-
-                    ?> 
-                        <script>
-                            alert("Cadastro efetuado com sucesso!");
-                        </script>
-                    <?php
-
-                    header("Location: ../");
-                }
-
-                    //Cadastro dos dados de entrega
-                if ($verEndereco) 
-                {
-                    if ($complemento != null) //complemento?
-                    {
-                        $sql = "INSERT INTO c_endereco(id_endereco, id_usuario, endereco, numero, complemento, bairro, cep, cidade, estado, pais, excluido)
-                                VALUES(DEFAULT, '$id', '$endereco', '$numero', '$complemento', '$bairro', '$cep', '$cidade', '$estado', '$pais', 'n');";
-                    } 
-                    else //tudo
-                    {
-                        $sql = "INSERT INTO c_endereco(id_endereco, id_usuario, endereco, numero, bairro, cep, cidade, estado, pais, excluido)
-                                VALUES(DEFAULT, '$id', '$endereco', '$numero', '$bairro', '$cep', '$cidade', '$estado', '$pais', 'n');";
-                    }
-                    $res = pg_query($conectar, $sql);
-                    $qtd = pg_affected_rows($res);
-
-                    if ($qtd <= 0) 
-                    {
-                        ?> 
-                            <script>
-                                alert("Algo deu errado ao tentar cadastrar as Informações de Entrega!\n\nVocê pode tentar novamente ao finalizar a compra!");
-                            </script>
-                        <?php
-
-                    } 
-                    else 
-                    {
-                        //envia o email confirmando o cadastro do endereço
-                        include "../php/email/email.php";
-
-                        sendEmail(
-                            $email,
-                            $nome, //ARRUMARRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
-                            "Kitall? - Cadastro de Endereco",
-                            "<h1>Cadastro finalizado!</h1><p>Seu endereco de entrega foi cadastrado com sucesso!</p>"
-                        );
-                        ?> 
-                            <script>
-                                alert("Cadastro efetuado com sucesso!");
-                            </script>
-                        <?php
-
-                    }
-                }
-                
-                //Tudo OK
-                pg_close($conectar);
-                
-                //LOGAR 
-                $_SESSION['user'] = $login;
-                $_SESSION['senha'] = $senha;
-                $_SESSION['carrinho'] = 0;
-
-                header("Location: ../");
-            } 
-            else 
+            if ($qtd <= 0) 
             {
                 echo "Erro na CONSULTA do usuário!";
 
                 pg_close($conectar);
+                
+                header("Location: ../");
+                exit;
             }
+            
+            //Pega o id cadastrado anteriormente
+            $prod = pg_fetch_array($res);
+            $id = $prod['id_usuario'];
+            
+            //-----------------------------------------------------------
+            
+            //Cadastro do cliente
+            $sql = "INSERT INTO c_cliente(id_usuario, nome, sobrenome, sexo, data_nasc, celular, excluido)
+                    VALUES('$id', '$nome', '$sobrenome', '$sexo', '$data_nasc', '$celular', 'n');";
+
+            $res = pg_query($conectar, $sql);
+            $qtd = pg_affected_rows($res);
+
+            if ($qtd <= 0) //ERRO
+            {
+                ?> 
+                    <script>
+                        alert("Algo deu errado ao tentar realizar o cadastro!");
+                    </script>
+                <?php
+
+                apagaUsuario($id);
+                
+                pg_close($conectar);
+                
+                header("Location: ../");
+                exit;
+            } 
+            
+            mandaEmail($email, $nome, 1); //EMAIL DE CONFIRMAÇÃO DE CADASTRO
+        
+            //------------------------------------------------------
+            
+            //Cadastro dos dados de entrega
+            if ($verEndereco) 
+            {
+                include("../php/cad_endereco_cli.php");
+                
+                if ($complemento != null) //complemento = sim
+                    cadastrar_endereco($id, $endereco, $numero, $complemento, $bairro, $cep, $cidade, $estado, $pais, TRUE, 1); 
+                else //complemento = nao
+                    cadastrar_endereco($id, $endereco, $numero, $complemento, $bairro, $cep, $cidade, $estado, $pais, FALSE, 1);
+            }
+
+            //Tudo OK
+            pg_close($conectar);
+
+            //LOGAR 
+            $_SESSION['user'] = $login;
+            $_SESSION['senha'] = $senha;
+            $_SESSION['carrinho'] = 0;
+
+            header("Location: ../"); 
 
         } 
         catch (Exception $e) 
