@@ -9,10 +9,8 @@
         header("Location: ../login/index.php");
         exit;
     }
-        
-    $qtd_comprada = $_POST['qtd'];
 
-    if(!empty($_SESSION['carrinho']))
+    if(!empty($_SESSION['carrinho']) && $qtd_comprada > 0)
     {
         array_push($_SESSION['carrinho_id'], $_SESSION['id_venda']);
 
@@ -24,7 +22,7 @@
 
         $_SESSION['carrinho'] += 1;
     }
-    else
+    else if(empty($_SESSION['carrinho_id']) && $qtd_comprada > 0)
     {
         $_SESSION['carrinho_id'] = array($_SESSION['id_venda']);
 
@@ -36,19 +34,11 @@
 
         $_SESSION['carrinho'] = 1;
     }
-
-    //$_SESSION['id_venda'] = NULL;
-    //$_SESSION['qtd_venda'] = NULL;
-    //$_SESSION['preco_venda'] = NULL
 ?>
-    
-    
-<!--    aqui vai o site     -->
-    
-    
+      
     
 <?php
-    //Mostra o carrinho
+    //Mostra o conteúdo carrinho
 
     $qtd = $_SESSION['carrinho'];
     echo "<h1>Quantidade no carrinho atual = $qtd</h1>"; 
@@ -69,11 +59,14 @@
             echo "<br><br>---------------------------------<br>";
         }    
     }
-?>
 
-<br>
-<br>
-<h3><a href="../php/vender.php">Finalizar compra</a></h3>
+    echo "<br><br>";
+    if($qtd > 0)
+    {
+        echo "<h3><a href='../php/vender.php'>Finalizar compra</a></h3>";
+        echo "<br><br>"; 
+    }
+?>
 <br>
 <br>
 <a href="../index.php">Voltar p/ home</a>

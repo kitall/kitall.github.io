@@ -76,8 +76,6 @@
             qtd = '$qtd_final'
             WHERE id_prod = $id_prod; ";
         
-        echo $sql."<br><br><br>";
-        
         //Executar SQL
         $res = pg_query($conectar, $sql);
         $qtd = pg_affected_rows($res);
