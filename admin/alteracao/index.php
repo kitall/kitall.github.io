@@ -32,14 +32,14 @@
             <tr>
                 <td>Preço:</td>
                 <td>
-                    <input type="number" name="preco"
+                    <input type="number" name="preco" step=".01"
                         value="<?php echo $_GET['preco']; ?>">
                 </td>
             </tr>
             <tr>
                 <td>Custo de <br>Fabricação:</td>
                 <td>
-                    <input type="number" name="custo"
+                    <input type="number" name="custo" step=".01"
                         value="<?php echo $_GET['custo']; ?>">
                 </td>
             </tr>

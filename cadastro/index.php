@@ -46,9 +46,23 @@
         {
             include "../php/connect.php";
             include "../php/email/email.php";
-
+            
+            //testa se o login ja existe
+            $sql = "SELECT * FROM c_usuario
+                WHERE login='$login' OR email='$email'";
+            
+            $res = pg_query($conectar, $sql);
+            $qtd = pg_affected_rows($res);
+            if($qtd <= 0)
+            {
+                echo "Usuário já existente!";
+                
+                echo "<br><br><a href='index.php'>Tentar novamente</a>";
+                
+                exit;
+            }
+            
             $senha = md5($senha);
-
             $sql = "INSERT INTO c_usuario(id_usuario, login, email, senha, excluido) 
                 VALUES (DEFAULT, '$login', '$email', '$senha', 'n');";
 
@@ -97,6 +111,7 @@
                 ?> 
                     <script>
                         alert("Algo deu errado ao tentar realizar o cadastro!");
+                        window.location.reload();
                     </script>
                 <?php
 
@@ -139,6 +154,7 @@
             ?> 
                 <script>
                     alert("<?php echo $e->getMessage(); ?>");
+                    window.location.replace('index.php');
                 </script>
             <?php
 
