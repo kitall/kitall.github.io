@@ -28,6 +28,8 @@
                 $_SESSION['id_venda'] = $prod['id_prod'];
                 $_SESSION['preco_venda'] = $preco;
                 $_SESSION['estoque_venda'] = $qtd;
+                $_SESSION['nome_venda'] = $nome;
+                $_SESSION['link_venda'] = $link_img;
             }
         } 
     ?>

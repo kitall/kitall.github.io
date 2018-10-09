@@ -101,6 +101,5 @@
 
     pg_close($conectar);
 
-    echo "Compra efetuada com sucesso!";
-    echo "<br><a href='../index.php'>Home</a>";
+    header("Location: ../index.php");
 ?>

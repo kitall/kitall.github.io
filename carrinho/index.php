@@ -1,17 +1,24 @@
+<!--FALTA FINALIZARRR A COMRPRA*/   -->
 <?php
-    /*FALTA FINALIZARRR A COMRPRA*/
-
     session_start();
 
-    $logado = false;
+    include "../php/connect.php";
+
+    $logado = true;
     if (empty($_SESSION['user'])) //Teste de sessão
     {
+        $logado = false;
+        
         header("Location: ../login/index.php");
         exit;
     }
 
-    if(!empty($_SESSION['carrinho']) && $qtd_comprada > 0)
+    $qtd_comprada = $_POST['qtd'];
+
+    if(!empty($_SESSION['carrinho']) && $qtd_comprada > 0) //adiciona ao carrinho
     {
+        array_push($_SESSION['carrinho_link'], $_SESSION['link_venda']);
+        
         array_push($_SESSION['carrinho_id'], $_SESSION['id_venda']);
 
         array_push($_SESSION['carrinho_qtd'], (string)$qtd_comprada);
@@ -19,10 +26,12 @@
         array_push($_SESSION['carrinho_preco'], $_SESSION['preco_venda']);
         
         array_push($_SESSION['carrinho_estoque'], $_SESSION['estoque_venda']);
+        
+        array_push($_SESSION['carrinho_nome'], $_SESSION['nome_venda']);
 
         $_SESSION['carrinho'] += 1;
     }
-    else if(empty($_SESSION['carrinho_id']) && $qtd_comprada > 0)
+    else if(empty($_SESSION['carrinho_id']) && $qtd_comprada > 0) //cria o carrinho
     {
         $_SESSION['carrinho_id'] = array($_SESSION['id_venda']);
 
@@ -31,51 +40,33 @@
         $_SESSION['carrinho_preco'] = array($_SESSION['preco_venda']);
         
         $_SESSION['carrinho_estoque'] = array($_SESSION['estoque_venda']);
-
+        
+        $_SESSION['carrinho_nome'] = array($_SESSION['nome_venda']);
+        
+        $_SESSION['carrinho_link'] = array($_SESSION['link_venda']);
+        
         $_SESSION['carrinho'] = 1;
     }
-?>
-      
-<?php
-    //Mostra o conteúdo carrinho
 
-    $qtd = $_SESSION['carrinho'];
-    echo "<h1>Quantidade no carrinho atual = $qtd</h1>"; 
+    $produtos = false;
 
-    if($qtd > 0)
+    $carrinho = $_SESSION['carrinho'];
+
+    if($carrinho > 0)
     {
-        echo "<br><h2>Produtos do carrinho:</h2>"; 
-        
         $carrinho_id = $_SESSION['carrinho_id'];
         $carrinho_qtd = $_SESSION['carrinho_qtd'];
         $carrinho_preco = $_SESSION['carrinho_preco'];
-            
-        for($i = 0; $i < $qtd; $i++)
-        { 
-            echo "<br>id = ".$carrinho_id[$i];
-            echo "<br>qtd = ".$carrinho_qtd[$i];
-            echo "<br>preco = ".$carrinho_preco[$i];
-            echo "<br><br>---------------------------------<br>";
-        }    
-    }
-
-    echo "<br><br>";
-    if($qtd > 0)
-    {
-        echo "<h3><a href='../php/vender.php'>Finalizar compra</a></h3>";
-        echo "<br><br>"; 
+        $carrinho_nome = $_SESSION['carrinho_nome'];
+        $carrinho_link = $_SESSION['carrinho_link'];
+        
+        $preco_total = 0;
+        
+        $produtos = true;   
     }
 ?>
-<br>
-<br>
-<a href="../index.php">Voltar p/ home</a>
-
-<!-- ABAIXO CÓDIGO HTML  -->
-
-<!DOCTYPE html>
-    
-    
-    <html lang="pt-br">
+<!DOCTYPE html> 
+<html lang="pt-br">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -99,7 +90,7 @@
     
                 <div class="header" id="topo">
                     <div class="logo">
-                        <a href="">
+                        <a href="../index.php">
                             <img src="../imgs/KITALL.png" alt="Kitall?">
                         </a>
                     </div>
@@ -107,7 +98,7 @@
                     <div class="menu show">
                         <ul>
                             <li id="active">
-                                <a href="">Home</a>
+                                <a href="../index.php">Home</a>
                             </li>
                             <li>
                                 <a href="">Monte seu Kit</a>
@@ -201,7 +192,7 @@
                                         </div>
                                     </a>
                                     <div class="searchBar">
-                                        <form action="pesquisa/">
+                                        <form action="../pesquisa/index.php" method="get">
                                             <div class="searchField">
                                                 <input type="search" name="search" class="searchInput" placeholder="Pesquise" required>
                                             </div>
@@ -265,26 +256,39 @@
                 </div>
 
             </div>
-
             <div class="carrinhoProdsBox">
                 <div class="carrinhoProdsBoxContent">
+                   <?php
+                    if($produtos)
+                    {
+                        for($i = 0; $i < $carrinho; $i++)
+                        { 
+                            $id = $carrinho_id[$i];
+                            $qtd_prod = $carrinho_qtd[$i];
+                            $preco = $carrinho_preco[$i];
+                            $nome =  $carrinho_nome[$i];
+                            $link = $carrinho_link[$i];
+                           
+                            $preco_total += $preco;
+                    
+                    ?>
                     <div class="carrinhoProd">
                         <div class="carrinhoProdImage">
                             <div class="carrinhoProdImageContent">
-                                <img src="../imgs/produtos/borracha1.png" alt="">
+                                <?php echo "<img src='$link' alt=''>"; ?>
                             </div>
                         </div>
 
                         <div class="carrinhoProdName">
                             <div class="carrinhoProdNameContent">
-                                <h3>Borracha Mercur</h3>
+                                <?php echo "<h3>$nome</h3>"; ?>
                             </div>
                         </div>
 
                         <div class="carrinhoProdPreco">
                             <div class="carrinhoProdPrecoContent">
                                 <div class="carrinhoProdPrecoTxt">
-                                    <div class="prodPrice">R$2,00 </div>
+                                    <div class="prodPrice"><?php echo "R$ $preco"; ?></div>
                                 </div>
                             </div>
                         </div>
@@ -292,7 +296,7 @@
                         <div class="carrinhoProdQuantidade">
                             <div class="carrinhoProdQuantidadeContent">
                                 <div class="carrinhoProdQuantidadeInput">
-                                    <input type="number" min="1" value="1" max="10">
+                                    <?php echo "<input type='number' value='$qtd_prod' readonly>"; ?>
                                 </div>
                             </div>
 
@@ -304,58 +308,35 @@
                             </div>
                         </div>
                     </div>
-                    <div class="carrinhoProd">
-                        <div class="carrinhoProdImage">
-                            <div class="carrinhoProdImageContent">
-                                <img src="../imgs/produtos/bloco_de_notas1.png" alt="">
-                            </div>
-                        </div>
-
-                        <div class="carrinhoProdName">
-                            <div class="carrinhoProdNameContent">
-                                <h3>Porta Post-it</h3>
-                            </div>
-                        </div>
-
-                        <div class="carrinhoProdPreco">
-                            <div class="carrinhoProdPrecoContent">
-                                <div class="carrinhoProdPrecoTxt">
-                                    <div class="prodPrice">R$1,00 </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="carrinhoProdQuantidade">
-                            <div class="carrinhoProdQuantidadeContent">
-                                <div class="carrinhoProdQuantidadeInput">
-                                    <input type="number" min="1" value="1" max="10">
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="carrinhoProdRemover">
-                            <div class="carrinhoProdRemoverContent">
-                                <a href="">Remover</a>
-                            </div>
-                        </div>
-                    </div>
+                    
+                    <?php
+                            
+                         }
+                    }
+                    else
+                    {
+                        echo "<h2>Seu carrinho está vazio!</h2>";
+                        echo "<br><br><br>";
+                        echo "<a href='../index.php'>Compre produtos agora!</a>";
+                    }
+                    ?>
 
                 </div>
-
             </div>
 
             <div class="carrinhoFinalizar">
                 <div class="carrinhoFinalizarContent">
                     <div class="carrinhoSubtotal">
                         <div class="carrinhoSubtotalContent">
-                            <h2>Subtotal (2 itens): R$ 3,00</h2>
+                            <?php echo "<h2>Subtotal ($carrinho): R$ $preco_total</h2>"; ?>
                         </div>
                     </div>
                     <div class="carrinhoBtn">
                         <div class="carrinhoBtnContent">
                             <div class="btnSubmit">
-                                <input type="submit" name="subCadastro" value="Finalizar Compra">
+                                <form action="../php/vender.php">
+                                    <input type="submit" name="subCadastro" value="Finalizar Compra">
+                                </form>
                             </div>
                         </div>
                     </div>
