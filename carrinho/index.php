@@ -304,7 +304,7 @@
 
                         <div class="carrinhoProdRemover">
                             <div class="carrinhoProdRemoverContent">
-                                <a href="">Remover</a>
+                                <?php echo "<a href='../php/remove_item.php?remove=$i'>Remover</a>"; ?>
                             </div>
                         </div>
                     </div>
@@ -312,6 +312,7 @@
                     <?php
                             
                          }
+                        echo "<a href='../index.php'>Adicionar mais produtos</a>";
                     }
                     else
                     {
@@ -319,6 +320,7 @@
                         echo "<br><br><br>";
                         echo "<a href='../index.php'>Compre produtos agora!</a>";
                     }
+            
                     ?>
 
                 </div>
@@ -328,14 +330,22 @@
                 <div class="carrinhoFinalizarContent">
                     <div class="carrinhoSubtotal">
                         <div class="carrinhoSubtotalContent">
-                            <?php echo "<h2>Subtotal ($carrinho): R$ $preco_total</h2>"; ?>
+                            <?php
+                                if($carrinho > 0)
+                                    echo "<h2>Subtotal ($carrinho): R$ $preco_total</h2>";
+                                else
+                                    echo "<h2>Subtotal ($carrinho): R$ 0.00</h2>";
+                            ?>
                         </div>
                     </div>
                     <div class="carrinhoBtn">
                         <div class="carrinhoBtnContent">
                             <div class="btnSubmit">
                                 <form action="../php/vender.php">
-                                    <input type="submit" name="subCadastro" value="Finalizar Compra">
+                                    <?php 
+                                    if($carrinho > 0)
+                                        echo "<input type='submit' name='subCadastro' value='Finalizar Compra'>";
+                                    ?>
                                 </form>
                             </div>
                         </div>
