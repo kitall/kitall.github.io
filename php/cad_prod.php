@@ -62,11 +62,8 @@
         echo "Erro no cadastro do fluxo de estoque!";
         exit;
     }
-    else
-    {
-        pg_close($conectar);
+    
+    pg_close($conectar);
 
-        echo "Cadastro efetuado com sucesso!<br><br>";
-        echo "<a href='../admin/index.html'>Voltar</a>";
-    }
+    header("Location: ../admin/index.html");
 ?>

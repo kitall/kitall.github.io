@@ -63,7 +63,5 @@
 
     pg_close($conectar);
 
-    echo "Produto alterado com sucesso!<br><br>";
-    echo "<a href='../admin/estoque/'>Voltar</a>";
-
+    header("Location: ../admin/index.html");
 ?>
