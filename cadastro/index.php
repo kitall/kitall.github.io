@@ -1,4 +1,21 @@
 <!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/cadastro.css">
+    <link rel="stylesheet" href="../css/presentation.css">
+    <link rel="stylesheet" href="../css/login.css">
+	<link rel="stylesheet" href="../css/search.css">
+
+    <title>Crie sua conta!</title>
+</head>
 
 <?php
     session_start();
@@ -42,123 +59,109 @@
             $pais = $_POST['pais'];
         }
         
-        try 
+        include "../php/connect.php";
+        include "../php/email/email.php";
+
+        //testa se o login ja existe
+        $sql = "SELECT * FROM c_usuario
+            WHERE login='$login' OR email='$email';";
+
+        $res = pg_query($conectar, $sql);
+        $qtd = pg_affected_rows($res);
+        if($qtd > 0)
         {
-            include "../php/connect.php";
-            include "../php/email/email.php";
-            
-            //testa se o login ja existe
-            $sql = "SELECT * FROM c_usuario
-                WHERE login='$login' OR email='$email'";
-            
-            $res = pg_query($conectar, $sql);
-            $qtd = pg_affected_rows($res);
-            if($qtd <= 0)
-            {
-                echo "Usuário já existente!";
-                
-                echo "<br><br><a href='index.php'>Tentar novamente</a>";
-                
-                exit;
-            }
-            
-            $senha = md5($senha);
-            $sql = "INSERT INTO c_usuario(id_usuario, login, email, senha, excluido) 
-                VALUES (DEFAULT, '$login', '$email', '$senha', 'n');";
+            echo "LOGIN ou EMAIL já existente!";
 
-            $res = pg_query($conectar, $sql);
-            $qtd = pg_affected_rows($res);
-            if ($qtd <= 0)
-            {
-                echo "Erro no CADASTRO do usuário<br>";
-                
-                pg_close($conectar);
-                
-                header("Location: ../");
-                exit;
-            }
-            
-            //--------------------------------------------------------------------
-            
-            $sql = "SELECT id_usuario FROM c_usuario WHERE email='$email';";
-            $res = pg_query($conectar, $sql);
-            $qtd = pg_num_rows($res);
-            if ($qtd <= 0) 
-            {
-                echo "Erro na CONSULTA do usuário!";
+            echo "<br><br><a href='index.php'>Tentar novamente</a>";
 
-                pg_close($conectar);
-                
-                header("Location: ../");
-                exit;
-            }
-            
-            //Pega o id cadastrado anteriormente
-            $prod = pg_fetch_array($res);
-            $id = $prod['id_usuario'];
-            
-            //-----------------------------------------------------------
-            
-            //Cadastro do cliente
-            $sql = "INSERT INTO c_cliente(id_usuario, nome, sobrenome, sexo, data_nasc, celular, excluido)
-                    VALUES('$id', '$nome', '$sobrenome', '$sexo', '$data_nasc', '$celular', 'n');";
+            exit;
+        }
 
-            $res = pg_query($conectar, $sql);
-            $qtd = pg_affected_rows($res);
+        $senha = md5($senha);
+        $sql = "INSERT INTO c_usuario(id_usuario, login, email, senha, excluido) 
+            VALUES (DEFAULT, '$login', '$email', '$senha', 'n');";
 
-            if ($qtd <= 0) //ERRO
-            {
-                ?> 
-                    <script>
-                        alert("Algo deu errado ao tentar realizar o cadastro!");
-                        window.location.reload();
-                    </script>
-                <?php
+        $res = pg_query($conectar, $sql);
+        $qtd = pg_affected_rows($res);
+        if ($qtd <= 0)
+        {
+            echo "Erro no CADASTRO do usuário<br>";
 
-                apagaUsuario($id);
-                
-                pg_close($conectar);
-                
-                header("Location: ../");
-                exit;
-            } 
-            
-            mandaEmail($email, $nome, 1); //EMAIL DE CONFIRMAÇÃO DE CADASTRO
-        
-            //------------------------------------------------------
-            
-            //Cadastro dos dados de entrega
-            if ($verEndereco) 
-            {
-                include("../php/cad_endereco_cli.php");
-                
-                if ($complemento != null) //complemento = sim
-                    cadastrar_endereco($id, $endereco, $numero, $complemento, $bairro, $cep, $cidade, $estado, $pais, TRUE, 1); 
-                else //complemento = nao
-                    cadastrar_endereco($id, $endereco, $numero, $complemento, $bairro, $cep, $cidade, $estado, $pais, FALSE, 1);
-            }
-
-            //Tudo OK
             pg_close($conectar);
 
-            //LOGAR 
-            $_SESSION['user'] = $login;
-            $_SESSION['senha'] = $senha;
-            $_SESSION['carrinho'] = 0;
+            header("Location: ../");
+            exit;
+        }
 
-            header("Location: ../"); 
+        //--------------------------------------------------------------------
 
-        } 
-        catch (Exception $e) 
+        $sql = "SELECT id_usuario FROM c_usuario WHERE email='$email';";
+        $res = pg_query($conectar, $sql);
+        $qtd = pg_num_rows($res);
+        if ($qtd <= 0) 
+        {
+            echo "Erro na CONSULTA do usuário!";
+
+            pg_close($conectar);
+
+            header("Location: ../");
+            exit;
+        }
+
+        //Pega o id cadastrado anteriormente
+        $prod = pg_fetch_array($res);
+        $id = $prod['id_usuario'];
+
+        //-----------------------------------------------------------
+
+        //Cadastro do cliente
+        $sql = "INSERT INTO c_cliente(id_usuario, nome, sobrenome, sexo, data_nasc, celular, excluido)
+                VALUES('$id', '$nome', '$sobrenome', '$sexo', '$data_nasc', '$celular', 'n');";
+
+        $res = pg_query($conectar, $sql);
+        $qtd = pg_affected_rows($res);
+
+        if ($qtd <= 0) //ERRO
         {
             ?> 
                 <script>
-                    alert("<?php echo $e->getMessage(); ?>");
-                    window.location.replace('index.php');
+                    alert("Algo deu errado ao tentar realizar o cadastro!");
+                    window.location.reload();
                 </script>
             <?php
 
+            apagaUsuario($id);
+
+            pg_close($conectar);
+
+            header("Location: ../");
+            exit;
+        } 
+
+        mandaEmail($email, $nome, 1); //EMAIL DE CONFIRMAÇÃO DE CADASTRO
+
+        //------------------------------------------------------
+
+        //Cadastro dos dados de entrega
+        if ($verEndereco) 
+        {
+            include("../php/cad_endereco_cli.php");
+
+            if ($complemento != null) //complemento = sim
+                cadastrar_endereco($id, $endereco, $numero, $complemento, $bairro, $cep, $cidade, $estado, $pais, TRUE, 1); 
+            else //complemento = nao
+                cadastrar_endereco($id, $endereco, $numero, $complemento, $bairro, $cep, $cidade, $estado, $pais, FALSE, 1);
         }
+
+        //Tudo OK
+        pg_close($conectar);
+
+        //LOGAR 
+        $_SESSION['user'] = $login;
+        $_SESSION['senha'] = $senha;
+        $_SESSION['carrinho'] = 0;
+
+        header("Location: ../");
     }
 
     function apagaUsuario($user_id)
@@ -172,25 +175,6 @@
         }
     }
 ?>
-
-<html lang="pt-br">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-
-    <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="../css/footer.css">
-    <link rel="stylesheet" href="../css/header.css">
-    <link rel="stylesheet" href="../css/cadastro.css">
-    <link rel="stylesheet" href="../css/presentation.css">
-    <link rel="stylesheet" href="../css/login.css">
-	<link rel="stylesheet" href="../css/search.css">
-
-    <title>Crie sua conta!</title>
-</head>
 
 <body>
 
