@@ -3,7 +3,7 @@
 
     //valores vindos do form
     $nome = $_POST['nome'];
-    $qtd = $_POST['qtd'];
+    $qtd_prod = $_POST['qtd'];
     $preco = $_POST['preco'];
     $custo = $_POST['custo'];
     $descr = $_POST['descricao'];
@@ -51,7 +51,7 @@
     //--------------------------------------
     //Cadastrar no fluxo de estoque
     $sql = "INSERT INTO f_fluxoestoque VALUES
-        (DEFAULT, '$data', 'Novo', '$id', '0', '$qtd', '0', '$qtd');";
+        (DEFAULT, '$data', 'Novo', '$id', '0', '$qtd_prod', '0', '$qtd_prod');";
 
     $res = pg_query($conectar, $sql);
     $qtd = pg_affected_rows($res);

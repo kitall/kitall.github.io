@@ -363,5 +363,5 @@
         $pdf->RelacaoProduto($data_produto);
 
     //Show
-    $pdf->Output('D', 'Kitall.pdf');
+    $pdf->Output('I', 'Kitall_Fluxos.pdf');
 ?>
