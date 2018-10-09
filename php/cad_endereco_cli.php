@@ -2,7 +2,7 @@
     function cadastrar_endereco($id, $endereco, $numero, $complemento, $bairro, $cep, $cidade, $estado, $pais, $tem_complemento, $onde)
     {
         include "connect.php";
-        include "email/email.php"
+        include "email/email.php";
         
         if($tem_complemento)
         {

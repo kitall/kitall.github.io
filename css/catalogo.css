@@ -110,7 +110,7 @@
 .prodInfo h3 {
     margin: 0;
     font-weight: normal;
-    font-size: 1.5ch;
+    /* font-size: 1.5ch; */
 }
 
 .prodPriceContent {
