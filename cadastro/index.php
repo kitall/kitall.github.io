@@ -405,9 +405,9 @@
                                     <div>
                                         <div class="lblCampo"><label>Senha*</label></div>
                                     </div>
-                                    <input type="password" name="senha" placeholder="ex.: ********" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Insira sua senha!">
+                                    <input type="password" name="senha" placeholder="ex.: ********" required title="Insira sua senha!">
                                     <div class="descCampo" id="senha">
-                                        <p>Deve conter pelo menos um número, uma letra maiúscula e uma letra minúscula, e pelo menos 8 caracteres.</p>
+                                        <p></p>
                                     </div>
                                 </div>
                             </div>
