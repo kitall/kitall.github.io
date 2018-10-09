@@ -187,6 +187,10 @@
             
 ");
         }
+//        else if($op == 3)
+//        {
+//            sendEmail($email, $nome, "Kitall? - Compra efetuada", "");
+//        }
         else
         {
             echo "Erro na OP!";

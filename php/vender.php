@@ -92,6 +92,9 @@
         }
     }
 
+    //include "email/email.php";
+    //enviar email?
+
     //Remover as variáveis de carrinho
     unset($_SESSION['carrinho_id']);
     unset($_SESSION['carrinho_qtd']);

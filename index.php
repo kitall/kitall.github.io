@@ -102,7 +102,7 @@
 					<div class="menuMobileContent">
 						<ul>
 							<li id="active">
-								<a href="">Home</a>
+								<a href="index.php">Home</a>
 							</li>
 							<li>
 								<a href="">Monte seu Kit</a>
@@ -118,7 +118,7 @@
 									<ul>
 										<li>
 											<div class="pesquisa">
-												<a href="" title="Pesquisar">
+												<a href="pesquisa/index.php" title="Pesquisar">
 													<div>
 														<img src="" id="search" alt="Pesquisa" title="Clique aqui para pesquisar algo!">
 													</div>

@@ -17,7 +17,7 @@
 <body>
     <center>
         <?php
-            echo "Seu login é: $nome";
+            echo "<h3>Seu login é: $nome</h3>";
         ?>
         <br>
         <br>
