@@ -8,30 +8,67 @@
     width: 80%;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-areas: "prodImg prodName" "prodImg prodPreco" "prodImg prodQtde" "prodImg prodFinalizar";
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-areas: "prodImg none""prodImg prodName""prodImg prodPreco""prodImg prodQtde""prodImg prodFinalizar";
 }
 
 .produtoImg {
     grid-area: prodImg;
+    display: flex;
+}
+
+.produtoImgContent {
+    margin: auto;
 }
 
 .produtoName {
     grid-area: prodName;
+    display: flex;
+}
+
+.produtoNameContent {
+    margin: auto;
+    margin-left: 0;
+    margin-bottom: 0;
+}
+
+.produtoNameContent div {
+    font-size: 3em;
 }
 
 .produtoPreco {
     grid-area: prodPreco;
+    display: flex;
+}
+
+.produtoPrecoContent {
+    margin: auto;
+    margin-left: 0;
+    /* margin-bottom: 0; */
+}
+
+.produtoPrecoContent div {
+    padding: 0;
+    font-size: 2em;
 }
 
 .produtoQtde {
     grid-area: prodQtde;
-    width: 50%;
+    width: 100%;
+    display: flex;
 }
 
 .produtoQtdeContent {
-    display: inline;
+    margin: auto;
+    margin-left: 0;
+    /* margin-top: 0; */
+}
+
+.produtoQtdeContent div {
+    display: inline-block;
 }
 
 .produtoFinalizar {
     grid-area: prodFinalizar;
+    width: 50%;
 }

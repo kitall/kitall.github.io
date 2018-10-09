@@ -155,3 +155,25 @@ select {
 .gig {
 	font-size: 5ch;
 }
+
+
+.btnSubmit input {
+	width: 100%;
+	padding: 8px;
+	color: white;
+	background: linear-gradient(#1BCB00, #049C00);
+	border: solid 1px #049C00;
+	font-size: 1.6ch;
+	font-weight: bold;
+	cursor: pointer;
+	border-radius: 3px;
+}
+
+.btnSubmit input:hover {
+	background: linear-gradient(rgb(31, 230, 0), rgb(6, 177, 0));
+}
+
+.btnSubmit input:active {
+	background: linear-gradient(#1BCB00, #049C00);
+	border: solid 1px #049C00;
+}

@@ -89,7 +89,7 @@
 <body style='transition-property: border, background, opacity;transition-duration: 0.2s;margin: 0;padding: 0;display: block;'>
     <center style='transition-property: border, background, opacity;transition-duration: 0.2s;'>
         <div id='email' style='transition-property: border, background, opacity;transition-duration: 0.2s;background-color: #eaeaea;text-align: center;width: 700px;'>
-            <h1 style='transition-property: border, background, opacity;transition-duration: 0.2s;'>Bem-vindo Sr(a) $nome!!</h1>
+            <h1 style='transition-property: border, background, opacity;transition-duration: 0.2s;'>Bem-vindo, $nome!</h1>
 
             <p style='transition-property: border, background, opacity;transition-duration: 0.2s;'>O cadastro dos seus dados no nosso sistema foi efetuado com sucesso!</p>
             <p style='transition-property: border, background, opacity;transition-duration: 0.2s;'>Agora você pode usufruir livremente os nossos serviços de compra online.</p>
@@ -167,7 +167,7 @@
 <body style='transition-property: border, background, opacity;transition-duration: 0.2s;margin: 0;padding: 0;display: block;'>
     <center style='transition-property: border, background, opacity;transition-duration: 0.2s;'>
         <div id='email' style='transition-property: border, background, opacity;transition-duration: 0.2s;background-color: #eaeaea;text-align: center;width: 800px;'>
-            <h1 style='transition-property: border, background, opacity;transition-duration: 0.2s;'>Endereço cadastrado com sucesso Sr(a) [nome]!!</h1>
+            <h1 style='transition-property: border, background, opacity;transition-duration: 0.2s;'>Endereço cadastrado com sucesso, $nome!</h1>
 
             <p style='transition-property: border, background, opacity;transition-duration: 0.2s;'>O cadastro dos seus dados de entrega foi concluido com sucesso!</p>
             <p style='transition-property: border, background, opacity;transition-duration: 0.2s;'>Agora nós podemos entregar os produtos requisitados na porta da sua casa!</p>
