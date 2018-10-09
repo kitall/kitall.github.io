@@ -1,0 +1,37 @@
+.produto {
+    width: 100%;
+    display: flex;
+}
+
+.produtoContent {
+    margin: auto;
+    width: 80%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "prodImg prodName" "prodImg prodPreco" "prodImg prodQtde" "prodImg prodFinalizar";
+}
+
+.produtoImg {
+    grid-area: prodImg;
+}
+
+.produtoName {
+    grid-area: prodName;
+}
+
+.produtoPreco {
+    grid-area: prodPreco;
+}
+
+.produtoQtde {
+    grid-area: prodQtde;
+    width: 50%;
+}
+
+.produtoQtdeContent {
+    display: inline;
+}
+
+.produtoFinalizar {
+    grid-area: prodFinalizar;
+}
