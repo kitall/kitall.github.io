@@ -34,14 +34,13 @@
         $sql = "SELECT saldoatual FROM f_fluxocaixa 
             ORDER BY id_fluxocaixa DESC LIMIT 1";
         $res = pg_query($conectar, $sql);
-        $qtd = pg_num_rows($res);
-        if ($qtd > 0) 
+        $qtd_sql = pg_num_rows($res);
+        if ($qtd_sql > 0) 
         {
             while ($fluxocaixa = pg_fetch_array($res)) 
             {
                 $saldoanterior = $fluxocaixa['saldoatual'];
-            }
-        }
+            }        }
         else
         {
             echo "Erro no saldo anterior!";
@@ -78,8 +77,8 @@
         
         //Executar SQL
         $res = pg_query($conectar, $sql);
-        $qtd = pg_affected_rows($res);
-        if ($qtd <= 0) 
+        $qtd_sql = pg_affected_rows($res);
+        if ($qtd_sql <= 0) 
         {
             break;
             
@@ -103,6 +102,8 @@
     $_SESSION['carrinho'] = 0;
 
     pg_close($conectar);
-
-    header("Location: ../index.php");
 ?>
+<script>
+	alert("Compre efetuada com sucesso!");
+	window.location.replace("http://200.145.153.175/andrecreppe/kitall/index.php");
+</script>

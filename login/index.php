@@ -131,13 +131,13 @@
 							<a href="../index.php">Home</a>
 						</li>
 						<li>
-							<a href="">Monte seu Kit</a>
+							<a href="../montar_kit/index.html">Monte seu Kit</a>
 						</li>
 						<li>
-							<a href="">Produtos</a>
+							<a href="../produtos/index.php">Produtos</a>
 						</li>
 						<li>
-							<a href="">Quem Somos</a>
+							<a href="../quem_somos/index.html">Quem Somos</a>
 						</li>
 					</ul>
 				</div>
@@ -153,20 +153,20 @@
 								<a href="../index.php">Home</a>
 							</li>
 							<li>
-								<a href="">Monte seu Kit</a>
+								<a href="../montar_kit/index.html">Monte seu Kit</a>
 							</li>
 							<li>
-								<a href="">Produtos</a>
+								<a href="../produtos/index.php">Produtos</a>
 							</li>
 							<li>
-								<a href="">Quem Somos</a>
+								<a href="../quem_somos/index.html">Quem Somos</a>
 							</li>
 							<li id="btns">
 								<div class="btns showBtnsMobile">
 									<ul>
 										<li>
 											<div class="pesquisa">
-												<a href="" title="Pesquisar">
+												<a href="../pesquisa/index.php" title="Pesquisar">
 													<div>
 														<img src="" id="search" alt="Pesquisa" title="Clique aqui para pesquisar algo!">
 													</div>
@@ -293,13 +293,13 @@
 										<a href="../index.php">Home</a>
 									</li>
 									<li>
-										<a href="">Monte seu Kit</a>
+										<a href="../montar_kit/index.html">Monte seu Kit</a>
 									</li>
 									<li>
-										<a href="">Produtos</a>
+										<a href="../produtos/index.php">Produtos</a>
 									</li>
 									<li>
-										<a href="">Quem Somos</a>
+										<a href="../quem_somos/index.html">Quem Somos</a>
 									</li>
 								</ul>
 							</div>
@@ -315,13 +315,13 @@
 											<a href="../">Home</a>
 										</li>
 										<li>
-											<a href="">Monte seu Kit</a>
+											<a href="../montar_kit/index.html">Monte seu Kit</a>
 										</li>
 										<li>
-											<a href="">Produtos</a>
+											<a href="../produtos/index.php">Produtos</a>
 										</li>
 										<li>
-											<a href="">Quem Somos</a>
+											<a href="../quem_somos/index.html">Quem Somos</a>
 										</li>
 										<li id="btns">
 											<div class="btns showBtnsMobile">

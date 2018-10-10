@@ -15,9 +15,10 @@
     <title>Minha conta</title>
 </head>
 <body>
+   <br><br><br><br><br>
     <center>
         <?php
-            echo "<h3>Seu login é: $nome</h3>";
+            echo "<h3>Você está logado como: $nome</h3>";
         ?>
         <br>
         <br>

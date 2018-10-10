@@ -17,15 +17,19 @@
 
     //Cadastrar
     $sql = "INSERT INTO p_produtos VALUES
-        (DEFAULT, '$nome', '$qtd', '$preco', '$custo', '$descr', '$link_img', 'FALSE');";
+        (DEFAULT, '$nome', '$qtd_prod', '$preco', '$custo', '$descr', '$link_img', 'FALSE');";
 
     $res = pg_query($conectar, $sql);
     $qtd = pg_affected_rows($res);
     if($qtd <= 0)
     {
-        pg_close($conectar);
-        
-        echo "Erro no cadastro do produto!";
+        $erro = pg_last_error($conectar);
+            
+        echo "Erro na execucao do SQL!<br><br>";
+        echo "Erro: ".$erro;
+
+	pg_close($conectar);
+
         exit;
     }
 

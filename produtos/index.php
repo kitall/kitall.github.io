@@ -4,34 +4,9 @@
     session_start();
 
 	$logado = false;
-	$state = 0;
-	$order = "nome";
-
-	$getOrder = " ";
-
-	$selorder = false;
 
     $link_venda = "../venda/index.php?id_prod=";
 
-	if(isset($_GET['order']))
-    {
-		$getOrder = $_GET['order'];
-
-		if($getOrder == "alf")
-        {
-			$order = "nome";
-		}
-		else if($getOrder == "men")
-        {
-			$order = "preco ASC";
-		}
-		else 
-        {
-			$order = "preco DESC";
-		}
-
-		$selorder = true;
-	}
 
     if (!empty($_SESSION['user'])) //Teste de sessão
     {
@@ -39,54 +14,23 @@
         $carrinho = $_SESSION['carrinho'];
     }
 
-    try 
+    //--------------------------------------------------------
+		
+    include "../php/connect.php";
+
+    $sql = "SELECT * FROM p_produtos WHERE excluido = 'f'
+        ORDER BY nome";
+    $res = pg_query($conectar, $sql);
+    $qtd = pg_num_rows($res);
+
+    if ($qtd <= 0) 
     {
-        $prod_name = $_GET['search'];
-		
-		$lower_prod_name = strtolower($prod_name);
-		
-        include "../php/connect.php";
+        echo "Erro no SELECT!!";
 
-        $sql = "SELECT * FROM p_produtos WHERE lower(nome) = '$lower_prod_name' AND excluido = 'f'";
-        $res = pg_query($conectar, $sql);
-        $qtd = pg_num_rows($res);
+        exit;
 
-        if ($qtd <= 0) 
-        {
-            $sql = "SELECT * FROM p_produtos WHERE lower(nome) LIKE '%$lower_prod_name%' AND excluido = 'f' ORDER BY $order";
-            $res = pg_query($conectar, $sql);
-            $qtd = pg_num_rows($res);
-            
-            if ($qtd <= 0)
-            {
-                //ERRO
-                $state = 0;
-
-                pg_close();
-            } 
-            else
-            {
-                //Pesquisa por Similaridade
-                $state = 1;
-            }
-        } 
-        else 
-        {
-            //Pesquisa Específica 
-            $state = 2;
-
-            pg_close();
-        }
+        pg_close($conectar);
     } 
-    catch (Exception $e) 
-    {
-    ?> 
-        <script>
-            alert("<?php echo $e->getMessage(); ?>");
-        </script>
-    <?php
-
-    }
 ?>
 
 <html lang="pt-br">
@@ -105,7 +49,7 @@
     <link rel="stylesheet" href="../css/search.css">
 	<link rel="stylesheet" href="../css/catalogo.css">
 
-	<title>Resultados da Pesquisa</title>
+	<title>Nossos produtos</title>
 </head>
 
 <body>
@@ -126,13 +70,13 @@
 							<a href="../index.php">Home</a>
 						</li>
 						<li>
-							<a href="">Monte seu Kit</a>
+							<a href="../montar_kit/index.html">Monte seu Kit</a>
 						</li>
 						<li>
 							<a href="">Produtos</a>
 						</li>
 						<li>
-							<a href="">Quem Somos</a>
+							<a href="../quem_somos/index.html">Quem Somos</a>
 						</li>
 					</ul>
 				</div>
@@ -148,13 +92,13 @@
 								<a href="../index.php">Home</a>
 							</li>
 							<li>
-								<a href="">Monte seu Kit</a>
+								<a href="../montar_kit/index.html">Monte seu Kit</a>
 							</li>
 							<li>
 								<a href="">Produtos</a>
 							</li>
 							<li>
-								<a href="">Quem Somos</a>
+								<a href="../quem_somos/index.html">Quem Somos</a>
 							</li>
 							<li id="btns">
 								<div class="btns showBtnsMobile">
@@ -257,7 +201,7 @@
 						</li>
 						<li>
 							<div class="cesta">
-								<a href="" title="Essas são suas compras">
+								<a href="../carrinho/index.php" title="Essas são suas compras">
 									<div>
 										<img src="../carrinho/index.php" id="cesta" alt="Cesta">
 									</div>
@@ -280,46 +224,62 @@
 				</div>
             </div>
             
-			<div class="produto">
-        <div class="produtoContent">
-            <div class="produtoImg">
-                <div class="produtoImgContent">
-                    <img src="../imgs/produtos/lapis_verde.png" alt="">
-                </div>
-            </div>
+            <div class="catalogo">
+                <div class="catalogoProds">
+                    <div class="prods">
 
-            <div class="produtoName">
-                <div class="produtoNameContent">
-                    <div>Lápis Verde</div>
-                </div>
-            </div>
+                        <?php
 
-            <div class="produtoPreco">
-                <div class="produtoPrecoContent">
-                    <div class="prodPrice">R$1,00 </div>
-                </div>
-            </div>
+                        $i = 0;
+                        while ($prod = pg_fetch_array($res)) 
+                        {
 
-            <div class="produtoQtde">
-                <div class="produtoQtdeContent">
-                    <div>
-                        Quantidade:
-                    </div>
-                    <div class="produteQtdeInput">
-                        <input type="number" min="1" value="1" max="10" title="Quantidade">
-                    </div>
-                </div>
-            </div>
+                            $id = $prod['id_prod'];
+                            $nome = $prod['nome'];
+                            $preco = $prod['preco'];
+                            $qtd = $prod['qtd'];
+                            $link_img = $prod['link_img'];
 
-            <div class="produtoFinalizar">
-                <div class="produtoFinalizarContent">
-                    <div class="btnSubmit">
-                        <input type="submit" name="subProduto" value="Adicionar ao Carrinho">
-                    </div>
+                            $emEstoque = $qtd > 0;
+
+                            ?>
+                            <div class="prod">
+                                <div class="prodImage">
+                                    <div class="prodImg">
+                                        <img src="<?php echo $link_img; ?>" alt="<?php echo $nome; ?>">
+                                    </div>
+                                </div>
+                                <div class="prodText">
+                                    <div class="prodTextContent">
+                                        <div class="prodInfo">
+                                            <h3>
+                                            <?php echo $nome; ?>
+                                            </h3>
+                                        </div>
+                                    </div>
+
+                                    <div class="prodPriceContent">
+                                        <div class="prodPrice">R$
+                                            <?php echo $preco; ?></div>
+                                    </div>
+
+                                    <div class="prodBtnContent">
+
+                                        <div class="prodBtn  <?php if ($emEstoque) echo "emEstoque"; else echo "semEstoque"; ?>">
+                                            <a href="" class="standby"><?php if ($emEstoque) echo "EM ESTOQUE"; else echo "INDISPONÍVEL"; ?></a>
+                                            <a href="<?php echo $link_venda.$id ?>" class="active"><?php if ($emEstoque) echo "COMPRAR"; else echo "VISUALIZAR"; ?></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <?php
+                            // $i++;
+                        }
+                        ?> 
+                        </div>
                 </div>
             </div>
-        </div>
-    </div>
 
 			<div class="footer">
 				<div class="footerContent">
@@ -332,13 +292,13 @@
 										<a href="../index.php">Home</a>
 									</li>
 									<li>
-										<a href="">Monte seu Kit</a>
+										<a href="../montar_kit/index.html">Monte seu Kit</a>
 									</li>
 									<li>
-										<a href="">Produtos</a>
+										<a href="../produtos/index.php">Produtos</a>
 									</li>
 									<li>
-										<a href="">Quem Somos</a>
+										<a href="../quem_somos/index.html">Quem Somos</a>
 									</li>
 								</ul>
 							</div>
@@ -354,13 +314,13 @@
 											<a href="../">Home</a>
 										</li>
 										<li>
-											<a href="">Monte seu Kit</a>
+											<a href="../montar_kit/index.html">Monte seu Kit</a>
 										</li>
 										<li>
-											<a href="">Produtos</a>
+											<a href="../produtos/index.php">Produtos</a>
 										</li>
 										<li>
-											<a href="">Quem Somos</a>
+											<a href="../quem_somos/index.html">Quem Somos</a>
 										</li>
 										<li id="btns">
 											<div class="btns showBtnsMobile">

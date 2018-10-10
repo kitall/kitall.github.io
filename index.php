@@ -83,13 +83,13 @@
 							<a href="">Home</a>
 						</li>
 						<li>
-							<a href="">Monte seu Kit</a>
+							<a href="montar_kit/index.html">Monte seu Kit</a>
 						</li>
 						<li>
-							<a href="">Produtos</a>
+							<a href="produtos/index.php">Produtos</a>
 						</li>
 						<li>
-							<a href="">Quem Somos</a>
+							<a href="quem_somos/index.html">Quem Somos</a>
 						</li>
 					</ul>
 				</div>
@@ -105,13 +105,13 @@
 								<a href="index.php">Home</a>
 							</li>
 							<li>
-								<a href="">Monte seu Kit</a>
+								<a href="montar_kit/index.html">Monte seu Kit</a>
 							</li>
 							<li>
-								<a href="">Produtos</a>
+								<a href="produtos/index.php">Produtos</a>
 							</li>
 							<li>
-								<a href="">Quem Somos</a>
+								<a href="quem_somos/index.html">Quem Somos</a>
 							</li>
 							<li id="btns">
 								<div class="btns showBtnsMobile">
@@ -128,7 +128,7 @@
 										<li>
 											<div class="entrar">
 												<div>
-													<a href="login/"><img id="user" src="" alt="Usuário"></a>
+													<a href="login/index.php"><img id="user" src="" alt="Usuário"></a>
 												</div>
 												<div>
 													<h2><a href="login/" title="Entre em sua conta!">Entre</a> ou <a href="cadastro/"
@@ -238,7 +238,7 @@
 							<h1 style="font-weight: bold">SEU KIT</h1>
 						</div>
 						<div class="presentBtn">
-							<button class="btnKitall bold">Kitall?</button>
+							<button class="btnKitall bold" onclick="window.location.href='produtos/index.php'">Kitall?</button>
 						</div>
 					</div>
 				</div>
@@ -406,13 +406,13 @@
 										<a href="">Home</a>
 									</li>
 									<li>
-										<a href="">Monte seu Kit</a>
+										<a href="montar_kit/index.html">Monte seu Kit</a>
 									</li>
 									<li>
-										<a href="">Produtos</a>
+										<a href="produtos/index.php">Produtos</a>
 									</li>
 									<li>
-										<a href="">Quem Somos</a>
+										<a href="quem_somos/index.html">Quem Somos</a>
 									</li>
 								</ul>
 							</div>
@@ -428,13 +428,13 @@
 											<a href="">Home</a>
 										</li>
 										<li>
-											<a href="">Monte seu Kit</a>
+											<a href="montar_kit/index.html">Monte seu Kit</a>
 										</li>
 										<li>
-											<a href="">Produtos</a>
+											<a href="produtos/index.php">Produtos</a>
 										</li>
 										<li>
-											<a href="">Quem Somos</a>
+											<a href="quem_somos/index.html">Quem Somos</a>
 										</li>
 										<li id="btns">
 											<div class="btns showBtnsMobile">

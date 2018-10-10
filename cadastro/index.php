@@ -134,7 +134,6 @@
 
             pg_close($conectar);
 
-            header("Location: ../");
             exit;
         } 
 
@@ -194,13 +193,13 @@
                             <a href="../">Home</a>
                         </li>
                         <li>
-                            <a href="">Monte seu Kit</a>
+                            <a href="../montar_kit/index.html">Monte seu Kit</a>
                         </li>
                         <li>
-                            <a href="">Produtos</a>
+                            <a href="../produtos/index.php">Produtos</a>
                         </li>
                         <li>
-                            <a href="">Quem Somos</a>
+                            <a href="../quem_somos/index.html">Quem Somos</a>
                         </li>
                     </ul>
                 </div>
@@ -216,20 +215,20 @@
                                 <a href="../">Home</a>
                             </li>
                             <li>
-                                <a href="">Monte seu Kit</a>
+                                <a href="../montar_kit/index.html">Monte seu Kit</a>
                             </li>
                             <li>
-                                <a href="">Produtos</a>
+                                <a href="../produtos/index.php">Produtos</a>
                             </li>
                             <li>
-                                <a href="">Quem Somos</a>
+                                <a href="../quem_somos/index.html">Quem Somos</a>
                             </li>
                             <li id="btns">
                                 <div class="btns showBtnsMobile">
                                     <ul>
                                         <li>
                                             <div class="pesquisa">
-                                                <a href="" title="Pesquisar">
+                                                <a href="../pesquisa/index.php" title="Pesquisar">
                                                     <div>
                                                         <img src="" id="search" alt="Pesquisa" title="Clique aqui para pesquisar algo!">
                                                     </div>
@@ -249,7 +248,7 @@
                                         </li>
                                         <li>
                                             <div class="cesta">
-                                                <a href="" title="Essas são suas compras">
+                                                <a href="../carrinho/index.php" title="Essas são suas compras">
                                                     <div>
                                                         <img src="" id="cesta" alt="Cesta">
                                                     </div>
@@ -300,7 +299,7 @@
                         </li>
                         <li>
                             <div class="cesta">
-                                <a href="" title="Essas são suas compras">
+                                <a href="../carrinho/index.php" title="Essas são suas compras">
                                     <div>
                                         <img src="" id="cesta" alt="Cesta">
                                     </div>
@@ -611,13 +610,13 @@
                                         <a href="../">Home</a>
                                     </li>
                                     <li>
-                                        <a href="">Monte seu Kit</a>
+                                        <a href="../montar_kit/index.html">Monte seu Kit</a>
                                     </li>
                                     <li>
-                                        <a href="">Produtos</a>
+                                        <a href="../produtos/index.php">Produtos</a>
                                     </li>
                                     <li>
-                                        <a href="">Quem Somos</a>
+                                        <a href="../quem_somos/index.html">Quem Somos</a>
                                     </li>
                                 </ul>
                             </div>
@@ -633,20 +632,20 @@
                                             <a href="../">Home</a>
                                         </li>
                                         <li>
-                                            <a href="">Monte seu Kit</a>
+                                            <a href="../montar_kit/index.html">Monte seu Kit</a>
                                         </li>
                                         <li>
-                                            <a href="">Produtos</a>
+                                            <a href="../produtos/index.php">Produtos</a>
                                         </li>
                                         <li>
-                                            <a href="">Quem Somos</a>
+                                            <a href="../quem_somos/index.html">Quem Somos</a>
                                         </li>
                                         <li id="btns">
                                             <div class="btns showBtnsMobile">
                                                 <ul>
                                                     <li>
                                                         <div class="pesquisa">
-                                                            <a href="" title="Pesquisar">
+                                                            <a href="../pesquisa/index.php" title="Pesquisar">
                                                                 <div>
                                                                     <img src="" id="search" alt="Pesquisa" title="Clique aqui para pesquisar algo!">
                                                                 </div>
@@ -719,7 +718,7 @@
                                     </li>
                                     <li>
                                         <div class="cesta">
-                                            <a href="" title="Essas são suas compras">
+                                            <a href="../carrinho/index.php" title="Essas são suas compras">
                                                 <div>
                                                     <img src="" id="cesta" alt="Cesta">
                                                 </div>
