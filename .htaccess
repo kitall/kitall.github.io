@@ -8,6 +8,10 @@ Options FollowSymLinks
 	Require all denied
 </Files>
 
+<Files "admin/">
+	Require all denied
+</Files>
+
 <Files "js/">
 	Require all denied
 </Files>
@@ -20,15 +24,23 @@ Options FollowSymLinks
 	Require all denied
 </Files>
 
+<Files ".vs/">
+	Require all denied
+</Files>
+
 <Files ".vscode/">
 	Require all denied
 </Files>
 
-<Files ".images/">
+<Files "images/">
 	Require all denied
 </Files>
 
 <Files "bd/">
+	Require all denied
+</Files>
+
+<Files "BACKUP/">
 	Require all denied
 </Files>
 

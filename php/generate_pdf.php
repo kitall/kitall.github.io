@@ -31,7 +31,7 @@
             $this->SetFont('Arial','b',30);
             
             $this->Cell(85);
-            $this->Cell(20,9,"Relatórios de venda",0,0,'C');
+            $this->Cell(20,9,"Relatório de venda",0,0,'C');
             
             $this->Ln(30);
             
@@ -71,7 +71,7 @@
             for($i=0; $i<count($data); $i++)
             {
                 //Quebra pagina?
-                if($i == 29)
+                if(($i%29) == 0 && $i != 0)
                 {
                     $this->AddPage();
                     $this->Ln(26);
@@ -144,7 +144,7 @@
             for($i=0; $i<count($data); $i++)
             {
                 //Quebra pagina?
-                if($i == 29)
+                if(($i%29) == 0 && $i != 0)
                 {
                     $this->AddPage();
                     $this->Ln(26);
