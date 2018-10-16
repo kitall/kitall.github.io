@@ -111,6 +111,16 @@
             
             $this->Ln();
         }
+        function FluxoCaixa_Estatisticas($soma)
+        {
+            $this->Cell(115);
+            $this->SetFont('Arial','b',20);
+            $this->Cell(75,9,"Estatísticas - Vendas",1,0,'C');
+           
+            $this->Ln(26);
+            
+            
+        }
         
         //Formatação - estoque
         function FluxoEstoque_Top($header)
@@ -213,14 +223,16 @@
                 $this->Ln();
             }
         }
+        function FluxoEstoque_Estatisticas($movimento)
+        {
+            
+        }
     }
 
-    //-------------------------------------------------------------------
+    /*----------------------------------------------------------------------------*/
     include("connect.php");
 
     //Dados -> Fluxo de Caixa 
-    $header_fluxo = array('Data', 'Descrição', 'Entrada*', 'Saída*', 'Saldo*');
-
     $sql = "SELECT * FROM f_fluxocaixa
         ORDER BY id_fluxocaixa;";
     $res = pg_query($conectar, $sql);
@@ -234,6 +246,7 @@
         while($fluxo = pg_fetch_array($res))
         {
             $dia = $fluxo['dia'];
+                $dia = date("d-m-Y", strtotime($dia));
             $descricao = $fluxo['descricao'];
             $entrada = $fluxo['entrada'];
             $saida = $fluxo['saida'];
@@ -266,8 +279,6 @@
     }
 
     //Dados -> Estoque 
-    $header_estoque = array('Data', 'Descrição', 'ID', 'Entrada', 'Saída', 'Saldo');
-
     $sql = "SELECT * FROM f_fluxoestoque
         ORDER BY id_fluxoestoque;";
     $res = pg_query($conectar, $sql);
@@ -281,6 +292,7 @@
         while($estoque = pg_fetch_array($res))
         {
             $dia = $estoque['dia'];
+                $dia = date("d-m-Y", strtotime($dia));
             $descricao = $estoque['descricao'];
             $id = $estoque['id_prod'];
             $entrada = $estoque['entrada'];
@@ -339,8 +351,72 @@
         exit;
     }
 
+    //Ganho por dia
+    $sql = "SELECT SUM(entrada) FROM f_fluxocaixa 
+        WHERE dia >= '2018-10-09' 
+        GROUP BY dia";
+    $res = pg_query($conectar, $sql);
+    $qtd = pg_num_rows($res);
+    if($qtd > 0)
+    {
+        $i = 1;
+        
+        while($sum = pg_fetch_array($res))
+        {
+            $val = $sum['sum'];
+            
+            if($i == 1)
+                $soma = array(array($val));
+            else
+                array_push($soma, array($val));
+            
+            $i++;
+        }
+    }
+    else
+    {
+        pg_close($conectar);
+        
+        echo "Erro na execucao do SQL (SUM[entrada])!";
+        exit;
+    }
+
+    //Movimento dos produtos
+    $sql = "";
+    $res = pg_query($conectar, $sql);
+    $qtd = pg_num_rows($res);
+    if($qtd > 0)
+    {
+        $i = 1;
+        
+        while($produto = pg_fetch_array($res))
+        {
+            $val_i = $produto['sum'];
+            $val_f = $produto['']
+            
+            if($i == 1)
+                $soma = array(array($val, $i));
+            else
+                array_push($soma, array($val, $i));
+            
+            $i++;
+        }
+    }
+    else
+    {
+        pg_close($conectar);
+        
+        echo "Erro na execucao do SQL (SUM[entrada])!";
+        exit;
+    }
+
     pg_close($conectar);
 
+    /*--------------------------------------------------------------------------------------------*/
+    
+    $header_fluxo = array('Data', 'Descrição', 'Entrada*', 'Saída*', 'Saldo*');
+    $header_estoque = array('Data', 'Descrição', 'ID', 'Entrada', 'Saída', 'Saldo');
+    
     //PDF Initialization
     $pdf = new PDF();
     $pdf->AliasNbPages();
@@ -348,19 +424,32 @@
     //Intro
     $pdf->AddPage();
         $pdf->Intro();
+
+    /*
     //Fluxo de Caixa
     $pdf->AddPage();
         $pdf->FluxoCaixa_Top($header_fluxo);
         $pdf->FluxoCaixa_Linhas($data_fluxo);
         $pdf->FluxoCaixa_Total($total_ent_f, $total_sai_f);
+    */
+    //Estatisticas - Fuxo
+    $pdf->AddPage();
+        $pdf->FluxoCaixa_Estatisticas($soma);
+
+    /*
     //Fluxo do Estoque
     $pdf->AddPage();
         $pdf->FluxoEstoque_Top($header_estoque);
         $pdf->FluxoEstoque_Linhas($data_estoque);
-
     //Relação de produtos
     $pdf->AddPage();
         $pdf->RelacaoProduto($data_produto);
+    */
+/*
+    //Estatisticas - Estoque
+    $pdf->AddPage();
+        $pdf->FluxoEstoque_Estatisticas($movimento);*/
+    
 
     //Show
     $pdf->Output('I', 'Kitall_Fluxos.pdf');
