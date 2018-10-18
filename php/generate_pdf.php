@@ -101,7 +101,7 @@
             $this->Cell(37,8,"Total",1,0,'C', true);
             $this->Cell(37,8, number_format((float)$total_ent, 2, '.', ''), 1,0,'C', true);
             $this->Cell(37,8, number_format((float)$total_sai, 2, '.', ''), 1,0,'C', true);
-            $this->Cell(37,8,number_format((float)$total_ent-$total_sai, 2, '.', ''), 1,0,'C', true);
+            $this->Cell(37,8, number_format((float)$total_ent-$total_sai, 2, '.', ''), 1,0,'C', true);
             
             $this->Ln(11);
             
@@ -111,15 +111,75 @@
             
             $this->Ln();
         }
-        function FluxoCaixa_Estatisticas($soma)
+        
+        //Demonstração de Resultado
+        function Demonstracao($header, $data)
         {
-            $this->Cell(115);
             $this->SetFont('Arial','b',20);
-            $this->Cell(75,9,"Estatísticas - Vendas",1,0,'C');
+            
+            $this->Cell(97);
+            $this->Cell(97,9,"Demonstração de Resultado",1,0,'C');
            
             $this->Ln(26);
             
+            $this->SetFont('Arial','b',16);
             
+            $this->Cell(38);
+            $this->SetFillColor(144,255,0);
+            foreach($header as $col)
+                $this->Cell(37, 8, $col, 1, 0, 'C', true);
+            
+            $this->Ln(8);
+            
+            $this->SetFont('Arial','',13);
+            $this->SetFillColor(255, 255, 255);
+            
+            for($i=0; $i<count($data); $i++)
+            {
+                $this->Cell(38);
+                
+                if($i%2 == 1)
+                    $this->SetFillColor(220,220,220);
+                else
+                    $this->SetFillColor(255,255,255);
+                
+                for($j=0; $j<3; $j++)
+                {
+                    $this->Cell(37, 8, $data[$i][$j], 1, 0, 'C', true);
+                }
+                
+                $this->Ln(8);
+            }
+            
+            $bruto = 0.00;
+            $gasto = 0.00;
+            for($i=0; $i<count($data); $i++)
+            {
+                $bruto += $data[$i][1];
+                $gasto += $data[$i][2];
+            }
+            
+            $this->Cell(38);
+            
+            $this->SetFillColor(144,255,0);
+            $this->SetFont('Arial', 'b', 13);
+            
+            $this->Cell(37, 8, 'Totais', 1, 0, 'C', true);
+            $this->Cell(37, 8, number_format((float)$bruto, 2, '.', ''), 1, 0, 'C', true);
+            $this->Cell(37, 8, number_format((float)$gasto, 2, '.', ''), 1, 0, 'C', true);
+            
+            $this->Ln(8);
+            
+            $this->Cell(38);
+            
+            $this->Cell(74, 8, 'Lucro Líquido', 1, 0, 'C', true);
+            $this->Cell(37, 8, number_format((float)($bruto - $gasto), 2, '.', ''), 1, 0, 'C', true);
+            
+            $this->Ln(11);
+            
+            $this->SetFont('Arial', 'i', 10);
+            $this->Cell(147);
+            $this->Cell(2,1, "*valores expressos em Reais (R$)", 0, 0, 'R');
         }
         
         //Formatação - estoque
@@ -352,37 +412,9 @@
     }
 
     //Ganho por dia
-    $sql = "SELECT SUM(entrada) FROM f_fluxocaixa 
-        WHERE dia >= '2018-10-09' 
-        GROUP BY dia";
-    $res = pg_query($conectar, $sql);
-    $qtd = pg_num_rows($res);
-    if($qtd > 0)
-    {
-        $i = 1;
-        
-        while($sum = pg_fetch_array($res))
-        {
-            $val = $sum['sum'];
-            
-            if($i == 1)
-                $soma = array(array($val));
-            else
-                array_push($soma, array($val));
-            
-            $i++;
-        }
-    }
-    else
-    {
-        pg_close($conectar);
-        
-        echo "Erro na execucao do SQL (SUM[entrada])!";
-        exit;
-    }
-
-    //Movimento dos produtos
-    $sql = "";
+    $sql = "SELECT dia, SUM(entrada) AS entrada, SUM(saida) AS saida FROM f_fluxocaixa
+        WHERE dia >= '2018-10-06'
+        GROUP BY dia ORDER BY dia;";
     $res = pg_query($conectar, $sql);
     $qtd = pg_num_rows($res);
     if($qtd > 0)
@@ -391,13 +423,14 @@
         
         while($produto = pg_fetch_array($res))
         {
-            $val_i = $produto['sum'];
-            $val_f = $produto['']
+            $dia = $produto['dia'];
+            $entrada = $produto['entrada'];
+            $saida = $produto['saida'];
             
             if($i == 1)
-                $soma = array(array($val, $i));
+                $soma = array(array("$dia", "$entrada", "$saida"));
             else
-                array_push($soma, array($val, $i));
+                array_push($soma, array("$dia", "$entrada", "$saida"));
             
             $i++;
         }
@@ -416,6 +449,7 @@
     
     $header_fluxo = array('Data', 'Descrição', 'Entrada*', 'Saída*', 'Saldo*');
     $header_estoque = array('Data', 'Descrição', 'ID', 'Entrada', 'Saída', 'Saldo');
+    $header_demonstracao = array('Data', 'Receitas*', 'Despesas*');
     
     //PDF Initialization
     $pdf = new PDF();
@@ -425,18 +459,16 @@
     $pdf->AddPage();
         $pdf->Intro();
 
-    /*
     //Fluxo de Caixa
     $pdf->AddPage();
         $pdf->FluxoCaixa_Top($header_fluxo);
         $pdf->FluxoCaixa_Linhas($data_fluxo);
         $pdf->FluxoCaixa_Total($total_ent_f, $total_sai_f);
-    */
-    //Estatisticas - Fuxo
+    
+    //Demonstração de Resultado
     $pdf->AddPage();
-        $pdf->FluxoCaixa_Estatisticas($soma);
+        $pdf->Demonstracao($header_demonstracao, $soma);
 
-    /*
     //Fluxo do Estoque
     $pdf->AddPage();
         $pdf->FluxoEstoque_Top($header_estoque);
@@ -444,11 +476,11 @@
     //Relação de produtos
     $pdf->AddPage();
         $pdf->RelacaoProduto($data_produto);
-    */
 /*
     //Estatisticas - Estoque
     $pdf->AddPage();
-        $pdf->FluxoEstoque_Estatisticas($movimento);*/
+        $pdf->FluxoEstoque_Estatisticas($movimento);
+*/
     
 
     //Show

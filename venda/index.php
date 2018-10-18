@@ -238,7 +238,7 @@
             <div class="produtoImg">
                 <div class="produtoImgContent">
                     <?php
-                        echo "<img src='$link_img' height='600' alt=''>";
+                        echo "<img src='$link_img' alt=''>";
                         //echo "<img src='$link_img' alt=''>";
                     ?>
                 </div>
@@ -253,31 +253,41 @@
             <div class="produtoPreco">
                 <div class="produtoPrecoContent">
                     <div class="prodPrice">
-                        <?php
-                            echo "<br>Preço (R$): $preco";
+						<?php
+                            echo "<br>R$  $preco";
                         ?>
                     </div>
                 </div>
             </div>
 
             <div class="produtoQtde">
-                <div class="produtoQtdeContent">
-                    <div>
-                        <b>Quantidade:</b>
-                    </div>
-                    <div class="produteQtdeInput">
-                        <?php
-                            if($qtd < 1)
-                            {
-                                echo "Produto fora de estoque!";
-                                echo "<h4><a href='../index.php'>Retornar</a></h4>";
-                                exit;
-                            }
-                            else
-                                echo "<input type='number' name='qtd' max='$qtd' min='1' size='10' required>"; 
-                        ?>
-                    </div>
-                </div>
+				<?php
+					if($qtd >= 1){
+						?>
+						<div class="produtoQtdeContent">
+							<div>
+								<b>Quantidade:</b>
+							</div>
+							<div class="produteQtdeInput">
+								<?php
+									echo "<input type='number' name='qtd' max='$qtd' min='1' size='10' required>"; 
+								?>
+							</div>
+						</div>
+						<?php
+					}
+					else
+					{
+						?>
+						<div class="produtoQtdeContent">
+							<div>
+								<h3>Produto indisponível! :(</h3>
+							</div>
+						</div>
+						<?php
+					}
+					?>
+                
             </div>
 
             <div class="produtoFinalizar">
