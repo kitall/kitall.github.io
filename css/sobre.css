@@ -1,0 +1,62 @@
+.sobre {
+    grid-area: content;
+    box-sizing: border-box;
+    margin: 1.7em;
+    display: flex;
+}
+
+.sobreContent {
+    box-sizing: border-box;
+    margin: auto;
+    /* width: 100%; */
+}
+
+.sobreTitle {
+    display: flex;
+    width: 100%;
+}
+
+.sobreTitleContent {
+    margin: auto;
+    width: 80%;
+}
+
+.sobreImg {
+    width: 100%;
+    display: flex;
+}
+
+.sobreImgContent {
+    margin: auto;
+    width: 70%;
+}
+
+.sobreImgContent img {
+    width: 100%;
+}
+
+.sobreImgContent p {
+    margin-top: 0.5em;
+    line-height: 1.2em;
+}
+
+.sobreTxt {
+    display: flex;
+    width: 100%;
+}
+
+.sobreTxtContent {
+    margin: auto;
+    width: 80%;
+}
+
+.sobreTxtContent p.desc {
+    text-align: justify;
+}
+
+.sobreTxtContent p.catch {
+    display: block;
+    margin: 1.8em;
+    font-size: 1.3em;
+    text-align: center;
+}

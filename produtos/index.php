@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <?php
     session_start();
 
@@ -16,21 +15,25 @@
 
     //--------------------------------------------------------
 		
-    include "../php/connect.php";
+	$able = true;
 
-    $sql = "SELECT * FROM p_produtos WHERE excluido = 'f'
-        ORDER BY nome";
-    $res = pg_query($conectar, $sql);
-    $qtd = pg_num_rows($res);
+	try
+	{
+		include "../php/connect.php";
 
-    if ($qtd <= 0) 
-    {
-        echo "Erro no SELECT!!";
+		$sql = "SELECT * FROM p_produtos WHERE excluido = 'f'
+			ORDER BY nome";
+		$res = pg_query($conectar, $sql);
+		$qtd = pg_num_rows($res);
 
-        exit;
-
-        pg_close($conectar);
-    } 
+		if ($qtd <= 0) 
+		{
+			$able = false;
+			pg_close($conectar);
+		}
+	} catch(Exception $ex) {
+		$able = false;
+	}
 ?>
 
 <html lang="pt-br">
@@ -49,7 +52,7 @@
     <link rel="stylesheet" href="../css/search.css">
 	<link rel="stylesheet" href="../css/catalogo.css">
 
-	<title>Nossos produtos</title>
+	<title>Produtos</title>
 </head>
 
 <body>
@@ -72,11 +75,11 @@
 						<li>
 							<a href="../montar_kit/index.html">Monte seu Kit</a>
 						</li>
-						<li>
+						<li id="active">
 							<a href="">Produtos</a>
 						</li>
 						<li>
-							<a href="../quem_somos/index.html">Quem Somos</a>
+							<a href="../quem_somos/">Quem Somos</a>
 						</li>
 					</ul>
 				</div>
@@ -94,11 +97,11 @@
 							<li>
 								<a href="../montar_kit/index.html">Monte seu Kit</a>
 							</li>
-							<li>
+							<li id="active">
 								<a href="">Produtos</a>
 							</li>
 							<li>
-								<a href="../quem_somos/index.html">Quem Somos</a>
+								<a href="../quem_somos/">Quem Somos</a>
 							</li>
 							<li id="btns">
 								<div class="btns showBtnsMobile">
@@ -169,7 +172,7 @@
 									</div>
 								</a>
 								<div class="searchBar">
-									<form action="">
+									<form action="../pesquisa/">
 										<div class="searchField">
 											<input type="search" name="search" class="searchInput" placeholder="Pesquise" required>
 										</div>
@@ -224,62 +227,79 @@
 				</div>
             </div>
             
-            <div class="catalogo">
-                <div class="catalogoProds">
-                    <div class="prods">
+            <div class="catalogoStruct">
 
-                        <?php
+			<?php
 
-                        $i = 0;
-                        while ($prod = pg_fetch_array($res)) 
-                        {
+			$i = 0;
+			if($able){
+				while ($prod = pg_fetch_array($res)) 
+				{
 
-                            $id = $prod['id_prod'];
-                            $nome = $prod['nome'];
-                            $preco = $prod['preco'];
-                            $qtd = $prod['qtd'];
-                            $link_img = $prod['link_img'];
+					$id = $prod['id_prod'];
+					$nome = $prod['nome'];
+					$preco = $prod['preco'];
+					$qtd = $prod['qtd'];
+					$link_img = $prod['link_img'];
 
-                            $emEstoque = $qtd > 0;
+					$emEstoque = $qtd > 0;
 
-                            ?>
-                            <div class="prod">
-                                <div class="prodImage">
-                                    <div class="prodImg">
-                                        <img src="<?php echo $link_img; ?>" alt="<?php echo $nome; ?>">
-                                    </div>
-                                </div>
-                                <div class="prodText">
-                                    <div class="prodTextContent">
-                                        <div class="prodInfo">
-                                            <h3>
-                                            <?php echo $nome; ?>
-                                            </h3>
-                                        </div>
-                                    </div>
+					?>
+					<div class="catalogo">
+						<div class="catalogoProds">
+							<div class="prods">
+								<div class="prod">
+									<div class="prodImage">
+										<div class="prodImg">
+											<img src="<?php echo $link_img; ?>" alt="<?php echo $nome; ?>">
+										</div>
+									</div>
+									<div class="prodText">
+										<div class="prodTextContent">
+											<div class="prodInfo">
+												<h3>
+												<?php echo $nome; ?>
+												</h3>
+											</div>
+										</div>
 
-                                    <div class="prodPriceContent">
-                                        <div class="prodPrice">R$
-                                            <?php echo $preco; ?></div>
-                                    </div>
+										<div class="prodPriceContent">
+											<div class="prodPrice">R$
+												<?php echo $preco; ?></div>
+										</div>
 
-                                    <div class="prodBtnContent">
+										<div class="prodBtnContent">
 
-                                        <div class="prodBtn  <?php if ($emEstoque) echo "emEstoque"; else echo "semEstoque"; ?>">
-                                            <a href="" class="standby"><?php if ($emEstoque) echo "EM ESTOQUE"; else echo "INDISPONÍVEL"; ?></a>
-                                            <a href="<?php echo $link_venda.$id ?>" class="active"><?php if ($emEstoque) echo "COMPRAR"; else echo "VISUALIZAR"; ?></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+											<div class="prodBtn  <?php if ($emEstoque) echo "emEstoque"; else echo "semEstoque"; ?>">
+												<a href="" class="standby"><?php if ($emEstoque) echo "EM ESTOQUE"; else echo "INDISPONÍVEL"; ?></a>
+												<a href="<?php echo $link_venda.$id ?>" class="active"><?php if ($emEstoque) echo "COMPRAR"; else echo "VISUALIZAR"; ?></a>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+							</div>
+						</div>
+					</div>
 
-                            <?php
-                            // $i++;
-                        }
-                        ?> 
-                        </div>
-                </div>
-            </div>
+					
+
+					<?php
+					// $i++;
+				}
+			}
+			else {
+				?>
+					<div class="catFeedback">
+						<h1>Nenhum produto foi encontrado!</h1>
+						<h2>Tente novamente mais tarde.</h2>
+						<h1 class="gig">:(</h1>
+					</div>
+				<?php
+			}
+			?> 
+				
+			</div>
 
 			<div class="footer">
 				<div class="footerContent">
@@ -294,11 +314,11 @@
 									<li>
 										<a href="../montar_kit/index.html">Monte seu Kit</a>
 									</li>
-									<li>
+									<li id="active">
 										<a href="../produtos/index.php">Produtos</a>
 									</li>
 									<li>
-										<a href="../quem_somos/index.html">Quem Somos</a>
+										<a href="../quem_somos/">Quem Somos</a>
 									</li>
 								</ul>
 							</div>
@@ -316,11 +336,11 @@
 										<li>
 											<a href="../montar_kit/index.html">Monte seu Kit</a>
 										</li>
-										<li>
+										<li id="active">
 											<a href="../produtos/index.php">Produtos</a>
 										</li>
 										<li>
-											<a href="../quem_somos/index.html">Quem Somos</a>
+											<a href="../quem_somos/">Quem Somos</a>
 										</li>
 										<li id="btns">
 											<div class="btns showBtnsMobile">
@@ -391,7 +411,7 @@
 												</div>
 											</a>
 											<div class="footerSearchBar">
-												<form action="">
+												<form action="../pesquisa/">
 													<div class="searchField">
 														<input type="search" name="search" class="searchInput" placeholder="Pesquise" required>
 													</div>

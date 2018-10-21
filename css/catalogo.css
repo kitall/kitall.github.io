@@ -1,5 +1,6 @@
 .catalogoStruct {
     width: 100%;
+    display: flex;
 }
 
 .catFeedback {
@@ -133,7 +134,7 @@
 }
 
 .prodBtn {
-    width: 130px;
+    width: 100%;
     display: flex;
     text-align: center;
     font-weight: bold;

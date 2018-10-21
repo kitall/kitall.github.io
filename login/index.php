@@ -137,7 +137,7 @@
 							<a href="../produtos/index.php">Produtos</a>
 						</li>
 						<li>
-							<a href="../quem_somos/index.html">Quem Somos</a>
+							<a href="../quem_somos/">Quem Somos</a>
 						</li>
 					</ul>
 				</div>
@@ -159,7 +159,7 @@
 								<a href="../produtos/index.php">Produtos</a>
 							</li>
 							<li>
-								<a href="../quem_somos/index.html">Quem Somos</a>
+								<a href="../quem_somos/">Quem Somos</a>
 							</li>
 							<li id="btns">
 								<div class="btns showBtnsMobile">
@@ -299,7 +299,7 @@
 										<a href="../produtos/index.php">Produtos</a>
 									</li>
 									<li>
-										<a href="../quem_somos/index.html">Quem Somos</a>
+										<a href="../quem_somos/">Quem Somos</a>
 									</li>
 								</ul>
 							</div>
@@ -321,7 +321,7 @@
 											<a href="../produtos/index.php">Produtos</a>
 										</li>
 										<li>
-											<a href="../quem_somos/index.html">Quem Somos</a>
+											<a href="../quem_somos/">Quem Somos</a>
 										</li>
 										<li id="btns">
 											<div class="btns showBtnsMobile">

@@ -34,7 +34,6 @@
         if($op == 1) //Email do cadastro
         {
             sendEmail($email, $nome, "Kitall? - Bem-Vindo!", "
-     
 <!DOCTYPE html>
 <html lang='pt-br' style='transition-property: border, background, opacity;transition-duration: 0.2s;margin: 0;padding: 0;display: block;background-color: #fafafa;max-width: 100vw;'>
 <head style='transition-property: border, background, opacity;transition-duration: 0.2s;'>

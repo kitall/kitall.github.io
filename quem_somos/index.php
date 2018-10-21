@@ -1,44 +1,15 @@
 <!DOCTYPE html>
+
 <?php
-    $id = $_GET['id_prod'];
-
     session_start();
-    
-    //---------------------------------------------------
 
-    $logado = false;
-    if (!empty($_SESSION['user'])) //Teste de sessão
+	$logado = false;
+	if (!empty($_SESSION['user'])) //Teste de sessão
     {
         $logado = true;
         $carrinho = $_SESSION['carrinho'];
     }
-
-    //------------------------------------------------
-
-    include "../php/connect.php";
-
-    $sql = "SELECT * FROM p_produtos WHERE id_prod=$id";
-    $res = pg_query($conectar, $sql);
-    $qtd = pg_num_rows($res);
-    if ($qtd > 0) 
-    {
-        while ($prod = pg_fetch_array($res)) 
-        {
-            $nome = $prod['nome'];
-            $descricao = $prod['descricao'];
-            $link_img = $prod['link_img'];
-            $preco = $prod['preco'];
-            $qtd = $prod['qtd'];
-
-            $_SESSION['id_venda'] = $prod['id_prod'];
-            $_SESSION['preco_venda'] = $preco;
-            $_SESSION['estoque_venda'] = $qtd;
-            $_SESSION['nome_venda'] = $nome;
-            $_SESSION['link_venda'] = $link_img;
-        }
-    } 
 ?>
-
 
 <html lang="pt-br">
 
@@ -49,21 +20,20 @@
 
 
 	<link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="../css/footer.css">
-    <link rel="stylesheet" href="../css/header.css">
-    <link rel="stylesheet" href="../css/presentation.css">
-    <link rel="stylesheet" href="../css/login.css">
+	<link rel="stylesheet" href="../css/footer.css">
+	<link rel="stylesheet" href="../css/header.css">
+	<link rel="stylesheet" href="../css/presentation.css">
+	<link rel="stylesheet" href="../css/login.css">
     <link rel="stylesheet" href="../css/search.css">
-    <link rel="stylesheet" href="../css/catalogo.css">
-    <link rel="stylesheet" href="../css/produto.css">
+	<link rel="stylesheet" href="../css/sobre.css">
 
-	<title>Adicionar ao carrinho?</title>
+	<title>Quem Somos</title>
 </head>
 
 <body>
 
 	<div class="main">
-		<div class="index-struct">
+		<div class="basic-struct">
 
 			<div class="header" id="topo">
 				<div class="logo">
@@ -78,13 +48,13 @@
 							<a href="../index.php">Home</a>
 						</li>
 						<li>
-							<a href="../quem_somos/">Monte seu Kit</a>
+							<a href="../montar_kit/index.html">Monte seu Kit</a>
 						</li>
 						<li>
 							<a href="../produtos/index.php">Produtos</a>
 						</li>
-						<li>
-							<a href="../quem_somos/">Quem Somos</a>
+						<li id="active">
+							<a href="../quem_somos/index.html">Quem Somos</a>
 						</li>
 					</ul>
 				</div>
@@ -105,15 +75,15 @@
 							<li>
 								<a href="../produtos/index.php">Produtos</a>
 							</li>
-							<li>
-								<a href="../quem_somos/">Quem Somos</a>
+							<li id="active">
+								<a href="../quem_somos/index.html">Quem Somos</a>
 							</li>
 							<li id="btns">
 								<div class="btns showBtnsMobile">
 									<ul>
 										<li>
 											<div class="pesquisa">
-												<a href="" title="Pesquisar">
+												<a href="../pesquisa/index.php" title="Pesquisar">
 													<div>
 														<img src="" id="search" alt="Pesquisa" title="Clique aqui para pesquisar algo!">
 													</div>
@@ -121,7 +91,7 @@
 											</div>
 										</li>
 										<li>
-											<div class="entrar" <?php if($logado) echo 'style="grid-template-columns:1fr 2fr;"'?>>
+											<div class="entrar">
 												<div>
 													<a href=""><img id="user" src="" alt="Usuário"></a>
 												</div>
@@ -129,7 +99,7 @@
 													<?php
                                                         if($logado)
                                                         {
-                                                            ?><h2><a href="../minha_conta/" title="Minha conta."><?php echo $_SESSION['user']; ?></a></h2><?php
+                                                            ?><h2><a href="../minha_conta/" title="Minha conta."> <?php echo $_SESSION['user']; ?> </a></h2><?php
                                                         }
                                                         else
                                                         {
@@ -177,7 +147,7 @@
 									</div>
 								</a>
 								<div class="searchBar">
-									<form action="">
+									<form action="../pesquisa/">
 										<div class="searchField">
 											<input type="search" name="search" class="searchInput" placeholder="Pesquise" required>
 										</div>
@@ -231,80 +201,38 @@
 					</ul>
 				</div>
             </div>
-<form action="../carrinho/index.php" method="post">
-
-			<div class="produto">
-        <div class="produtoContent">
-            <div class="produtoImg">
-                <div class="produtoImgContent">
-                    <?php
-                        echo "<img src='$link_img' alt=''>";
-                        //echo "<img src='$link_img' alt=''>";
-                    ?>
-                </div>
-            </div>
-
-            <div class="produtoName">
-                <div class="produtoNameContent">
-                    <div><?php echo $nome; ?></div>
-                </div>
-            </div>
-
-            <div class="produtoPreco">
-                <div class="produtoPrecoContent">
-                    <div class="prodPrice">
-						<?php
-                            echo "<br>R$  $preco";
-                        ?>
-                    </div>
-                </div>
-            </div>
-
-            <div class="produtoQtde">
-				<?php
-					if($qtd >= 1){
-						?>
-						<div class="produtoQtdeContent">
-							<div>
-								<b>Quantidade:</b>
-							</div>
-							<div class="produteQtdeInput">
-								<?php
-									echo "<input type='number' name='qtd' max='$qtd' min='1' size='10' required>"; 
-								?>
-							</div>
+            
+			<div class="sobre">
+				<div class="sobreContent">
+					<div class="sobreTitle">
+						<div class="sobreTitleContent">
+							<h1>Quem Somos</h1>
 						</div>
-						<?php
-					}
-					else
-					{
-						?>
-						<div class="produtoQtdeContent">
-							<div>
-								<h3>Produto indisponível! :(</h3>
-							</div>
-						</div>
-						<?php
-					}
-					?>
-                
-            </div>
+					</div>
 
-            <div class="produtoFinalizar">
-                <div class="produtoFinalizarContent">
-                    <div class="btnSubmit">
-                        <?php 
-                            if($qtd >= 1) 
-                            {
-                                echo "<input type='submit' name='subProduto' value='Adicionar ao Carrinho'>";
-							}
-                         ?>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
+					<div class="sobreTxt">
+						<div class="sobreTxtContent">
+							<p class="desc">
+								O objetivo da Kitall? é aprender com cada desafio e oferecer os melhores resultados possíveis. Nos interessamos pelo aprimoramento dos processos e da comunicação em equipe, sempre aprendendo com nossos erros e resolvendo problemas de forma racional e criativa.
+							</p>
+							<p>
+								As Canetas, os Blocos de Notas, os Portas Post-Its, e todos os outros produtos são comprados com os melhores fornecedores e guardados com o melhor cuidado, garantindo a praticidade e a qualidade dos produtos que você compra aqui, com a gente!
+							</p>
+							<p class="catch">
+								Produtos simples, mas não simplórios, vendidos de maneira prática, mas não breve, com um atendimento atencioso, mas não insistente.
+							</p>
+
+						</div>
+					</div>
+
+					<div class="sobreImg">
+						<div class="sobreImgContent">
+							<img src="../imgs/paperwork.jpg" alt="">
+							<p><b>A equipe Kitall?</b><br>André, Bella, Carolina, Estevão e Marcos (da esquerda à direita)</p>
+						</div>
+					</div>
+				</div>
+			</div>
 
 			<div class="footer">
 				<div class="footerContent">
@@ -322,8 +250,8 @@
 									<li>
 										<a href="../produtos/index.php">Produtos</a>
 									</li>
-									<li>
-										<a href="../quem_somos/">Quem Somos</a>
+									<li id="active">
+										<a href="../quem_somos/index.html">Quem Somos</a>
 									</li>
 								</ul>
 							</div>
@@ -344,8 +272,8 @@
 										<li>
 											<a href="../produtos/index.php">Produtos</a>
 										</li>
-										<li>
-											<a href="../quem_somos/">Quem Somos</a>
+										<li id="active">
+											<a href="../quem_somos/index.html">Quem Somos</a>
 										</li>
 										<li id="btns">
 											<div class="btns showBtnsMobile">
@@ -416,7 +344,7 @@
 												</div>
 											</a>
 											<div class="footerSearchBar">
-												<form action="">
+												<form action="../pesquisa/">
 													<div class="searchField">
 														<input type="search" name="search" class="searchInput" placeholder="Pesquise" required>
 													</div>
