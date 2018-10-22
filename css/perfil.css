@@ -1,0 +1,160 @@
+.perfil {
+    width: 100%;
+    display: flex;
+    box-sizing: border-box;
+}
+
+.perfil a {
+    text-decoration: none;
+}
+
+.perfil a:hover,
+.perfil a:focus {
+    text-decoration: underline;
+}
+
+.perfil div {
+
+    box-sizing: border-box;
+}
+
+.perfilContent {
+    margin: auto;
+    width: 70%;
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-row-gap: 1em;
+}
+
+.perfilPresent {
+    width: 100%;
+    display: flex;
+}
+
+.perfilPresentContent {
+    margin: auto;
+    width: 100%;
+}
+
+.presentName {
+    width: 100%;
+    display: flex;
+}
+
+.presentNameContent {
+    margin: auto;
+
+}
+
+.presentNameContent h2 {
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.presentEmail {
+    width: 100%;
+    display: flex;
+}
+
+.presentEmailContent {
+    margin: auto;
+}
+
+.presentEmailContent h4 {
+    text-align: center;
+    margin-top: 0;
+    font-weight: normal;
+}
+
+.perfilBottom {
+    width: 100%;
+    display: flex;
+}
+
+.perfilBottomContent {
+    margin: auto;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+}
+
+.perfilProd {
+    width: 100%;
+    display: flex;
+}
+
+.perfilProdContent {
+    width: 100%;
+    margin: auto;
+    margin-top: 0;
+}
+
+.perfilProdTitle h3 {
+    margin-top: 0;
+    margin-bottom: 0.5em;
+}
+
+.perfilProds {
+    width: 100%;
+}
+
+.perfilOverview {
+    width: 100%;
+    display: flex;
+}
+
+.perfilOverviewContent {
+    width: 100%;
+    margin: auto;
+    margin-top: 0;
+}
+
+.perfilOverviewTitle h3 {
+    margin-top: 0;
+    margin-bottom: 0.5em;
+}
+
+.perfilOverviewTitle a {
+    font-size: 1.3ch;
+    font-weight: bold;
+    text-decoration: none;
+    color: #0A6BD7;
+}
+
+.perfilOverviewTitle a:hover,
+.perfilOverviewTitle a:focus {
+    outline: none;
+    text-decoration: underline;
+}
+
+.perfilOverviewPreview {
+    width: 100%;
+}
+
+.perfilOpts {
+    width: 100%;
+    display: flex;
+    border-left: solid 1px rgba(0, 0, 0, 0.2);
+    height: 100%;
+}
+
+.perfilOptsContent {
+    margin: auto;
+    /* margin-left: 0; */
+    width: 85%;
+}
+
+.perfilOptsTitle h3 {
+    margin-top: 0;
+    margin-bottom: 0.5em;
+}
+
+.perfilOptsList li {
+    font-size: 0.9em;
+    list-style: none;
+    padding: 0.2em;
+}
+
+.perfilOptsList li a {
+    text-decoration: none;
+}

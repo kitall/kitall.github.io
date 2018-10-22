@@ -184,3 +184,15 @@ select {
 	background: linear-gradient(#1BCB00, #049C00);
 	border: solid 1px #049C00;
 }
+
+.alink {
+	font-size: 1.3ch;
+	font-weight: bold;
+	text-decoration: none;
+	color: #0A6BD7;
+}
+
+.alink:hover,
+.alink:focus {
+	text-decoration: underline;
+}
