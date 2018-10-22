@@ -159,11 +159,12 @@
                 $gasto += $data[$i][2];
             }
             
-            $this->Cell(38);
+            $lucro = $bruto - $gasto;
             
             $this->SetFillColor(144,255,0);
             $this->SetFont('Arial', 'b', 13);
             
+            $this->Cell(38);
             $this->Cell(37, 8, 'Totais', 1, 0, 'C', true);
             $this->Cell(37, 8, number_format((float)$bruto, 2, '.', ''), 1, 0, 'C', true);
             $this->Cell(37, 8, number_format((float)$gasto, 2, '.', ''), 1, 0, 'C', true);
@@ -171,9 +172,16 @@
             $this->Ln(8);
             
             $this->Cell(38);
+            $this->Cell(74, 8, 'Lucro Líquido*', 1, 0, 'C', true);
+            $this->Cell(37, 8, number_format((float)$lucro, 2, '.', ''), 1, 0, 'C', true);
             
-            $this->Cell(74, 8, 'Lucro Líquido', 1, 0, 'C', true);
-            $this->Cell(37, 8, number_format((float)($bruto - $gasto), 2, '.', ''), 1, 0, 'C', true);
+            $this->Ln(8);
+            
+            $this->SetFillColor(177,244,90);
+            
+            $this->Cell(38);
+            $this->Cell(74, 8, 'Lucratividade (%)', 1, 0, 'C', true);
+            $this->Cell(37, 8, number_format((float)(($lucro*100)/$bruto), 2, '.', ''), 1, 0, 'C', true);
             
             $this->Ln(11);
             
@@ -476,12 +484,6 @@
     //Relação de produtos
     $pdf->AddPage();
         $pdf->RelacaoProduto($data_produto);
-/*
-    //Estatisticas - Estoque
-    $pdf->AddPage();
-        $pdf->FluxoEstoque_Estatisticas($movimento);
-*/
-    
 
     //Show
     $pdf->Output('I', 'Kitall_Fluxos.pdf');
