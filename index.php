@@ -11,11 +11,12 @@
     }
 
     $able = true;
-    $ind = -1;
+	$ind = -1;
+	$numm = 0;
     $prod_padrao = array(
-        array("Caderno de Anotações", "Anote tudo o que precisa ser transformado e melhorado.", "imgs/notebook.png"),
-        array("Borracha de Lápis e Caneta", "Para corrigir os erros e aprender com eles.", "imgs/eraser.png"),
-        array("Porta Post-It", "Aqui fica tudo o você precisa lembrar e fazer.", "imgs/postit.png")
+        array("Bloco de Notas", "Anote tudo o que precisa ser transformado e melhorado.", "imgs/produtos/bloco_de_notas.png"),
+        array("Caneta Azul BIC", "A caneta que é sinônimo de qualidade conhecida no mundo inteiro!", "imgs/produtos/caneta.png"),
+        array("Porta Post-It (4)", "O Porta Post-It da Kitall?, além de ser bonito é de extrema qualidade, pronto para te ajudar nos estudos do colégio e anotações do dia-a-dia venha e experimente Kitall?", "imgs/produtos/porta_postit_4.png")
     );
 
     $num_rand = array(0, 0, 0);
@@ -41,7 +42,7 @@
     } 
     catch (Exception $e) 
     {
-        echo $e->getMessage();
+        // echo $e->getMessage();
 
         $able = false;
     }
@@ -89,7 +90,7 @@
 							<a href="produtos/index.php">Produtos</a>
 						</li>
 						<li>
-							<a href="quem_somos/index.html">Quem Somos</a>
+							<a href="quem_somos">Quem Somos</a>
 						</li>
 					</ul>
 				</div>
@@ -111,7 +112,7 @@
 								<a href="produtos/index.php">Produtos</a>
 							</li>
 							<li>
-								<a href="quem_somos/index.html">Quem Somos</a>
+								<a href="quem_somos">Quem Somos</a>
 							</li>
 							<li id="btns">
 								<div class="btns showBtnsMobile">
@@ -402,7 +403,7 @@
 
 							<div class="menuFooter show">
 								<ul>
-									<li>
+									<li id="active">
 										<a href="">Home</a>
 									</li>
 									<li>
@@ -412,7 +413,7 @@
 										<a href="produtos/index.php">Produtos</a>
 									</li>
 									<li>
-										<a href="quem_somos/index.html">Quem Somos</a>
+										<a href="quem_somos/">Quem Somos</a>
 									</li>
 								</ul>
 							</div>
@@ -424,7 +425,7 @@
 
 								<div class="menuFooterMobileContent">
 									<ul>
-										<li>
+										<li id="active">
 											<a href="">Home</a>
 										</li>
 										<li>
@@ -434,7 +435,7 @@
 											<a href="produtos/index.php">Produtos</a>
 										</li>
 										<li>
-											<a href="quem_somos/index.html">Quem Somos</a>
+											<a href="quem_somos">Quem Somos</a>
 										</li>
 										<li id="btns">
 											<div class="btns showBtnsMobile">
