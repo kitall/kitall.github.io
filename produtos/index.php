@@ -4,7 +4,30 @@
 
 	$logado = false;
 
+	$selorder = false;
+	$order = "nome";
+
     $link_venda = "../venda/index.php?id_prod=";
+
+	if(isset($_GET['order']))
+    {
+		$getOrder = $_GET['order'];
+
+		if($getOrder == "alf")
+        {
+			$order = "nome";
+		}
+		else if($getOrder == "men")
+        {
+			$order = "preco ASC";
+		}
+		else 
+        {
+			$order = "preco DESC";
+		}
+
+		$selorder = true;
+	}
 
 
     if (!empty($_SESSION['user'])) //Teste de sessão
@@ -22,7 +45,7 @@
 		include "../php/connect.php";
 
 		$sql = "SELECT * FROM p_produtos WHERE excluido = 'f'
-			ORDER BY nome";
+			ORDER BY $order";
 		$res = pg_query($conectar, $sql);
 		$qtd = pg_num_rows($res);
 
@@ -245,6 +268,24 @@
 					$emEstoque = $qtd > 0;
 
 					?>
+					<div class="orderBar">
+						<div class="orderOrg">
+							<div class="order">
+								<form action="" id="frmOrder">
+									<input type="hidden" name="search" value="<?php echo $prod_name; ?>">
+
+									<select name="order" id="selOrder" onchange="frmOrderSubmit()">
+										<option value="alf" <?php if($selorder && $getOrder == "alf") echo "selected"; ?>>Ordem Alfabética</option>
+										<option value="men" <?php if($selorder && $getOrder == "men") echo "selected"; ?>>Menor Preço ↑</option>
+										<option value="mai" <?php if($selorder && $getOrder == "mai") echo "selected"; ?>>Maior Preço ↓</option>
+									</select>
+
+									<input type="hidden" name="search" value="<?php echo $prod_name; ?>">
+
+								</form>
+							</div>
+						</div>
+					</div>
 					<div class="catalogo">
 						<div class="catalogoProds">
 							<div class="prods">
