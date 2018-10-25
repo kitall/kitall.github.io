@@ -110,8 +110,9 @@
                     </ul>
 				</div>				
 			</div>
+			
 			<div class="featProducts">
-				<div class="featProductsContent">
+				<div class="prod_admin_mom">
                     <?php
                     include "../php/connect.php";
 
@@ -120,6 +121,7 @@
                     $qtd = pg_num_rows($res);
                     if($qtd > 0)
                     {
+                        $i = 1;
                         while ($prod = pg_fetch_array($res)) 
                         {
                             //Salva as propriedades do produto
@@ -137,9 +139,9 @@
                                     //não pode tabular porque ele envia os espaços do tab
 
                             //Mostra o produto
-                        echo "<div id='prod_admin'><center><a href='alteracao/index.php?".$to_send."'>
+                            echo "<div class='prod_admin'><center><a href='alteracao/index.php?".$to_send."'>
                                 <img src='".$link_img."' width='250' height='250'>
-                              </center></a>";
+                                  </center></a>";
                             echo "<br><b>Codigo</b> = ".$id;
                             echo "<br><b>Nome</b> = ".$nome;
                             echo "<br><b>Preco</b> = ".$preco;

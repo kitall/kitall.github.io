@@ -1,49 +1,3 @@
-<!--
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Aquisição</title>
-</head>
-<body>
-    <h1>Aquisição dos Produtos</h1>
-    
-    <p>Adicionar no fluxo de caixa a quantidade gasta:</p>
-    
-    <form action="../../php/aquisicao_prod.php" method="post">
-        Valor gasto na compra: <input type="number" name="val" min="1" required>
-        <br>
-        <input type="submit" value="Confirmar">
-    </form>
-    <br>
-    <h1><a href="../">Voltar</a></h1>
-</body>
-</html>
-
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Integralização</title>
-</head>
-<body>
-    <h1>Integralização de Capital</h1>
-    
-    <p>Adicionar no fluxo de caixa a quantidade adicionada de capital:</p>
-    
-    <form action="../../php/integralizacao.php" method="post">
-        Valor adicionado: <input type="number" name="val" min="1" required>
-        <br>
-        <input type="submit" value="Confirmar">
-        <br>
-        <h1><a href="../">Voltar</a></h1>
-    </form>
-</body>
-</html>
-
--->
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -176,13 +130,32 @@
                                 </div>
                             </div>
                         </div>
-                        <br>
                         <div class="logGroup">
-                           <hr>
                             <div class="btnCadastro">
                                 <input type="submit" name="subCadastro" value="Integralizar capital">
-                                &nbsp;
-                                <input type="reset" name="subCadastro" value="Limpar Campo">
+                            </div>
+                        </div>
+                       </form>
+                       
+                       <br><br>
+                       
+                       <form action="../../php/aquisicao_prod.php" method="post" id="cadastro">
+                        <div class="logGroup">
+                            <h2>Aquisição de Produtos:</h2>
+                            <hr>
+                            <div class="campo">
+                                <div>
+                                    <div class="lblCampo"><label>Valor (R$)</label></div>
+                                </div>
+                                <input type="number" name="val" step=".01" min=".01" placeholder="ex.: 5.50" maxlength="40" required title="Insira o valor gasto na compra dos produtos!">
+                                <div class="descCampo" id="sobrenome">
+                                    <p></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="logGroup">
+                            <div class="btnCadastro">
+                                <input type="submit" name="subCadastro" value="Adicionar compra">
                             </div>
                         </div>
                        </form>

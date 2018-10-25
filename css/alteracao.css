@@ -1,0 +1,190 @@
+/*PRODUTO*/
+
+e.produto {
+    width: 100%;
+    display: flex;
+    height: auto;
+}
+
+.produtoContent {
+    margin: auto;
+    max-width: 80%;
+    height: 780px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-areas: "prodImg prodName""prodImg prodPreco""prodImg prodQtde""prodImg prodCusto""prodImg prodDescricao""prodImg prodLink""prodImg prodExcluido""prodImg prodFinalizar";
+}
+
+.produtoImg {
+    grid-area: prodImg;
+    display: flex;
+    width: 100%;
+}
+
+.produtoImgContent {
+    margin: auto;
+}
+
+.produtoImgContent img {
+    max-width: 100%;
+}
+
+.produtoName {
+    grid-area: prodName;
+    display: flex;
+}
+
+.produtoNameContent {
+    margin: auto;
+    margin-left: 10px;
+    margin-bottom: 0;
+}
+
+.produtoNameContent div {
+    padding: 0;
+    font-size: 1.5em;
+}
+
+.produtoPreco {
+    grid-area: prodPreco;
+    display: flex;
+}
+
+.produtoPrecoContent {
+    margin: auto;
+    margin-left: 10px;
+    margin-bottom: 0;
+}
+
+.produtoPrecoContent div {
+    padding: 0;
+    font-size: 1.5em;
+}
+
+.produtoQtde {
+    grid-area: prodQtde;
+    display: flex;
+}
+
+.produtoQtdeContent {
+    margin: auto;
+    margin-left: 10px;
+    margin-bottom: 0;
+}
+
+.produtoQtdeContent div {
+    padding: 0;
+    font-size: 1.5em;
+}
+
+.produtoCusto {
+    grid-area: prodCusto;
+    display: flex;
+}
+
+.produtoCustoContent {
+    margin: auto;
+    margin-left: 10px;
+    margin-bottom: 0;
+}
+
+.produtoCustoContent div{
+    padding: 0;
+    font-size: 1.5em;
+}
+
+.produtoDescricao {
+    grid-area: prodDescricao;
+    display: flex;
+}
+
+.produtoDescricaoContent {
+    margin: auto;
+    margin-left: 10px;
+    margin-bottom: 0;
+}
+
+.produtoDescricaoContent div{
+    padding: 0;
+    font-size: 1.5em;
+}
+
+.produtoExcluido {
+    grid-area: prodExcluido;
+    width: 100%;
+    display: flex;
+}
+
+.produtoExcluidoContent {
+    margin: auto;
+    margin-left: 10px;
+}
+
+.produtoExcluidoContent div{
+    display: inline-block;
+    font-size: 1.5em;
+}
+
+.produtoLink {
+    grid-area: prodLink;
+    display: flex;
+}
+
+.produtoLinkContent {
+    margin: auto;
+    margin-left: 10px;
+    margin-bottom: 0;
+}
+
+.produtoLinkContent div{
+    padding: 0;
+    font-size: 1.5em;
+}
+
+.produtoFinalizar {
+    grid-area: prodFinalizar;
+    margin-left: 10px;
+    width: 50%;
+}
+
+.produtoExcluidoContent {
+/*    font-size: 24px;*/
+}
+
+.selectExclusao label {
+    font-weight: normal;
+    cursor: pointer;
+}
+
+.selectExclusao label {
+    margin-right: 10px;
+    font-size: 24px;
+    color: #404040;
+}
+
+.selectExclusao label:hover {
+    color: black;
+}
+
+.produtoID {
+    grid-area: prodID;
+    
+    display: none;
+}
+
+.produtoID_show {
+    display: flex;
+    font-size: 30px;
+}
+
+.produtoIDContent {
+    margin: auto;
+    margin-left: 30%;
+/*    margin-bottom: 0;*/
+}
+
+.produtoIDContent div{
+    padding: 0;
+    font-size: 1.5em;
+}

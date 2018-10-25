@@ -63,5 +63,5 @@
 
     pg_close($conectar);
 
-    header("Location: ../admin/index.html");
+    header("Location: ../admin/");
 ?>

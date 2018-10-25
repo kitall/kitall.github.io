@@ -175,6 +175,30 @@ select {
 	border-radius: 3px;
 }
 
+.btnSubmitDois input {
+	width: 40%;
+	padding: 8px;
+	color: white;
+	background: linear-gradient(#1BCB00, #049C00);
+	border: solid 1px #049C00;
+	font-size: 1.6ch;
+	font-weight: bold;
+	cursor: pointer;
+	border-radius: 3px;
+}
+
+.btnSubmitDois button {
+	width: 40%;
+	padding: 8px;
+	color: white;
+	background: linear-gradient(#cb0000, #9c0000);
+	border: solid 1px #9c0000;
+	font-size: 1.6ch;
+	font-weight: bold;
+	cursor: pointer;
+	border-radius: 3px;
+}
+
 .btnSubmit input:hover {
 	background: linear-gradient(rgb(31, 230, 0), rgb(6, 177, 0));
 }
@@ -926,15 +950,28 @@ li#active .cesta #cesta {
     /* font-weight: bold; */
 }
 
-#prod_admin {
+.prod_admin {
     float: left;
-    width: 460px;
-    height: 520px;
-    background-color: aquamarine;
-    margin-left: 5px;
-    margin-bottom: 20px;
+    width: 32%;
+    height: 5%;
+    
+    border: 1px solid darkgray;
+    border-radius: 5px;
+    
+    margin: 5px;
+    margin-bottom: 15px;
+    
+    padding: 5px;
+    
+    text-align: justify;
 }
 
-.btnCadastro {
-/*    float: left;*/
+.prod_admin_mom {
+    /*width: 80vw;
+    margin: auto;
+    text-align: center;*/
+    
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
 }
