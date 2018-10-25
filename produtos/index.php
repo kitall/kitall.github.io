@@ -256,19 +256,9 @@
 
 			$i = 0;
 			if($able){
-				while ($prod = pg_fetch_array($res)) 
-				{
 
-					$id = $prod['id_prod'];
-					$nome = $prod['nome'];
-					$preco = $prod['preco'];
-					$qtd = $prod['qtd'];
-					$link_img = $prod['link_img'];
-
-					$emEstoque = $qtd > 0;
-
-					?>
-					<div class="orderBar">
+				?>
+				<div class="orderBar">
 						<div class="orderOrg">
 							<div class="order">
 								<form action="" id="frmOrder">
@@ -286,6 +276,19 @@
 							</div>
 						</div>
 					</div>
+				<?php
+				while ($prod = pg_fetch_array($res)) 
+				{
+
+					$id = $prod['id_prod'];
+					$nome = $prod['nome'];
+					$preco = $prod['preco'];
+					$qtd = $prod['qtd'];
+					$link_img = $prod['link_img'];
+
+					$emEstoque = $qtd > 0;
+
+					?>
 					<div class="catalogo">
 						<div class="catalogoProds">
 							<div class="prods">
