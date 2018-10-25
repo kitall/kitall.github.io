@@ -1,43 +1,3 @@
-<!--
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>ADM PAGE</title>
-</head>
-<body>
-    <h1>Willkommen Sie!</h1>
-    <p>Pagina dos admins queridos da 'kitall?'</p>
-    <br>
-    <table border="0">
-        <tr>
-            <td>
-                <button onclick="window.location.href='estoque/'">Estoque</button>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <button onclick="window.location.href='cadastro/'">Cadastro de Produtos</button>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <button onclick="window.location.href='aquisicao/'">Aquisição de Produtos</button>
-            </td>
-            <td>
-                <button onclick="window.location.href='integralizacao'">Integralização de Capital</button>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <button onclick="window.location.href='../php/generate_pdf.php'">Relatório de Vendas</button>
-            </td>
-        </tr>
-    </table>
-    <br>
-    <a href="../index.php">Go Back</a>
-</body>
-</html>
--->
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -47,11 +7,12 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 
 	<link rel="stylesheet" href="../css/admin.css">
+	<link rel="stylesheet" href="../css/footer.css">
 	
 	<link rel="icon" type="image/png" href="../favicon.png">
 	<link rel="manifest" href="../manifest.json">
 
-	<title>Kitall Administrativo</title>
+	<title>Kitall? Administrativo</title>
 </head>
 
 <body>
@@ -67,7 +28,7 @@
 				<div class="menu show">
 					<ul>
 						<li id="active">
-							<a href="../">Estoque</a>
+							<a href="">Estoque</a>
 						</li>
 						<li>
 							<a href="cadastro/">Cadastro de Produtos</a>
@@ -89,7 +50,7 @@
 					<div class="menuMobileContent">
 						<ul>
 							<li id="active">
-                                <a href="../">Estoque</a>
+                                <a href="">Estoque</a>
                             </li>
                             <li>
                                 <a href="cadastro/">Cadastro de Produtos</a>
@@ -170,9 +131,15 @@
                             $descricao = $prod['descricao'];
                             $link_img = $prod['link_img'];
                             $excluido = $prod['excluido'];
+                            
+                            //Salva suas propriedades para enviar para a alteração
+                            $to_send = "id=$id&nome=$nome&qtd=$qtd&preco=$preco&excluido=$excluido&descricao=$descricao&custo=$custo&link_img=$link_img";
+                                    //não pode tabular porque ele envia os espaços do tab
 
                             //Mostra o produto
-                            echo "<div><img src='".$link_img."' width='250' height='250'>";
+                        echo "<div id='prod_admin'><center><a href='alteracao/index.php?".$to_send."'>
+                                <img src='".$link_img."' width='250' height='250'>
+                              </center></a>";
                             echo "<br><b>Codigo</b> = ".$id;
                             echo "<br><b>Nome</b> = ".$nome;
                             echo "<br><b>Preco</b> = ".$preco;
@@ -180,16 +147,11 @@
                             echo "<br><b>Estoque</b> = ".$qtd;
                             echo "<br><b>Descrição</b> = <i>".$descricao."</i>";
                             if($excluido == "t")
-                                echo "<br>Excluido = Sim";
+                                echo "<br><b>Excluido</b> = Sim";
                             else
-                                echo "<br>Excluido = Nao";
-
-                            //Salva suas propriedades para enviar para a alteração
-                            $to_send = "id=$id&nome=$nome&qtd=$qtd&preco=$preco&excluido=$excluido&descricao=$descricao&custo=$custo&link_img=$link_img";
-                                    //não pode tabular porque ele envia os espaços do tab
-
-                            echo "<br><a href='../alteracao/index.php?".$to_send."'>Editar Produto</a></div>";
-                            echo "<br>----------------------------------------------------------------------<br>";
+                                echo "<br><b>Excluido</b> = Nao";
+                            
+                            echo "</div>";
                         }
                     }
                     else
@@ -201,15 +163,17 @@
 				</div>
 			</div>
 			
-			<!--
 			<div class="footer">
 				<div class="footerContent">
 					<div class="footerMenu">
 						<div class="footerMenuContent">
 							<div class="menuFooter show">
 								<ul>
+                                   <li>
+                                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                   </li>
                                     <li id="active">
-                                        <a href="../">Estoque</a>
+                                        <a href="">Estoque</a>
                                     </li>
                                     <li>
                                         <a href="cadastro/">Cadastro de Produtos</a>
@@ -218,7 +182,7 @@
                                         <a href="capital/">Aquisição / Integralização</a>
                                     </li>
                                     <li>
-                                        <a href="../php/generate_pdf.php">Fluxo de Caixa</a>
+                                        <a href="estatisticas/">Estatísticas</a>
                                     </li>
                                 </ul>
 							</div>
@@ -228,10 +192,10 @@
 									▲
 								</button>
 
-								<div class="menuFooterMobileContent">
+								<div class="menuFooterMobileContent_dois">
 									<ul>
 										<li id="active">
-                                            <a href="../">Estoque</a>
+                                            <a href="">Estoque</a>
                                         </li>
                                         <li>
                                             <a href="cadastro/">Cadastro de Produtos</a>
@@ -240,24 +204,52 @@
                                             <a href="capital/">Aquisição / Integralização</a>
                                         </li>
                                         <li>
-                                            <a href="../php/generate_pdf.php">Fluxo de Caixa</a>
+                                            <a href="estatisticas/">Estatísticas</a>
                                         </li>
-										<li id="btns">
-											<div class="btns showBtnsMobile">
-												Administrador
-											</div>
-										</li>
+										<div class="btns showBtnsMobile">
+                                            <ul>
+                                                <li>
+                                                    <div class="entrar">
+                                                        <div>
+                                                            <a href=""><img id="user" src="" alt="Usuário"></a>
+                                                        </div>
+                                                        <div>
+                                                            <h2><a href="">Administrador</a></h2>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="cesta">
+                                                        <a href="../php/generate_pdf.php" target="_blank" title="Fluxo de Caixa">
+                                                           <img src="../imgs/estatisticas.png" id="relatorio" alt="Relatorio" height="50px">
+                                                        </a>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
 									</ul>
 								</div>
 							</div>
 							<div class="btns showBtns">
 								<ul>
-									<li>
-										<div class="entrar_admin">
-										    Administrador
-										</div>
-									</li>
-								</ul>
+                                    <li>
+                                        <div class="entrar">
+                                            <div>
+                                                <a href=""><img id="user" src="" alt="Usuário"></a>
+                                            </div>
+                                            <div>
+                                                <h2><a href="">Administrador</a></h2>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="cesta">
+                                            <a href="../php/generate_pdf.php" target="_blank" title="Fluxo de Caixa" class="img_relatorio">
+                                               <img src="../imgs/estatisticas.png" id="relatorio" alt="Relatorio" height="50px">
+                                            </a>
+                                        </div>
+                                    </li>
+                                </ul>
 							</div>
 						</div>
 					</div>
@@ -265,7 +257,7 @@
 					<div class="footerContato">
 						<div class="footerContatoContent">
 							<div class="footerContatoTxt">
-								<h2>Entre em <a class="bold" href="">Contato</a>!</h2>
+								<h2>Acesso as Redes Sociais:</h2>
 							</div>
 							<div class="footerContatoIcons">
 								<div class="footerContatoIconsContent">
@@ -295,7 +287,7 @@
 						</div>
 					</div>
 				</div>
-			</div>-->
+			</div>
 		</div>
 	</div>
 </body>

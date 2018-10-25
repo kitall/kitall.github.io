@@ -1,42 +1,315 @@
+
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Cadastro de Produtos</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+	<link rel="stylesheet" href="../../css/admin.css">
+	<link rel="stylesheet" href="../../css/footer.css">
+	<link rel="stylesheet" href="../../css/cadastro.css">
+	
+	<link rel="icon" type="image/png" href="../../favicon.png">
+	<link rel="manifest" href="../../manifest.json">
+
+	<title>Cadastro de Produtos</title>
 </head>
+
 <body>
-    <form action="../../php/cad_prod.php" method="post">
-        <table border="1">
-            <tr>
-                <td>Nome:</td>
-                <td><input type="text" name="nome" required></td>
-            </tr>
-            <tr>
-                <td>Quantidade:</td>
-                <td><input type="number" name="qtd" required></td>
-            </tr>
-            <tr>
-                <td>Preço:</td>
-                <td><input type="number" name="preco" step=".01" required></td>
-            </tr>
-            <tr>
-                <td>Custo de <br>Fabricação:</td>
-                <td><input type="number" name="custo" step=".01" required></td>
-            </tr>
-            <tr>
-                <td>Descrição:</td>
-                <td><textarea rows="4" cols="50" name="descricao"></textarea></td>
-            </tr>
-            <tr>
-                <td>Nome imagem<br>p/ Link:</td>
-                <td><input type="text" name="nome_link" required></td>
-            </tr>
-            <tr>
-                <td><input type="submit" value="Cadastrar"></td>
-                <td><input type="reset" value="Limpar"></td>
-            </tr>
-        </table>
-    </form>
-    <h1><a href="../">Voltar</a></h1>
+	<div class="main">
+		<div class="index-struct">
+			<div class="header" id="topo">
+				<div class="logo">
+					<a href="../../">
+						<img src="../imgs/KITALL.png" alt="Kitall?">
+					</a>
+				</div>
+
+				<div class="menu show">
+					<ul>
+						<li>
+							<a href="../">Estoque</a>
+						</li>
+						<li id="active">
+							<a href="">Cadastro de Produtos</a>
+						</li>
+						<li>
+							<a href="../capital/">Aquisição / Integralização</a>
+						</li>
+						<li>
+                            <a href="../estatisticas/">Estatísticas</a>
+                        </li>
+					</ul>
+				</div>
+
+				<div class="menuMobile showMobile">
+					<button class="menuMobileButton" onclick="menuDropdown(true)">
+						▼
+					</button>
+
+					<div class="menuMobileContent">
+						<ul>
+							<li>
+                                <a href="../">Estoque</a>
+                            </li>
+                            <li id="active">
+                                <a href="">Cadastro de Produtos</a>
+                            </li>
+                            <li>
+                                <a href="../capital/">Aquisição / Integralização</a>
+                            </li>
+                            <li>
+                                <a href="../estatisticas/">Estatísticas</a>
+                            </li>
+							<li id="btns">
+								<div class="btns showBtnsMobile">
+									<ul>
+										<li>
+											<div class="entrar">
+												<div>
+													<a href=""><img id="user" src="" alt="Usuário"></a>
+												</div>
+												<div>
+													<h2><a href="">Administrador</a></h2>
+												</div>
+											</div>
+										</li>
+										<li>
+											<div class="cesta">
+												<a href="../../php/generate_pdf.php" target="_blank" title="Fluxo de Caixa">
+                                                   <img src="../../imgs/estatisticas.png" id="relatorio" alt="Relatorio" height="50px">
+                                                </a>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="btns showBtns">
+					<ul>
+                        <li>
+                            <div class="entrar">
+                                <div>
+                                    <a href=""><img id="user" src="" alt="Usuário"></a>
+                                </div>
+                                <div>
+                                    <h2><a href="">Administrador</a></h2>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="cesta">
+                                <a href="../../php/generate_pdf.php" target="_blank" title="Fluxo de Caixa" class="img_relatorio">
+                                   <img src="../../imgs/estatisticas.png" id="relatorio" alt="Relatorio" height="50px">
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+				</div>				
+			</div>
+        <div class="cadastro">
+            <div class="cadastroContent">
+                <form action="../../php/cad_prod.php" method="post" id="cadastro">
+                <div class="campos">
+                    <h1>Cadastro de produtos</h1>
+                        <div class="logGroup">
+                            <h2>Dados do produto:</h2>
+                            <hr>
+                            <div class="campo">
+                                <div>
+                                    <div class="lblCampo"><label>Nome</label></div>
+                                </div>
+                                <input type="text" name="nome" placeholder="ex.: Caderno Verde" autofocus maxlength="30" required title="Insira o nome do produto!">
+                                <div class="descCampo" id="nome">
+                                    <p></p>
+                                </div>
+                            </div>
+                            <div class="campo">
+                                <div>
+                                    <div class="lblCampo"><label>Quantidade</label></div>
+                                </div>
+                                <input type="number" name="qtd" placeholder="ex.: 20" min="1" maxlength="40" required title="Insira a quantidade disponível do produto!">
+                                <div class="descCampo" id="sobrenome">
+                                    <p></p>
+                                </div>
+                            </div>
+                            <div class="campo">
+                                <div>
+                                    <div class="lblCampo"><label>Preço (R$)</label></div>
+                                </div>
+                                <input type="number" name="preco" step=".01" min=".01" placeholder="ex.: 5.50" maxlength="40" required title="Insira o preço do produto!">
+                                <div class="descCampo" id="sobrenome">
+                                    <p></p>
+                                </div>
+                            </div>
+                            <div class="campo">
+                                <div>
+                                    <div class="lblCampo"><label>Custo de Fabricação (R$)</label></div>
+                                </div>
+                                <input type="number" name="custo" step=".01" min="0" placeholder="ex.: 1.50" maxlength="40" required title="Insira o custo de fabricação do produto!">
+                                <div class="descCampo" id="sobrenome">
+                                    <p></p>
+                                </div>
+                            </div>
+                            <div class="campo">
+                                <div>
+                                    <div class="lblCampo"><label>Descrição</label></div>
+                                </div>
+                                <input type="text" name="descricao" placeholder="ex.: O caderno mais bonito da galáxia!" required title="Insira a descrição pro produto!">
+                            </div>
+                            <div class="campo">
+                                <div>
+                                    <div class="lblCampo"><label>Imagem no banco</label></div>
+                                </div>
+                                <input type="text" name="link" placeholder="ex.: caderno_verde" required title="Insira o nome do arquivo de imagem disponível no Banco de Dados!">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="logGroup">
+                            <div class="btnCadastro">
+                                <input type="submit" name="subCadastro" value="Efetivizar Cadastro">
+                                &nbsp;
+                                <input type="reset" name="subCadastro" value="Limpar Campos">
+                            </div>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+			
+			<br><br><br>
+			
+			<div class="footer">
+				<div class="footerContent">
+					<div class="footerMenu">
+						<div class="footerMenuContent">
+							<div class="menuFooter show">
+								<ul>
+                                   <li>
+                                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                   </li>
+                                    <li>
+                                        <a href="../">Estoque</a>
+                                    </li>
+                                    <li id="active">
+                                        <a href="">Cadastro de Produtos</a>
+                                    </li>
+                                    <li>
+                                        <a href="../capital/">Aquisição / Integralização</a>
+                                    </li>
+                                    <li>
+                                        <a href="../estatisticas/">Estatísticas</a>
+                                    </li>
+                                </ul>
+							</div>
+
+							<div class="menuFooterMobile showMobile">
+								<button class="menuFooterMobileButton" onclick="menuFooterDropdown()">
+									▲
+								</button>
+
+								<div class="menuFooterMobileContent_dois">
+									<ul>
+										<li>
+                                            <a href="../">Estoque</a>
+                                        </li>
+                                        <li id="active">
+                                            <a href="">Cadastro de Produtos</a>
+                                        </li>
+                                        <li>
+                                            <a href="../capital/">Aquisição / Integralização</a>
+                                        </li>
+                                        <li>
+                                            <a href="../estatisticas/">Estatísticas</a>
+                                        </li>
+										<div class="btns showBtnsMobile">
+                                            <ul>
+                                                <li>
+                                                    <div class="entrar">
+                                                        <div>
+                                                            <a href=""><img id="user" src="" alt="Usuário"></a>
+                                                        </div>
+                                                        <div>
+                                                            <h2><a href="">Administrador</a></h2>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="cesta">
+                                                        <a href="../../php/generate_pdf.php" target="_blank" title="Fluxo de Caixa">
+                                                           <img src="../../imgs/estatisticas.png" id="relatorio" alt="Relatorio" height="50px">
+                                                        </a>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+									</ul>
+								</div>
+							</div>
+							<div class="btns showBtns">
+								<ul>
+                                    <li>
+                                        <div class="entrar">
+                                            <div>
+                                                <a href=""><img id="user" src="" alt="Usuário"></a>
+                                            </div>
+                                            <div>
+                                                <h2><a href="">Administrador</a></h2>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="cesta">
+                                            <a href="../../php/generate_pdf.php" target="_blank" title="Fluxo de Caixa" class="img_relatorio">
+                                               <img src="../../imgs/estatisticas.png" id="relatorio" alt="Relatorio" height="50px">
+                                            </a>
+                                        </div>
+                                    </li>
+                                </ul>
+							</div>
+						</div>
+					</div>
+
+					<div class="footerContato">
+						<div class="footerContatoContent">
+							<div class="footerContatoTxt">
+								<h2>Acesso as Redes Sociais:</h2>
+							</div>
+							<div class="footerContatoIcons">
+								<div class="footerContatoIconsContent">
+									<a href="https://www.facebook.com/kitallCTI" id="aface" target="_blank"><img src="imgs/facebook.png" id="face" alt="">
+										<div></div>
+									</a>
+									<a href="https://www.instagram.com/kitallcti/" id="ainsta" target="_blank"><img src="imgs/instagram.png" id="insta" alt="">
+										<div></div>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="footerTopo">
+						<div class="footerTopoContent">
+							<a href="#topo">Voltar ao Topo</a>
+						</div>
+					</div>
+
+					<div class="footerIntegrantes">
+						<div class="footerIntegrantesContent">
+							<hr>
+							<div class="footerIntegrantesNomes">
+								<p>@2018<br>por André Creppe, Bella Barreira, Carolina Alborgheti, Estevão Rolim e Marcos Lira</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>
