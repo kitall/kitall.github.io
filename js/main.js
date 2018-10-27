@@ -7,6 +7,7 @@ $(function () {
     });
 });
 
+
 var contatoShown = false;
 document.getElementById('isContatoShown').value = contatoShown;
 

@@ -227,7 +227,7 @@
 
 					<div class="sobreImg">
 						<div class="sobreImgContent">
-							<img src="../imgs/paperwork.jpg" alt="">
+							<img src="../imgs/equipe.jpg" alt="">
 							<p><b>A equipe Kitall?</b><br>André, Bella, Carolina, Estevão e Marcos (da esquerda à direita)</p>
 						</div>
 					</div>
