@@ -1,4 +1,3 @@
-<!--FALTA FINALIZARRR A COMRPRA*/   -->
 <?php
     session_start();
 
@@ -13,21 +12,23 @@
         exit;
     }
 
+    //-------------------------------------------------------------------------------
+
     $qtd_comprada = $_POST['qtd'];
 
     if(!empty($_SESSION['carrinho']) && $qtd_comprada > 0) //adiciona ao carrinho
     {
-        array_push($_SESSION['carrinho_link'], $_SESSION['link_venda']);
-        
         array_push($_SESSION['carrinho_id'], $_SESSION['id_venda']);
 
         array_push($_SESSION['carrinho_qtd'], (string)$qtd_comprada);
 
         array_push($_SESSION['carrinho_preco'], $_SESSION['preco_venda']);
-        
+
         array_push($_SESSION['carrinho_estoque'], $_SESSION['estoque_venda']);
-        
+
         array_push($_SESSION['carrinho_nome'], $_SESSION['nome_venda']);
+        
+        array_push($_SESSION['carrinho_link'], $_SESSION['link_venda']);
 
         $_SESSION['carrinho'] += 1;
     }
@@ -48,6 +49,70 @@
         $_SESSION['carrinho'] = 1;
     }
 
+    //-------------------------------------------------------------------------------
+
+    if(!empty($_SESSION['kit_carrinho']))
+    {
+        if($logado)
+        {
+            $kit_id = $_SESSION['kit_carrinho_id'];
+            $kit_qtd = $_SESSION['kit_carrinho_qtd']; //string?
+            $kit_preco = $_SESSION['kit_carrinho_preco'];
+            $kit_estoque = $_SESSION['kit_carrinho_estoque'];
+            $kit_link = $_SESSION['kit_carrinho_link'];
+            $kit_nome = $_SESSION['kit_carrinho_nome'];
+            
+            $kit_carrinho = $_SESSION['kit_carrinho'];
+            
+
+            if(!empty($_SESSION['carrinho'])) //adiciona ao carrinho
+            {
+                for($i=0; $i<$kit_carrinho; $i++)
+                {
+                    array_push($_SESSION['carrinho_id'], $kit_id[$i]);
+
+                    array_push($_SESSION['carrinho_qtd'], $kit_qtd[$i]);
+
+                    array_push($_SESSION['carrinho_preco'], $kit_preco[$i]);
+
+                    array_push($_SESSION['carrinho_estoque'], $kit_estoque[$i]);
+
+                    array_push($_SESSION['carrinho_nome'], $kit_nome[$i]);
+                    
+                    array_push($_SESSION['carrinho_link'], $kit_link[$i]);
+
+                    $_SESSION['carrinho'] += 1;
+                }
+            }
+            else if(empty($_SESSION['carrinho_id'])) //cria o carrinho
+            {
+                $_SESSION['carrinho_id'] = $kit_id;
+
+                $_SESSION['carrinho_qtd'] = $kit_qtd;
+
+                $_SESSION['carrinho_preco'] = $kit_preco;
+
+                $_SESSION['carrinho_estoque'] = $kit_estoque;
+
+                $_SESSION['carrinho_nome'] = $kit_nome;
+
+                $_SESSION['carrinho_link'] = $kit_link;
+
+                $_SESSION['carrinho'] = $kit_carrinho;
+            }
+
+            unset($_SESSION['kit_carrinho_id']);
+            unset($_SESSION['kit_carrinho_qtd']);
+            unset($_SESSION['kit_carrinho_preco']);
+            unset($_SESSION['kit_carrinho_estoque']);
+            unset($_SESSION['kit_carrinho_link']);
+            unset($_SESSION['kit_carrinho_nome']);
+            unset($_SESSION['kit_carrinho']);
+        }
+    }
+
+    //-------------------------------------------------------------------------------
+
     $produtos = false;
 
     $carrinho = $_SESSION['carrinho'];
@@ -64,6 +129,7 @@
         
         $produtos = true;   
     }
+
 ?>
 <!DOCTYPE html> 
 <html lang="pt-br">
@@ -80,7 +146,7 @@
         <link rel="stylesheet" href="../css/search.css">
         <link rel="stylesheet" href="../css/carrinho.css">
     
-        <title>Carrinho de Compras - Kitall?</title>
+        <title>Meu Carrinho de compras</title>
     </head>
     
     <body>
@@ -304,7 +370,7 @@
 
                         <div class="carrinhoProdRemover">
                             <div class="carrinhoProdRemoverContent">
-                                <?php echo "<a href='../php/remove_item.php?remove=$i'>Remover</a>"; ?>
+                                <?php echo "<a href='../php/remove_carrinho.php?remove=$i'>Remover</a>"; ?>
                             </div>
                         </div>
                     </div>

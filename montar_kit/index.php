@@ -1,15 +1,56 @@
 <!DOCTYPE html>
-  
 <?php
     session_start();
+    
+    $kit = 0;
 
+    //Teste de sessão
     $logado = false;
-    if (!empty($_SESSION['user'])) //Teste de sessão
+    if (!empty($_SESSION['user']))
     {
         $logado = true;
         $carrinho = $_SESSION['carrinho'];
     }
 
+    //Teste se adicionou algum produto
+    if(!empty($_POST['id']))
+    {
+        if(!empty($_SESSION['kit'])) //ja existem produtos
+        {
+            array_push($_SESSION['kit_id'], (int)$_POST['id']);
+            
+            array_push($_SESSION['kit_nome'], $_POST['nome']);
+            
+            array_push($_SESSION['kit_preco'], (float) $_POST['preco']);
+            
+            $_SESSION['kit'] += 1;
+        }
+        else //criou o kit
+        {
+            $_SESSION['kit_id'] = array((int)$_POST['id']);
+            
+            $_SESSION['kit_nome'] = array($_POST['nome']);
+            
+            $_SESSION['kit_preco'] = array((float)$_POST['preco']);
+            
+            $_SESSION['kit'] = 1;
+        }
+    }
+
+    //Carrega o kit (se houver)
+    $tem_kit = false;
+    if(!empty($_SESSION['kit']))
+    {
+        $tem_kit = true;
+        $kit = $_SESSION['kit'];
+        
+        $kit_id = $_SESSION['kit_id'];
+        $kit_nome = $_SESSION['kit_nome'];
+        $kit_preco = $_SESSION['kit_preco'];
+    }
+
+
+    //Produtos
     include "../php/connect.php";
 
     $sql = "SELECT * FROM p_produtos 
@@ -225,7 +266,7 @@
                             </div>
 
                             <div class="kitKitQtde">
-                                <p>2 itens</p>
+                                <p><?php echo "$kit itens"; ?></p>
                             </div>
 
                             <div class="kitKitBtn" onclick="kitDropdown()">
@@ -235,29 +276,37 @@
                         <div class="kitKitDrop">
                             <div class="kitKitDropContent">
                                 <table class="kitKitProds">
+                               <?php 
+                                    if($tem_kit)
+                                    {
+                                        $subtotal = 0;
+                                        $link_finaliza = "window.location.href='../php/kit_para_carrinho.php'";
+                                        
+                                        for($i=0; $i<$kit; $i++)
+                                        {
+                                            $nome = $kit_nome[$i];
+                                            $preco = $kit_preco[$i];
+                                            $id = $kit_id[$i];
+                                            
+                                            $subtotal += $preco;
+                                            
+                                            $link = "window.location.href='../php/remove_kit.php?remove=$i'";
+                                ?>
                                     <tr>
                                         <td class="p10 kitKitProdsRemover">
-                                            <div class="trash icon" title="Remover Lápis do Kit" onclick=""></div>
+                                            <?php echo "<div class='trash icon' title='Remover Lápis do Kit' onclick=".$link."></div>"; ?>
                                         </td>
                                         <td class="kitKitProdsNome p10">
-                                            Lápis
+                                            <?php echo $nome; ?>
                                         </td>
                                         <td class="p10">
-                                            R$2,00
+                                            <?php echo "R$ $preco"; ?>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td class="p10 kitKitProdsRemover">
-                                            <div class="trash icon" title="Remover Caderno do Kit" onclick=""></div>
-                                        </td>
-                                        <td class="kitKitProdsNome p10">
-                                            Caderno
-                                        </td>
-                                        <td class="p10">
-                                            R$4,00
-                                        </td>
-                                    </tr>
+                                <?php
+                                        } //for
 
+                                ?>
                                     <tr>
                                         <td colspan="3" class="kitKitProdsHr kitKitProdsP0">
                                             <hr>
@@ -274,17 +323,32 @@
                                         </td>
 
                                         <td class="p10">
-                                            <b></b> R$6,00
+                                            <?php echo "R$ $subtotal"; ?>
                                         </td>
                                     </tr>
 
                                     <tr>
                                         <td colspan="3" class="p10">
                                             <div class="btnSubmit">
-                                                <input type="submit" value="Finalizar Compra">
+                                                <?php echo "<input type='submit' value='Finalizar Compra' onclick=".$link_finaliza.">"; ?>
                                             </div>
                                         </td>
                                     </tr>
+                                <?php
+                                    }
+                                    else
+                                    {
+                                ?>
+                                    <tr>
+                                        <td colspan="3" class="kitKitProdsNome p10">
+                                            <div class="p10">
+                                               <?php echo "Nenhum produto no kit! :("; ?>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <?php
+                                    }
+                                ?>
                                 </table>
                             </div>
                         </div>
@@ -314,26 +378,33 @@
                             ?>
 
                                 <div class="kitProd">
-                                    <div class="kitProdImage">
-                                        <?php echo "<img src='$link_img' alt='$nome'>"; ?>
-                                    </div>
-                                    <div class="kitProdText">
-                                        <div class="kitProdInfo">
-                                            <h3>
-                                                <?php echo $nome; ?>
-                                            </h3>
+                                   <form action="../montar_kit/index.php" method="post">
+                                        <div class="kitProdImage">
+                                            <?php echo "<img src='$link_img' alt='$nome'>"; ?>
                                         </div>
+                                        <div class="kitProdText">
+                                            <div class="kitProdInfo">
+                                                <h3>
+                                                    <?php echo $nome; ?>
+                                                </h3>
+                                            </div>
 
-                                        <div class="kitProdPrice">
-                                            <h4><?php echo "R$ $preco"; ?></h4>
-                                        </div>
+                                            <div class="kitProdPrice">
+                                                <h4><?php echo "R$ $preco"; ?></h4>
+                                            </div>
 
-                                        <div class="kitProdBtnContent">
-                                            <div class="btnSubmit">
-                                                <input type="submit" value="Adicionar ao Kit" onclick="">
+                                            <div class="kitProdBtnContent">
+                                                <div class="btnSubmit">
+                                                   <?php
+                                                        echo "<input type='hidden' name='id' value='$id' class='sumido' readonly>";
+                                                        echo "<input type='hidden' name='nome' value='$nome' class='sumido' readonly>";
+                                                        echo "<input type='hidden' name='preco' value='$preco' class='sumido' readonly>";
+                                                    ?>
+                                                    <input type="submit" value="Adicionar ao Kit">
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </form>
                                 </div>
                             <?php } ?>
                         </div>

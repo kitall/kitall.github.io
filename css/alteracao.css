@@ -188,3 +188,21 @@ e.produto {
     padding: 0;
     font-size: 1.5em;
 }
+
+/*-----------------------------------------------*/
+
+.numero {
+    width: 60px;
+}
+
+.texto1 {
+    width: 150px;
+}
+
+.texto2 {
+    width: 550px;
+}
+
+.texto3 {
+    width: 450px;
+}

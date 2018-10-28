@@ -78,7 +78,7 @@
 							<a href="../">Home</a>
 						</li>
 						<li>
-							<a href="../quem_somos/">Monte seu Kit</a>
+							<a href="../montar_kit/">Monte seu Kit</a>
 						</li>
 						<li>
 							<a href="../produtos/">Produtos</a>
@@ -320,7 +320,7 @@
 										<a href="../montar_kit/">Monte seu Kit</a>
 									</li>
 									<li>
-										<a href="../produtos/>Produtos</a>
+										<a href="../produtos/">Produtos</a>
 									</li>
 									<li>
 										<a href="../quem_somos/">Quem Somos</a>

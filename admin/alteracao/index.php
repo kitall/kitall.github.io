@@ -146,7 +146,7 @@
                         <div class="produtoName">
                             <div class="produtoNameContent">
                                 <div>
-                                    <?php echo "Nome: <input type='text' name='nome' value='$nome'>"; ?>
+                                    <?php echo "Nome: <input type='text' name='nome' value='$nome' class='texto1'>"; ?>
                                 </div>
                             </div>
                         </div>
@@ -154,7 +154,7 @@
                         <div class="produtoQtde">
                             <div class="produtoQtdeContent">
                                 <div>
-                                    <?php echo "Quantidade: <input type='number' name='qtd' value='$qtd'>" ?>
+                                    <?php echo "Quantidade: <input type='number' name='qtd' value='$qtd' class='numero'>" ?>
                                 </div>
                             </div>
                         </div>
@@ -162,7 +162,7 @@
                         <div class="produtoPreco">
                             <div class="produtoPrecoContent">
                                 <div class="prodPrice">
-                                    <?php echo "Preço (R$): <input type='number' name='preco' value='$preco'>" ?>
+                                    <?php echo "Preço (R$): <input type='number' name='preco' value='$preco' class='numero'>" ?>
                                 </div>
                             </div>
                         </div>
@@ -171,7 +171,7 @@
                         <div class="produtoCusto">
                             <div class="produtoCustoContent">
                                 <div>
-                                    <?php echo "Custo de Fabricação (R$): <input type='number' name='custo' value='$custo'>" ?>
+                                    <?php echo "Custo de Fabricação (R$): <input type='number' name='custo' value='$custo' class='numero'>" ?>
                                 </div>
                             </div>
                         </div>
@@ -179,7 +179,7 @@
                         <div class="produtoDescricao">
                             <div class="produtoDescricaoContent">
                                 <div>
-                                    <?php echo "Descrição: <input type='text' name='descricao' value='$descricao'>"; ?>
+                                    <?php echo "Descrição: <input type='text' name='descricao' value='$descricao' class='texto2'>"; ?>
                                 </div>
                             </div>
                         </div>
@@ -187,7 +187,7 @@
                         <div class="produtoLink">
                             <div class="produtoLinkContent">
                                 <div>
-                                    <?php echo "Link da imagem: <input type='text' name='link_img' value='$link_img'>"; ?>
+                                    <?php echo "Link da imagem: <input type='text' name='link_img' value='$link_img' class='texto3'>"; ?>
                                 </div>
                             </div>
                         </div>

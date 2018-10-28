@@ -7,9 +7,10 @@
         ?> 
         <script>
             alert("É necessário fazer o login para poder comprar!");
+            window.location.replace("http://200.145.153.175/andrecreppe/kitall/login/index.php");
         </script>
         <?php
-        header("Location: ../login/index.php");
+        
         exit;
     }
 
