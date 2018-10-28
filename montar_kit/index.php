@@ -1,117 +1,49 @@
 <!DOCTYPE html>
-
+  
 <?php
     session_start();
 
-	$logado = false;
-	$state = 0;
-	$order = "nome";
-
-	$getOrder = " ";
-
-	$selorder = false;
-
-    $link_venda = "../venda/index.php?id_prod=";
-
-	if(isset($_GET['order']))
-    {
-		$getOrder = $_GET['order'];
-
-		if($getOrder == "alf")
-        {
-			$order = "nome";
-		}
-		else if($getOrder == "men")
-        {
-			$order = "preco ASC";
-		}
-		else 
-        {
-			$order = "preco DESC";
-		}
-
-		$selorder = true;
-	}
-
+    $logado = false;
     if (!empty($_SESSION['user'])) //Teste de sessão
     {
         $logado = true;
         $carrinho = $_SESSION['carrinho'];
     }
 
-    try 
+    include "../php/connect.php";
+
+    $sql = "SELECT * FROM p_produtos 
+        WHERE excluido = 'f' AND qtd > 0";
+    $res = pg_query($conectar, $sql);
+    $qtd = pg_num_rows($res);
+
+    if ($qtd <= 0) 
     {
-        $prod_name = $_GET['search'];
-		
-		$lower_prod_name = strtolower($prod_name);
-		
-        include "../php/connect.php";
-
-        $sql = "SELECT * FROM p_produtos WHERE lower(nome) = '$lower_prod_name' AND excluido = 'f'";
-        $res = pg_query($conectar, $sql);
-        $qtd = pg_num_rows($res);
-
-        if ($qtd <= 0) 
-        {
-            $sql = "SELECT * FROM p_produtos WHERE lower(nome) LIKE '%$lower_prod_name%' AND excluido = 'f' ORDER BY $order";
-            $res = pg_query($conectar, $sql);
-            $qtd = pg_num_rows($res);
-            
-            if ($qtd <= 0)
-            {
-                //ERRO
-                $state = 0;
-
-                pg_close();
-            } 
-            else
-            {
-                //Pesquisa por Similaridade
-                $state = 1;
-            }
-        } 
-        else 
-        {
-            //Pesquisa Específica 
-            $state = 2;
-
-            pg_close();
-        }
-    } 
-    catch (Exception $e) 
-    {
-    ?> 
-        <script>
-            alert("<?php echo $e->getMessage(); ?>");
-        </script>
-    <?php
-
+        $able = false;
+        pg_close($conectar);
     }
 ?>
 
-<html lang="pt-br">
-
+<html>
 <head>
+    <title>MONTE SEU KIT</title>
+    
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-
-	<link rel="stylesheet" href="../css/main.css">
-	<link rel="stylesheet" href="../css/footer.css">
-	<link rel="stylesheet" href="../css/header.css">
-	<link rel="stylesheet" href="../css/presentation.css">
-	<link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/presentation.css">
+    <link rel="stylesheet" href="../css/login.css">
     <link rel="stylesheet" href="../css/search.css">
-	<link rel="stylesheet" href="../css/catalogo.css">
-
-	<title>Resultados da Pesquisa</title>
+    <link rel="stylesheet" href="../css/kit.css">
 </head>
 
 <body>
-
 	<div class="main">
-		<div class="index-struct">
+		<div class="basic-struct">
 
 			<div class="header" id="topo">
 				<div class="logo">
@@ -123,20 +55,20 @@
 				<div class="menu show">
 					<ul>
 						<li>
-							<a href="../">Home</a>
+							<a href="../index.php">Home</a>
+						</li>
+						<li id="active">
+							<a href="">Monte seu Kit</a>
 						</li>
 						<li>
-							<a href="../montar_kit/">Monte seu Kit</a>
+							<a href="../produtos/index.php">Produtos</a>
 						</li>
 						<li>
-							<a href="../produtos/">Produtos</a>
-						</li>
-						<li>
-							<a href="../quem_somos/">Quem Somos</a>
+							<a href="../quem_somos/index.html">Quem Somos</a>
 						</li>
 					</ul>
 				</div>
-
+				
 				<div class="menuMobile showMobile">
 					<button class="menuMobileButton" onclick="menuDropdown()">
 						▼
@@ -145,17 +77,17 @@
 					<div class="menuMobileContent">
 						<ul>
 							<li>
-								<a href="../">Home</a>
-							</li>
-							<li>
-								<a href="../montar_kit/">Monte seu Kit</a>
-							</li>
-							<li>
-								<a href="../produtos/">Produtos</a>
-							</li>
-							<li>
-								<a href="../quem_somos/">Quem Somos</a>
-							</li>
+                                <a href="../index.php">Home</a>
+                            </li>
+                            <li id="active">
+                                <a href="">Monte seu Kit</a>
+                            </li>
+                            <li>
+                                <a href="../produtos/index.php">Produtos</a>
+                            </li>
+                            <li>
+                                <a href="../quem_somos/index.html">Quem Somos</a>
+                            </li>
 							<li id="btns">
 								<div class="btns showBtnsMobile">
 									<ul>
@@ -214,7 +146,7 @@
 						</ul>
 					</div>
 				</div>
-
+				
 				<div class="btns showBtns">
 					<ul>
 						<li>
@@ -225,7 +157,7 @@
 									</div>
 								</a>
 								<div class="searchBar">
-									<form action="">
+									<form action="../pesquisa/">
 										<div class="searchField">
 											<input type="search" name="search" class="searchInput" placeholder="Pesquise" required>
 										</div>
@@ -280,117 +212,134 @@
 				</div>
             </div>
             
+            <div class="kit">
+                <div class="kitContent">
+                    <div class="kitTitle">
+                        <h1>Monte seu Kit</h1>
+                    </div>
 
-			<div class="catalogoStruct">
-				<?php 
-                switch($state) 
-                {
-                    case 0:
-                        ?>
-                            <div class="catFeedback">
-								<h1>Nenhum produto foi encontrado!</h1>
-								<h2>Para a pesquisa de "<?php echo $prod_name ?>"</h2>
-								<h1 class="gig">:(</h1>
-							</div>
-                        <?php
-                        break;
+                    <div class="kitKit">
+                        <div class="kitKitView">
+                            <div class="kitKitTitle">
+                                <h3>Meu Kit</h3>
+                            </div>
 
-                    case 1:
-						?>
-						<div class="catFeedback">
-							<h1>Esses foram os produtos encontrados!</h1>
-							<h2>Para a pesquisa de "<?php echo $prod_name ?>"</h2>
-						</div>
+                            <div class="kitKitQtde">
+                                <p>2 itens</p>
+                            </div>
 
-						<div class="orderBar">
-							<div class="orderOrg">
-								<div class="order">
-									<form action="" id="frmOrder">
-										<input type="hidden" name="search" value="<?php echo $prod_name; ?>">
+                            <div class="kitKitBtn" onclick="kitDropdown()">
+                                <p class="kitKitBtnP">▼</p>
+                            </div>
+                        </div>
+                        <div class="kitKitDrop">
+                            <div class="kitKitDropContent">
+                                <table class="kitKitProds">
+                                    <tr>
+                                        <td class="p10 kitKitProdsRemover">
+                                            <div class="trash icon" title="Remover Lápis do Kit" onclick=""></div>
+                                        </td>
+                                        <td class="kitKitProdsNome p10">
+                                            Lápis
+                                        </td>
+                                        <td class="p10">
+                                            R$2,00
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p10 kitKitProdsRemover">
+                                            <div class="trash icon" title="Remover Caderno do Kit" onclick=""></div>
+                                        </td>
+                                        <td class="kitKitProdsNome p10">
+                                            Caderno
+                                        </td>
+                                        <td class="p10">
+                                            R$4,00
+                                        </td>
+                                    </tr>
 
-										<select name="order" id="selOrder" onchange="frmOrderSubmit()">
-											<option value="alf" <?php if($selorder && $getOrder == "alf") echo "selected"; ?>>Ordem Alfabética</option>
-											<option value="men" <?php if($selorder && $getOrder == "men") echo "selected"; ?>>Menor Preço ↑</option>
-											<option value="mai" <?php if($selorder && $getOrder == "mai") echo "selected"; ?>>Maior Preço ↓</option>
-										</select>
+                                    <tr>
+                                        <td colspan="3" class="kitKitProdsHr kitKitProdsP0">
+                                            <hr>
+                                        </td>
+                                    </tr>
 
-										<input type="hidden" name="search" value="<?php echo $prod_name; ?>">
+                                    <tr>
+                                        <td class="p10">
 
-									</form>
-								</div>
-							</div>
-						</div>
+                                        </td>
 
-            <div class="catalogo">
-                        <div class="catalogoProds">
-                            <div class="prods">
-                                
-                                <?php
+                                        <td class="kitKitProdsNome p10">
+                                            Subtotal:
+                                        </td>
 
-								$i = 0;
-                                while ($prod = pg_fetch_array($res)) 
-                                {
+                                        <td class="p10">
+                                            <b></b> R$6,00
+                                        </td>
+                                    </tr>
 
-                                    $id = $prod['id_prod'];
-                                    $nome = $prod['nome'];
-                                    $preco = $prod['preco'];
-                                    $qtd = $prod['qtd'];
-                                    $link_img = $prod['link_img'];
+                                    <tr>
+                                        <td colspan="3" class="p10">
+                                            <div class="btnSubmit">
+                                                <input type="submit" value="Finalizar Compra">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
 
-                                    $emEstoque = $qtd > 0;
+                    <div class="kitOrder">
+                        <form action="">
+                            <select name="order" id="selOrder" onchange="frmOrderSubmit()">
+                                <option value="alf" selected>Ordem Alfabética</option>
+                                <option value="men">Menor Preço ↑</option>
+                                <option value="mai">Maior Preço ↓</option>
+                            </select>
+                        </form>
+                    </div>
 
-                                    ?>
-									<div class="prod">
-                                        <div class="prodImage">
-                                            <div class="prodImg">
-                                                <img src="<?php echo $link_img; ?>" alt="<?php echo $nome; ?>">
+                    <div class="kitCatalogo">
+                        <div class="kitProds">
+                           <?php
+                            while ($prod = pg_fetch_array($res)) 
+                            {
+                                $id = $prod['id_prod'];
+                                $nome = $prod['nome'];
+                                $preco = $prod['preco'];
+                                $qtd = $prod['qtd'];
+                                $link_img = $prod['link_img'];
+
+                            ?>
+
+                                <div class="kitProd">
+                                    <div class="kitProdImage">
+                                        <?php echo "<img src='$link_img' alt='$nome'>"; ?>
+                                    </div>
+                                    <div class="kitProdText">
+                                        <div class="kitProdInfo">
+                                            <h3>
+                                                <?php echo $nome; ?>
+                                            </h3>
+                                        </div>
+
+                                        <div class="kitProdPrice">
+                                            <h4><?php echo "R$ $preco"; ?></h4>
+                                        </div>
+
+                                        <div class="kitProdBtnContent">
+                                            <div class="btnSubmit">
+                                                <input type="submit" value="Adicionar ao Kit" onclick="">
                                             </div>
                                         </div>
-										<div class="prodText">
-											<div class="prodTextContent">
-												<div class="prodInfo">
-                                                    <h3>
-                                                    <?php echo $nome; ?>
-                                                    </h3>
-												</div>
-											</div>
-
-											<div class="prodPriceContent">
-												<div class="prodPrice">R$
-                                                    <?php echo $preco; ?></div>
-											</div>
-
-											<div class="prodBtnContent">
-												
-												<div class="prodBtn  <?php if ($emEstoque) echo "emEstoque"; else echo "semEstoque"; ?>">
-                                                    <a href="" class="standby"><?php if ($emEstoque) echo "EM ESTOQUE"; else echo "INDISPONÍVEL"; ?></a>
-                                                    <a href="<?php echo $link_venda.$id ?>" class="active"><?php if ($emEstoque) echo "COMPRAR"; else echo "VISUALIZAR"; ?></a>
-                                            	</div>
-											</div>
-										</div>
-									</div>
-
-                                    <?php
-									// $i++;
-								}
-								?> 
-								</div>
+                                    </div>
+                                </div>
+                            <?php } ?>
                         </div>
+                    </div>
+                </div>
             </div>
-                        <?php
-                        pg_close();
-                        break;
-
-                    case 2:
-                        
-                        //echo "Pesquisa especifica";
-
-                        header("Location: ../venda/index.php?$id");
-
-                        break;
-                }
-                ?>
-				</div>
 
 			<div class="footer">
 				<div class="footerContent">
@@ -399,18 +348,18 @@
 
 							<div class="menuFooter show">
 								<ul>
-									<li>
-										<a href="../index.php">Home</a>
-									</li>
-									<li>
-										<a href="../montar_kit/">Monte seu Kit</a>
-									</li>
-									<li>
-										<a href="../produtos/">Produtos</a>
-									</li>
-									<li>
-										<a href="../quem_somos/">Quem Somos</a>
-									</li>
+                                    <li>
+                                        <a href="../index.php">Home</a>
+                                    </li>
+                                    <li id="active">
+                                        <a href="">Monte seu Kit</a>
+                                    </li>
+                                    <li>
+                                        <a href="../produtos/index.php">Produtos</a>
+                                    </li>
+                                    <li>
+                                        <a href="../quem_somos/index.html">Quem Somos</a>
+                                    </li>
 								</ul>
 							</div>
 
@@ -421,18 +370,18 @@
 
 								<div class="menuFooterMobileContent">
 									<ul>
-										<li>
-											<a href="../">Home</a>
-										</li>
-										<li>
-											<a href="../montar_kit/">Monte seu Kit</a>
-										</li>
-										<li>
-											<a href="../produtos/">Produtos</a>
-										</li>
-										<li>
-											<a href="../quem_somos/">Quem Somos</a>
-										</li>
+                                        <li>
+                                            <a href="../index.php">Home</a>
+                                        </li>
+                                        <li id="active">
+                                            <a href="">Monte seu Kit</a>
+                                        </li>
+                                        <li>
+                                            <a href="../produtos/index.php">Produtos</a>
+                                        </li>
+                                        <li>
+                                            <a href="../quem_somos/index.html">Quem Somos</a>
+                                        </li>
 										<li id="btns">
 											<div class="btns showBtnsMobile">
 												<ul>
@@ -502,7 +451,7 @@
 												</div>
 											</a>
 											<div class="footerSearchBar">
-												<form action="">
+												<form action="../pesquisa/">
 													<div class="searchField">
 														<input type="search" name="search" class="searchInput" placeholder="Pesquise" required>
 													</div>
@@ -593,12 +542,7 @@
 				</div>
 			</div>
 		</div>
-
-
 	</div>
-
-
-
 </body>
 
 
@@ -607,5 +551,7 @@
 <script type="text/javascript" src="../js/footerMenu.js"></script>
 <script type="text/javascript" src="../js/main.js"></script>
 <script type="text/javascript" src="../js/search.js"></script>
+
+<script type="text/javascript" src="../js/kit.js"></script>
 
 </html>

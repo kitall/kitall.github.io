@@ -128,13 +128,13 @@
 				<div class="menu show">
 					<ul>
 						<li>
-							<a href="../index.php">Home</a>
+							<a href="../">Home</a>
 						</li>
 						<li>
-							<a href="../montar_kit/index.html">Monte seu Kit</a>
+							<a href="../montar_kit/">Monte seu Kit</a>
 						</li>
 						<li>
-							<a href="../produtos/index.php">Produtos</a>
+							<a href="../produtos/">Produtos</a>
 						</li>
 						<li>
 							<a href="../quem_somos/">Quem Somos</a>
@@ -150,13 +150,13 @@
 					<div class="menuMobileContent">
 						<ul>
 							<li>
-								<a href="../index.php">Home</a>
+								<a href="../">Home</a>
 							</li>
 							<li>
-								<a href="../montar_kit/index.html">Monte seu Kit</a>
+								<a href="../montar_kit/">Monte seu Kit</a>
 							</li>
 							<li>
-								<a href="../produtos/index.php">Produtos</a>
+								<a href="../produtos/">Produtos</a>
 							</li>
 							<li>
 								<a href="../quem_somos/">Quem Somos</a>
@@ -290,13 +290,13 @@
 							<div class="menuFooter show">
 								<ul>
 									<li>
-										<a href="../index.php">Home</a>
+										<a href="../">Home</a>
 									</li>
 									<li>
-										<a href="../montar_kit/index.html">Monte seu Kit</a>
+										<a href="../montar_kit/">Monte seu Kit</a>
 									</li>
 									<li>
-										<a href="../produtos/index.php">Produtos</a>
+										<a href="../produtos/">Produtos</a>
 									</li>
 									<li>
 										<a href="../quem_somos/">Quem Somos</a>
@@ -315,10 +315,10 @@
 											<a href="../">Home</a>
 										</li>
 										<li>
-											<a href="../montar_kit/index.html">Monte seu Kit</a>
+											<a href="../montar_kit/">Monte seu Kit</a>
 										</li>
 										<li>
-											<a href="../produtos/index.php">Produtos</a>
+											<a href="../produtos/">Produtos</a>
 										</li>
 										<li>
 											<a href="../quem_somos/">Quem Somos</a>

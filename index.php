@@ -84,13 +84,13 @@
 							<a href="">Home</a>
 						</li>
 						<li>
-							<a href="montar_kit/index.html">Monte seu Kit</a>
+							<a href="montar_kit/">Monte seu Kit</a>
 						</li>
 						<li>
-							<a href="produtos/index.php">Produtos</a>
+							<a href="produtos/">Produtos</a>
 						</li>
 						<li>
-							<a href="quem_somos">Quem Somos</a>
+							<a href="quem_somos/">Quem Somos</a>
 						</li>
 					</ul>
 				</div>
@@ -106,13 +106,13 @@
 								<a href="index.php">Home</a>
 							</li>
 							<li>
-								<a href="montar_kit/index.html">Monte seu Kit</a>
+								<a href="montar_kit/">Monte seu Kit</a>
 							</li>
 							<li>
-								<a href="produtos/index.php">Produtos</a>
+								<a href="produtos/">Produtos</a>
 							</li>
 							<li>
-								<a href="quem_somos">Quem Somos</a>
+								<a href="quem_somos/">Quem Somos</a>
 							</li>
 							<li id="btns">
 								<div class="btns showBtnsMobile">
@@ -239,7 +239,7 @@
 							<h1 style="font-weight: bold">SEU KIT</h1>
 						</div>
 						<div class="presentBtn">
-							<button class="btnKitall bold" onclick="window.location.href='produtos/index.php'">Kitall?</button>
+							<button class="btnKitall bold" onclick="window.location.href='montar_kit/'">Kitall?</button>
 						</div>
 					</div>
 				</div>
