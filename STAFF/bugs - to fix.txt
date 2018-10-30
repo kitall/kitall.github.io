@@ -1,0 +1,13 @@
+Bugs:
+- Produtos
+	site horizontal
+- Pesquisa
+	desformatado
+- Quem somos + pesquisa
+	carrinho link n funcionando
+
+Implement:
+- Bloquear o acesso a diretorios
+- Last page[session]-> ai quando o cara logar ele adiciona as coisas
+	Não perder o produto se ele n tiver logado
+	Voltar pra onde ele tava caso n de o item 1
