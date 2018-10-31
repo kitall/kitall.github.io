@@ -59,6 +59,10 @@ input::placeholder {
 	font-weight: normal;
 }
 
+.double_row_grid {
+	display: grid;
+	grid-template-rows: auto auto;
+}
 
 .double_11_grid {
 	display: grid;

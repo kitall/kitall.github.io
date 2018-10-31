@@ -1,0 +1,105 @@
+.catalogo {
+    /* background: blue; */
+    /* grid-area: catalogo; */
+    display: flex;
+}
+
+.prods {
+    /* background: blueviolet; */
+    margin: auto;
+    width: 100%;
+}
+
+.prod {
+    max-width: 21%;
+    float: left;
+    padding: 2%;
+}
+
+.prodImage {
+    width: 100%;
+}
+
+.prodImage img {
+    width: 100%;
+}
+
+.prodText {
+    margin: auto;
+    display: grid;
+    grid-template-rows: auto auto auto;
+    text-align: center;
+}
+
+.prodText h3 {
+    font-weight: normal;
+}
+
+.prodPrice h4 {
+    margin-top: 0;
+}
+
+.prodBtnContent {
+    grid-area: prodBtn;
+    margin: auto;
+}
+
+.prodBtnContent div {
+    font-weight: bold;
+}
+
+.prodBtn {
+    width: 100%;
+    display: flex;
+    text-align: center;
+    font-weight: bold;
+    margin: auto;
+    border-radius: 2px;
+    border: 2px solid black;
+}
+
+.prodBtn a {
+    margin: auto;
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    padding: 10px;
+}
+
+.prodBtn .standby {
+    display: block;
+}
+
+.prodBtn:hover .standby {
+    display: none;
+}
+
+.prodBtn .active {
+    display: none;
+}
+
+.prodBtn:hover .active {
+    display: block;
+}
+
+.emEstoque {
+    border-color: rgb(65, 206, 43);
+    color: rgb(65, 206, 43);
+}
+
+.emEstoque:hover {
+    border-color: rgb(65, 206, 43);
+    background: rgb(65, 206, 43);
+    color: white;
+}
+
+.semEstoque {
+    /* border-color: rgb(254, 64, 64);
+    color: rgb(254, 64, 64); */
+}
+
+.semEstoque:hover {
+    border-color: #242424;
+    background: #242424;
+    color: white;
+}
