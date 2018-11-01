@@ -5,12 +5,17 @@
     $kit = 0;
 
     //Teste de sessão
-    $logado = false;
-    if (!empty($_SESSION['user']))
+    if (empty($_SESSION['user']))
     {
-        $logado = true;
-        $carrinho = $_SESSION['carrinho'];
+        $_SESSION['buffer'] = "montekit";
+
+        header("Location: ../login/");
+
+        exit;
     }
+
+    $carrinho = $_SESSION['carrinho'];
+    $logado = true;
 
     //Teste se adicionou algum produto
     if(!empty($_POST['id']))
@@ -162,7 +167,7 @@
 										</li>
 										<li>
 											<div class="cesta">
-												<a href="../carrinho/index.php" title="Essas são suas compras">
+												<a href="../carrinho/" title="Essas são suas compras">
 													<div>
 														<img src="" id="cesta" alt="Cesta">
 													</div>
@@ -230,9 +235,9 @@
 						</li>
 						<li>
 							<div class="cesta">
-								<a href="" title="Essas são suas compras">
+								<a href="../carrinho/" title="Essas são suas compras">
 									<div>
-										<img src="../carrinho/index.php" id="cesta" alt="Cesta">
+										<img src="" id="cesta" alt="Cesta">
 									</div>
 									<div>
 										<?php 
@@ -488,7 +493,7 @@
 													</li>
 													<li>
 														<div class="cesta">
-															<a href="../carrinho/index.php" title="Essas são suas compras">
+															<a href="../carrinho/" title="Essas são suas compras">
 																<div>
 																	<img src="" id="cesta" alt="Cesta">
 																</div>
@@ -556,7 +561,7 @@
 									</li>
 									<li>
 										<div class="cesta">
-											<a href="../carrinho/index.php" title="Essas são suas compras">
+											<a href="../carrinho/" title="Essas são suas compras">
 												<div>
 													<img src="" id="cesta" alt="Cesta">
 												</div>

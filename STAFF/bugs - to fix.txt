@@ -3,11 +3,6 @@ Bugs:
 	site horizontal
 - Pesquisa
 	desformatado
-- Fluxo de estoque
-    datas erradas
 
 Implement:
-- Last page[session]-> ai quando o cara logar ele adiciona as coisas
-	Não perder o produto se ele n tiver logado
-	Voltar pra onde ele tava caso n de o item 1
 - Esqueceu sua senha

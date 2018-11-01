@@ -1,25 +1,20 @@
-<!DOCTYPE html>
 <?php
     $root_usr = "kitall";
-    $root_passwd = "kitallEComm2018";
-
-    $logado = false;
-    if (!empty($_SESSION['user'])) //Teste de sessão
-    {
-        $logado = true;
-    }
-
-    session_start();
+	$root_passwd = "kitallEComm2018";
+	
+	session_start();
 
     if (!empty($_SESSION['user'])) //tem alguém logado?
     {
-        ?> 
-        <script>
-            alert("Ja existe alguem logado!");
-        </script>
-        <?php
-        header("Location: ../index.php");
-    }
+		header("Location: ../index.php");
+
+		exit;
+	}
+	
+	$logado = true;
+
+	//tentou comprar, por isso foi desviado?
+	$comprar = $_SESSION['buffer']; // NULL ou VENDA ou CARRINHO
 
     try 
     {
@@ -61,7 +56,29 @@
                     
                     $_SESSION['carrinho'] = 0;
 
-                    header("Location: ../index.php"); //home
+					if($comprar == NULL)
+					{
+						header("Location: ../");
+					}
+					else if($comprar == "venda")
+					{
+						unset($_SESSION['buffer']);
+						
+						header("Location: ../venda/");
+					}
+					else if($comprar == "montekit")
+					{
+						unset($_SESSION['buffer']);
+						
+						header("Location: ../montar_kit/");
+					}	
+					else
+					{
+						unset($_SESSION['buffer']);
+						
+						echo "Erro no redirecionamento!!";
+						exit;
+					}
                 } 
                 else 
                 {
@@ -79,23 +96,20 @@
             ?> 
                 <script>
                     alert("Usuário inexistente!");
+					window.location.reload();
                 </script>
             <?php
-
             }
         }
     } 
     catch (Exception $e) 
     {
-        ?> 
-            <script>
-                alert("<?php echo $e->getMessage(); ?>");
-            </script>
-        <?php
-
-        }
+		echo "Exception!";
+		exit;
+    }
 ?>
 
+<!DOCTYPE html>
 <html lang="pt-br">
 
 <head>

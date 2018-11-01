@@ -1,17 +1,27 @@
 <!DOCTYPE html>
 <?php
-    $id = $_GET['id_prod'];
-
-    session_start();
+	session_start();
+	
+	if(empty($_SESSION['buffer_id']))
+		$id = $_GET['id_prod'];
+	else
+		$id = $_SESSION['buffer_id'];
     
     //---------------------------------------------------
 
-    $logado = false;
-    if (!empty($_SESSION['user'])) //Teste de sessão
+    if (empty($_SESSION['user'])) //Teste de sessão
     {
-        $logado = true;
-        $carrinho = $_SESSION['carrinho'];
-    }
+		$_SESSION['buffer'] = "venda";
+		$_SESSION['buffer_id'] = $id;
+
+		header("Location: ../login/");
+		
+		exit;
+	}
+	
+	$logado = true;
+		
+	$carrinho = $_SESSION['carrinho'];
 
     //------------------------------------------------
 

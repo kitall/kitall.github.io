@@ -3,14 +3,13 @@
 
     include "../php/connect.php";
 
-    $logado = true;
     if (empty($_SESSION['user'])) //Teste de sessão
     {
-        $logado = false;
-        
-        header("Location: ../login/index.php");
+        header("Location: ../login/");
         exit;
     }
+
+    $logado = true;
 
     //-------------------------------------------------------------------------------
 
