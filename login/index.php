@@ -15,7 +15,7 @@
     {
         ?> 
         <script>
-            alert("Ja tem alguém logado!");
+            alert("Ja existe alguem logado!");
         </script>
         <?php
         header("Location: ../index.php");

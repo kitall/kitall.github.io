@@ -2,19 +2,16 @@
     session_start();
 
     //LOGIN é necessário
-    if($_SESSION['user'] == null)
+    if(empty($_SESSION['user_id']))
     {
-        ?> 
-        <script>
-            alert("É necessário fazer o login para poder comprar!");
-            window.location.href="../login/");
-        </script>
-        <?php
+        header("Location: ../login/");
         
         exit;
     }
 
     $id_usr = $_SESSION['user_id'];
+    $email_user = $_SESSION['email'];
+    $nome_user = $_SESSION['user'];
 
     //Variáveis de compra - em sessão
     $carrinho_id = $_SESSION['carrinho_id'];
@@ -24,6 +21,10 @@
 
 
     $data = date("d-m-Y");
+
+    $comprado_total = 0;
+    $comprado_nome = array();
+    $comprado_qtd = array();
 
     //--------------------------------------------
     include "connect.php";
@@ -75,7 +76,7 @@
         $sql .= "UPDATE p_produtos SET
             qtd = '$qtd_final'
             WHERE id_prod = $id_prod; ";
-        
+       
         //Executar SQL
         $res = pg_query($conectar, $sql);
         $qtd_sql = pg_affected_rows($res);
@@ -85,17 +86,61 @@
             
             $erro = pg_last_error($conectar);
             
-            echo "Erro na execucao do SQL!<br><br>";
+            echo "Erro na execucao do SQ - vendaL!<br><br>";
+            echo "Erro: ".$erro;
+            
+            pg_close($conectar);
+        }
+        
+        $sql = "SELECT nome FROM p_produtos 
+            WHERE id_prod='$id_prod';";
+        $res = pg_query($conectar, $sql);
+        $qtd_sql = pg_affected_rows($res);
+        if ($qtd_sql > 0) 
+        {
+            while($prod = pg_fetch_array($res))
+            {
+                if($comprado_total == 0)
+                {
+                    $comprado_nome = array(htmlentities($prod['nome'], 0, "UTF-8"));
+                    $comprado_qtd = array(htmlentities($qtd, 0, "UTF-8"));
+                    $comprado_total = $compra;
+                }
+                else
+                {
+                    array_push($comprado_nome, $prod['nome']);
+                    array_push($comprado_qtd, $qtd);
+                    $comprado_total += $compra;
+                }
+            }
+        }
+        else
+        {
+            break;
+            
+            $erro = pg_last_error($conectar);
+            
+            echo "Erro na execucao do SQL - email!<br><br>";
             echo "Erro: ".$erro;
             
             pg_close($conectar);
         }
     }
 
-    //include "email/email.php";
-    //enviar email?
+    //Enviar Email de confirmação da Compra
+    include "email/email.php";
+        $_SESSION['compra_nome'] = $comprado_nome;
+        $_SESSION['compra_qtd'] = $comprado_qtd;
+        $_SESSION['compra_total'] = $comprado_total;
+        //
+        mandaEmail($email_user, $nome_user, 3);
+        //
+        unset($_SESSION['compra_nome']);
+        unset($_SESSION['compra_qtd']);
+        unset($_SESSION['compra_total']);
 
-    //Remover as variáveis de carrinho
+
+    //Limpar o carrinho
     unset($_SESSION['carrinho_id']);
     unset($_SESSION['carrinho_qtd']);
     unset($_SESSION['carrinho_preco']);
@@ -103,8 +148,10 @@
     $_SESSION['carrinho'] = 0;
 
     pg_close($conectar);
+
+exit;
 ?>
 <script>
 	alert("Compre efetuada com sucesso!");
-	window.location.href="../");
+	window.location.href="../";
 </script>

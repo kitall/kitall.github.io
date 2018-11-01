@@ -41,10 +41,19 @@
         
         #email {
             background-color: #eaeaea;
-            
             text-align: center;
-            
             width: 800px;
+        }
+        
+        table {
+            padding-right: 50px;
+            font-weight: 550;
+            text-align: left;
+        }
+        
+        #total {
+            text-align: center;
+            padding-left: 45px;
         }
         
     </style>
@@ -52,11 +61,17 @@
 <body>
     <center>
         <div id="email">
-            <h1>Endereço cadastrado com sucesso Sr(a) [nome]!!</h1>
+            <h1>Compra efetuada Sr(a) [nome]!!</h1>
 
-            <p>O cadastro dos seus dados de entrega foi concluido com sucesso!</p>
-            <p>Agora nós podemos entregar os produtos requisitados na porta da sua casa!</p>
-            <p>Obrigado por optar os nossos produtos!</p>
+            <p>Você comprou o(s) seguinte(s) produto(s):</p>
+            <table border="1" align="center" id="table">
+                <ul>
+                    <li>2x Borracha (R$ 4,50)</li>
+                    <li>1x Lapis (R$ 3,00)</li>
+                </ul>
+                <p id="total">Totalizando: R$ 12,00</p>
+            </table>
+            <p>Obrigado por optar pelos nossos produtos!</p>
             <p>Att, Equipe 'Kitall?'</p>
 
             <a href="200.145.153.175/andrecreppe/kitall"><img src="../images/icons/icon-128x128.png" alt=""></a>
@@ -64,7 +79,7 @@
             <br>
             <br>
 
-            <a href="200.145.153.175/andrecreppe/kitall">Bora então comprar um kit? Kitall?</a>
+            <a href="200.145.153.175/andrecreppe/kitall">Clique para comprar mais um kit!  Kitall?</a>
         </div>
     </center>
 </body>

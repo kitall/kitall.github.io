@@ -186,14 +186,125 @@
             
 ");
         }
-//        else if($op == 3)
-//        {
-//            sendEmail($email, $nome, "Kitall? - Compra efetuada", "");
-//        }
+        else if($op == 3)
+        {
+            sendEmail($email, $nome, "Kitall? - Compra efetuada", montaVenda());
+        }
         else
         {
             echo "Erro na OP!";
             exit;
         }
+    }
+
+    function montaVenda()
+    {
+        session_start();
+        
+        $total = $_SESSION['compra_total'];
+        $produtos_arr = $_SESSION['compra_nome'];
+        $qtd_arr = $_SESSION['compra_qtd'];
+        
+        $string = 
+"
+<!DOCTYPE html>
+<html lang='pt-br' style='transition-property: border, background, opacity;transition-duration: 0.2s;margin: 0;padding: 0;display: block;background-color: #fafafa;max-width: 100vw;'>
+<head style='transition-property: border, background, opacity;transition-duration: 0.2s;'>
+    <meta charset='UTF-8' style='transition-property: border, background, opacity;transition-duration: 0.2s;'>
+    <style type='text/css' style='transition-property: border, background, opacity;transition-duration: 0.2s;'>
+        @import url('https://fonts.googleapis.com/css?family=Quicksand:300,regular,500,700');
+
+        * {
+            font-family: 'Quicksand', sans-serif;
+            /* font-family: 'Arial', sans-serif; */
+            color: #191919;
+        }
+
+        *,
+        *::before,
+        *::after {
+            transition-property: color;
+            transition-duration: 0;
+            transition-property: border, background, opacity;
+            transition-duration: 0.2s;
+        }
+
+        *::selection {
+            background-color: #1CCE00;
+            color: white;
+        }
+        
+        /*--------------------------------------------------*/
+        
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            display: block;
+        }
+
+        html {
+            background-color: #fafafa;
+            max-width: 100vw;
+        }
+        
+        #email {
+            background-color: #eaeaea;
+            text-align: center;
+            width: 800px;
+        }
+        
+        table {
+            padding-right: 50px;
+            font-weight: 550;
+            text-align: left;
+        }
+        
+        #total {
+            text-align: center;
+            padding-left: 45px;
+        }
+        
+    </style>
+</head>
+<body style='transition-property: border, background, opacity;transition-duration: 0.2s;margin: 0;padding: 0;display: block;'>
+    <center style='transition-property: border, background, opacity;transition-duration: 0.2s;'>
+        <div id='email' style='transition-property: border, background, opacity;transition-duration: 0.2s;background-color: #eaeaea;text-align: center;width: 800px;'>
+            <h1 style='transition-property: border, background, opacity;transition-duration: 0.2s;'>Compra efetuada Sr(a) $nome!!</h1>
+
+            <p style='transition-property: border, background, opacity;transition-duration: 0.2s;'>Você comprou o(s) seguinte(s) produto(s):</p>
+            <table border='1' align='center' id='table' style='transition-property: border, background, opacity;transition-duration: 0.2s;padding-right: 50px;font-weight: 550;text-align: left;'>
+                <ul style='transition-property: border, background, opacity;transition-duration: 0.2s;'>
+";
+
+for($i=0; $i<sizeof($produtos_arr); $i++)
+{
+    $prod = $produtos_arr[$i];
+    $qtd = $qtd_arr[$i];
+    
+    $string .= "<li style='transition-property: border, background, opacity;transition-duration: 0.2s;'>
+        ".$qtd."x $prod
+    </li>";
+}
+                
+$string .= "</ul>
+                <p id='total' style='transition-property: border, background, opacity;transition-duration: 0.2s;text-align: center;padding-left: 45px;'>Totalizando: R$ $total</p>
+            </table>
+            <p style='transition-property: border, background, opacity;transition-duration: 0.2s;'>Obrigado por optar pelos nossos produtos!</p>
+            <p style='transition-property: border, background, opacity;transition-duration: 0.2s;'>Att, Equipe 'Kitall?'</p>
+
+            <a href='200.145.153.175/andrecreppe/kitall' style='transition-property: border, background, opacity;transition-duration: 0.2s;'><img src='../images/icons/icon-128x128.png' alt='' style='transition-property: border, background, opacity;transition-duration: 0.2s;'></a>
+
+            <br style='transition-property: border, background, opacity;transition-duration: 0.2s;'>
+            <br style='transition-property: border, background, opacity;transition-duration: 0.2s;'>
+
+            <a href='200.145.153.175/andrecreppe/kitall' style='transition-property: border, background, opacity;transition-duration: 0.2s;'>Clique para comprar mais um kit!  Kitall?</a>
+        </div>
+    </center>
+</body>
+</html>  
+";
+            
+        return $string;
     }
 ?>
