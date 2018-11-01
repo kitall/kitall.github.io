@@ -1,22 +1,3 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-
-    <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="../css/footer.css">
-    <link rel="stylesheet" href="../css/header.css">
-    <link rel="stylesheet" href="../css/cadastro.css">
-    <link rel="stylesheet" href="../css/presentation.css">
-    <link rel="stylesheet" href="../css/login.css">
-	<link rel="stylesheet" href="../css/search.css">
-
-    <title>Crie sua conta!</title>
-</head>
-
 <?php
     session_start();
 
@@ -61,7 +42,7 @@
         
         include "../php/connect.php";
         include "../php/email/email.php";
-
+        
         //testa se o login ja existe
         $sql = "SELECT * FROM c_usuario
             WHERE login='$login' OR email='$email';";
@@ -174,9 +155,26 @@
         }
     }
 ?>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/cadastro.css">
+    <link rel="stylesheet" href="../css/presentation.css">
+    <link rel="stylesheet" href="../css/login.css">
+	<link rel="stylesheet" href="../css/search.css">
+
+    <title>Crie sua conta!</title>
+</head>
 
 <body>
-
     <div class="main">
         <div class="index-struct">
 

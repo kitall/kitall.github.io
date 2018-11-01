@@ -305,7 +305,7 @@
 
                                     <div class="perfilOptsList">
                                         <li>
-                                            <a href="editar_perfil.html">Editar meu Perfil</a>
+                                            <a href="editar_perfil/">Editar meu Perfil</a>
                                         </li>
                                         <li>
                                             <a href="../php/logout.php">Sair</a>
