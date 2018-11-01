@@ -40,6 +40,35 @@ function showContato() {
     document.getElementById('isContatoShown').value = contatoShown;
 }
 
+function showContatoAlt() {
+    if (!contatoShown) {
+        $('.contato').css('display', 'block');
+        document.getElementsByClassName("showContato")[0].innerHTML = "Reduzir aba";
+        contatoShown = true;
+        document.getElementsByName('endereco')[0].setAttribute('required', contatoShown);
+        document.getElementsByName('numero')[0].setAttribute('required', contatoShown);
+        document.getElementsByName('bairro')[0].setAttribute('required', contatoShown);
+        document.getElementsByName('cidade')[0].setAttribute('required', contatoShown);
+        document.getElementsByName('cep')[0].setAttribute('required', contatoShown);
+        document.getElementsByName('estado')[0].setAttribute('required', contatoShown);
+        document.getElementsByName('pais')[0].setAttribute('required', contatoShown);
+    } else {
+        $('.contato').css('display', 'none');
+        document.getElementsByClassName("showContato")[0].innerHTML = "Suas Informações Entrega";
+        document.getElementsByName('endereco')[0].removeAttribute('required');
+        contatoShown = false;
+        document.getElementsByName('endereco')[0].setAttribute('required', contatoShown);
+        document.getElementsByName('numero')[0].setAttribute('required', contatoShown);
+        document.getElementsByName('bairro')[0].setAttribute('required', contatoShown);
+        document.getElementsByName('cidade')[0].setAttribute('required', contatoShown);
+        document.getElementsByName('cep')[0].setAttribute('required', contatoShown);
+        document.getElementsByName('estado')[0].setAttribute('required', contatoShown);
+        document.getElementsByName('pais')[0].setAttribute('required', contatoShown);
+    }
+
+    document.getElementById('isContatoShown').value = contatoShown;
+}
+
 function frmOrderSubmit() {
     var frm = document.getElementById("frmOrder");
     frm.submit();

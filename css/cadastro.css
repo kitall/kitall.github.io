@@ -202,14 +202,31 @@
     cursor: pointer;
     border-radius: 3px;
 }
-
 .btnCadastro input:hover {
     background: linear-gradient(rgb(31, 230, 0), rgb(6, 177, 0));
 }
-
 .btnCadastro input:active {
     background: linear-gradient(#1BCB00, #049C00);
     border: solid 1px #049C00;
+}
+
+.btnCadastro2 input {
+    width: 40%;
+    padding: 8px;
+    color: white;
+    background: linear-gradient(rgb(203, 0, 0), rgb(156, 0, 0));
+    border: solid 1px rgb(156, 0, 0);
+    font-size: 1.6ch;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 3px;
+}
+.btnCadastro2 input:hover {
+    background: linear-gradient(rgb(228, 0, 0), rgb(190, 0, 0));
+}
+.btnCadastro2 input:active {
+    background: linear-gradient(rgb(203, 0, 0), rgb(156, 0, 0));
+    border: solid 1px rgb(156, 0, 0);
 }
 
 .info {
