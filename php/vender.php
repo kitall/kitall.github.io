@@ -7,7 +7,7 @@
         ?> 
         <script>
             alert("É necessário fazer o login para poder comprar!");
-            window.location.replace("http://200.145.153.175/andrecreppe/kitall/login/index.php");
+            window.location.href="../login/");
         </script>
         <?php
         
@@ -106,5 +106,5 @@
 ?>
 <script>
 	alert("Compre efetuada com sucesso!");
-	window.location.replace("http://200.145.153.175/andrecreppe/kitall/index.php");
+	window.location.href="../");
 </script>

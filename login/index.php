@@ -57,6 +57,7 @@
                     $_SESSION['user'] = $user;
                     $_SESSION['user_id'] = $userbd['id_usuario'];
                     $_SESSION['senha'] = $senha;
+                    $_SESSION['email'] = $userbd['email'];
                     
                     $_SESSION['carrinho'] = 0;
 
