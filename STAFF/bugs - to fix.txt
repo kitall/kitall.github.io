@@ -3,8 +3,6 @@ Bugs:
 	site horizontal
 - Pesquisa
 	desformatado
-- Quem somos + pesquisa
-	carrinho link n funcionando
 - Fluxo de estoque
     datas erradas
 

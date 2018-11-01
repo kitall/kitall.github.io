@@ -111,7 +111,7 @@
 										</li>
 										<li>
 											<div class="cesta">
-												<a href="../carrinho/index.php" title="Essas são suas compras">
+												<a href="../carrinho/" title="Essas são suas compras">
 													<div>
 														<img src="" id="cesta" alt="Cesta">
 													</div>
@@ -179,9 +179,9 @@
 						</li>
 						<li>
 							<div class="cesta">
-								<a href="" title="Essas são suas compras">
+								<a href="../carrinho/" title="Essas são suas compras">
 									<div>
-										<img src="../carrinho/index.php" id="cesta" alt="Cesta">
+										<img src="" id="cesta" alt="Cesta">
 									</div>
 									<div>
 										<?php 
