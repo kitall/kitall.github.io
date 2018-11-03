@@ -1,9 +1,0 @@
-terca-n = 117,50
-
-quarta-m = 131,00
-
-quarta-n = 208,5 
-
-squinta-m = 121,5
-
-total = 578,5
