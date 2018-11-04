@@ -1,0 +1,29 @@
+.charts {
+    display: flex;
+    width: 100%;
+}
+
+.chart {
+    display: grid;
+    grid-template-rows: auto auto;
+    margin: auto;
+    width: 90%;
+}
+
+.title {
+    margin: auto;
+}
+
+.title h3 {
+    margin-bottom: 0;
+}
+
+.gchart {
+    margin: auto;
+    padding: 0;
+}
+
+.gchart div {
+    margin-top: 0;
+    padding-top: 0;
+}

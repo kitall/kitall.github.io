@@ -1,0 +1,152 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Estatísticas</title>
+
+
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="../css/search.css">
+    <link rel="stylesheet" href="../css/perfil.css">
+    <link rel="stylesheet" href="../css/kit.css">
+    <link rel="stylesheet" href="../css/cadastro.css">
+    <link rel="stylesheet" href="../css/chart.css">
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {
+            'packages': ['corechart']
+        });
+
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+
+            // PIE CHART - PRODUTOS MAIS VENDIDOS
+
+            // var data = new google.visualization.DataTable();
+            // data.addColumn('string', 'Topping');
+            // data.addColumn('number', 'Slices');
+            // data.addRows([
+            //     ['Lápis Preto', 4],
+            //     ['Borracha', 3],
+            //     ['Bloco de Anotações', 2],
+            //     ['Post-it', 1],
+            // ]);
+
+            // // var data = google.visualization.arrayToDataTable([
+            // // ['Produto', 'Quantidade'],
+            // // ['Lápis Preto', 1000],
+            // // ['Borracha', 1170],
+            // // ['Bloco de Anotações', 660]
+            // // ['Post-it', 660]
+            // // ]);
+
+            // var options = {
+            //     'title': "Produtos mais Vendidos",
+            //     'width': 650,
+            //     'height': 350,
+            //     'backgroundColor': 'none',
+            //     'fontSize': 13,
+            //     'titleTextStyle': {
+            //         'fontSize': 18
+            //     }
+            // }
+
+            // var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+            // chart.draw(data, options);
+
+
+
+            // LINE CHART - FLUXO DE CAIXA
+
+            // var data = google.visualization.arrayToDataTable([
+            //     ['Dia', 'Saldo'],
+            //     ['09/11', 183.6],
+            //     ['10/11', 419.9],
+            //     ['11/11', 548.6]
+            // ]);
+
+            // var options = {
+            //     'title': "Saldo médio (por dia)",
+            //     'width': 650,
+            //     'height': 350,
+            //     'backgroundColor': 'none',
+            //     'fontSize': 13,
+            //     'titleTextStyle': {
+            //         'fontSize': 18
+            //     }
+            // }
+
+            // var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+            // chart.draw(data, options);
+
+
+
+            // LINE CHART - ENTRADA P DIA
+
+            // var data = google.visualization.arrayToDataTable([
+            //     ['Dia', 'Entrada'],
+            //     ['09/11', 286.5],
+            //     ['10/11', 232],
+            //     ['11/11', 59]
+            // ]);
+
+            // var options = {
+            //     'title': "Entrada (por dia)",
+            //     'width': 650,
+            //     'height': 350,
+            //     'backgroundColor': 'none',
+            //     'fontSize': 13,
+            //     'titleTextStyle': {
+            //         'fontSize': 18
+            //     }
+            // }
+
+            // var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+            // chart.draw(data, options);
+
+
+
+            // BAR CHART - VENDA PRODUTO P DIA
+
+            var data = google.visualization.arrayToDataTable([
+                ['Dia', 'Quantidade', 'Valor (R$)'],
+                ['09/11', 10, 34],
+                ['10/11', 20, 80],
+                ['11/11', 4, 14]
+            ]);
+
+            var options = {
+                'title': "Venda de Lápis Preto (por dia)",
+                'width': 650,
+                'height': 350,
+                'backgroundColor': 'none',
+                'fontSize': 13,
+                'titleTextStyle': {
+                    'fontSize': 18
+                },
+                'legend': {
+                    position: 'bottom'
+                }
+            }
+
+            var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+        }
+    </script>
+</head>
+
+<body>
+    <div class="charts">
+        <div class="chart">
+            <div id="chart_div" class="gchart"></div>
+        </div>
+    </div>
+</body>
+
+</html>
