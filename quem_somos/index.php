@@ -31,7 +31,6 @@
 </head>
 
 <body>
-
 	<div class="main">
 		<div class="basic-struct">
 
@@ -435,12 +434,8 @@
 				</div>
 			</div>
 		</div>
-
-
+		
 	</div>
-
-
-
 </body>
 
 
