@@ -74,9 +74,6 @@
         {
             //Pesquisa Específica 
             $state = 1;
-            
-//            $prod = pg_fetch_array($res);
-//            $id = $prod['id_prod'];
         }
     } 
     catch (Exception $e) 

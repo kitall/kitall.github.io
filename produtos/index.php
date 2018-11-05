@@ -247,10 +247,8 @@
                         <form action="" id="frmOrder">
                             <select name="order" id="selOrder" onchange="frmOrderSubmit()">
                                 <option value="alf">Ordem Alfabética</option>
-                                <option value="men">Menor
-                                    Preço ↑</option>
-                                <option value="mai">Maior
-                                    Preço ↓</option>
+                                <option value="men">Menor Preço ↑</option>
+                                <option value="mai">Maior Preço ↓</option>
                             </select>
                         </form>
                     </div>
