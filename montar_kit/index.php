@@ -118,10 +118,10 @@ if ($qtd <= 0) {
 							<a href="">Monte seu Kit</a>
 						</li>
 						<li>
-							<a href="../produtos/index.php">Produtos</a>
+							<a href="../produtos/">Produtos</a>
 						</li>
 						<li>
-							<a href="../quem_somos/index.html">Quem Somos</a>
+							<a href="../quem_somos/">Quem Somos</a>
 						</li>
 					</ul>
 				</div>
@@ -140,10 +140,10 @@ if ($qtd <= 0) {
                                 <a href="">Monte seu Kit</a>
                             </li>
                             <li>
-                                <a href="../produtos/index.php">Produtos</a>
+                                <a href="../produtos/">Produtos</a>
                             </li>
                             <li>
-                                <a href="../quem_somos/index.html">Quem Somos</a>
+                                <a href="../quem_somos/">Quem Somos</a>
                             </li>
 							<li id="btns">
 								<div class="btns showBtnsMobile">

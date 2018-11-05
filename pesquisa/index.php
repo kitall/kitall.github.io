@@ -62,7 +62,7 @@
                 //ERRO
                 $state = 0;
 
-                pg_close();
+                pg_close($conectar);
             } 
             else
             {
@@ -73,9 +73,10 @@
         else 
         {
             //Pesquisa Específica 
-            $state = 2;
-
-            pg_close();
+            $state = 1;
+            
+//            $prod = pg_fetch_array($res);
+//            $id = $prod['id_prod'];
         }
     } 
     catch (Exception $e) 
@@ -378,15 +379,16 @@
                         </div>
             </div>
                         <?php
-                        pg_close();
+                        pg_close($conectar);
+                        
                         break;
 
                     case 2:
+                        $link = "Location: ../venda/index.php?id_prod=$id";
                         
-                        //echo "Pesquisa especifica";
-
-                        header("Location: ../venda/index.php?$id");
-
+                        header("Location: ../venda/index.php?id_prod=$id", true);
+                        //echo "<script>window.top.location='$link'</script>";
+                        
                         break;
                 }
                 ?>

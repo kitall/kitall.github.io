@@ -1,6 +1,7 @@
 Bugs:
 - Pesquisa
 	desformatado
+    nao vendo específico
 - Produtos
     box
 

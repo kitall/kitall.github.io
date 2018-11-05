@@ -237,7 +237,7 @@
 			<div class="kit">
                 <div class="kitContent">
                     <div class="kitTitle">
-                        <h1>Produtos</h1>
+                        <h1>Produtos disponíveis</h1>
                     </div>
 
                     <div class="prodsKit">
