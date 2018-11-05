@@ -37,7 +37,7 @@
 							<a href="capital/">Aquisição / Integralização</a>
 						</li>
 						<li>
-                            <a href="estatisticas/">Estatísticas</a>
+                            <a href="estatisticas/index.php">Estatísticas</a>
                         </li>
 					</ul>
 				</div>

@@ -49,7 +49,7 @@
 							<a href="../capital/">Aquisição / Integralização</a>
 						</li>
 						<li>
-                            <a href="../estatisticas/">Estatísticas</a>
+                            <a href="../estatisticas/index.php">Estatísticas</a>
                         </li>
 					</ul>
 				</div>
@@ -71,7 +71,7 @@
                                 <a href="../capital/">Aquisição / Integralização</a>
                             </li>
                             <li>
-                                <a href="../estatisticas/">Estatísticas</a>
+                                <a href="../estatisticas/index.php">Estatísticas</a>
                             </li>
 							<li id="btns">
 								<div class="btns showBtnsMobile">
@@ -250,7 +250,7 @@
                                         <a href="../capital/">Aquisição / Integralização</a>
                                     </li>
                                     <li>
-                                        <a href="../estatisticas/">Estatísticas</a>
+                                        <a href="../estatisticas/index.php">Estatísticas</a>
                                     </li>
                                 </ul>
 							</div>
@@ -272,7 +272,7 @@
                                             <a href="../capital/">Aquisição / Integralização</a>
                                         </li>
                                         <li>
-                                            <a href="../estatisticas/">Estatísticas</a>
+                                            <a href="../estatisticas/index.php">Estatísticas</a>
                                         </li>
 										<div class="btns showBtnsMobile">
                                             <ul>
