@@ -303,7 +303,7 @@ if ($qtd <= 0) {
                                         ?>
                                     <tr>
                                         <td class="p10 kitKitProdsRemover">
-                                            <?php echo "<div class='trash icon' title='Remover Lápis do Kit' onclick=" . $link . "></div>"; ?>
+                                            <?php echo "<div class='trash icon' title='Remover $nome do Kit' onclick=" . $link . "></div>"; ?>
                                         </td>
                                         <td class="kitKitProdsNome p10">
                                             <?php echo $nome; ?>

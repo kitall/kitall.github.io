@@ -18,7 +18,8 @@
     grid-area: tit;
 }
 
-.kitTitle h1 {
+.kitTitle h1,
+.kitTitle h2 {
     text-align: center;
 }
 

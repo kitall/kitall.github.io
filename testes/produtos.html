@@ -123,49 +123,15 @@ if ($qtd <= 0) {
             <div class="kitCatalogo">
                 <div class="kitProds">
                     <!-- <?php
-                            while ($prod = pg_fetch_array($res)) {
-                                $id = $prod['id_prod'];
-                                $nome = $prod['nome'];
-                                $preco = $prod['preco'];
-                                $qtd = $prod['qtd'];
-                                $link_img = $prod['link_img'];
+                                while ($prod = pg_fetch_array($res)) {
+                                    $id = $prod['id_prod'];
+                                    $nome = $prod['nome'];
+                                    $preco = $prod['preco'];
+                                    $qtd = $prod['qtd'];
+                                    $link_img = $prod['link_img'];
+    
+                                    ?> -->
 
-                                ?> -->
-
-                    <div class="kitProd">
-                        <form action="../montar_kit/index.php" method="post">
-                            <div class="kitProdImage">
-                                <!-- <?php echo "<img src='$link_img' alt='$nome'>"; ?> -->
-                                <img src='../imgs/produtos/borracha.png' alt='Borracha'>
-                            </div>
-                            <div class="kitProdText">
-                                <div class="kitProdInfo">
-                                    <h3>
-                                        <!-- <?php echo $nome; ?> -->
-                                        Borracha
-                                    </h3>
-                                </div>
-
-                                <div class="kitProdPrice">
-                                    <h4>
-                                        <!-- <?php echo "R$ $preco"; ?> -->
-                                        R$ 4
-                                    </h4>
-                                </div>
-
-                                <div class="kitProdBtnContent">
-                                    <div class="btnSubmit">
-                                        <!-- <?php
-                                                    echo "<input type='hidden' name='id' value='$id' class='sumido' readonly>";
-                                                    echo "<input type='hidden' name='nome' value='$nome' class='sumido' readonly>";
-                                                    echo "<input type='hidden' name='preco' value='$preco' class='sumido' readonly>";
-                                                    ?> -->
-                                        <input type="submit" value="Comprar">
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
                     <div class="kitProd">
                         <form action="../montar_kit/index.php" method="post">
                             <div class="kitProdImage">
@@ -336,8 +302,42 @@ if ($qtd <= 0) {
                             </div>
                         </form>
                     </div>
+                    <div class="kitProd">
+                        <form action="../montar_kit/index.php" method="post">
+                            <div class="kitProdImage">
+                                <!-- <?php echo "<img src='$link_img' alt='$nome'>"; ?> -->
+                                <img src='../imgs/produtos/borracha.png' alt='Borracha'>
+                            </div>
+                            <div class="kitProdText">
+                                <div class="kitProdInfo">
+                                    <h3>
+                                        <!-- <?php echo $nome; ?> -->
+                                        Borracha
+                                    </h3>
+                                </div>
+
+                                <div class="kitProdPrice">
+                                    <h4>
+                                        <!-- <?php echo "R$ $preco"; ?> -->
+                                        R$ 4
+                                    </h4>
+                                </div>
+
+                                <div class="kitProdBtnContent">
+                                    <div class="btnSubmit">
+                                        <!-- <?php
+                                                                            echo "<input type='hidden' name='id' value='$id' class='sumido' readonly>";
+                                                                            echo "<input type='hidden' name='nome' value='$nome' class='sumido' readonly>";
+                                                                            echo "<input type='hidden' name='preco' value='$preco' class='sumido' readonly>";
+                                                                            ?> -->
+                                        <input type="submit" value="Comprar">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                     <!-- <?php 
-                        } ?> -->
+                            } ?> -->
                 </div>
             </div>
         </div>
