@@ -86,7 +86,7 @@ try {
 	<link rel="stylesheet" href="../css/presentation.css">
 	<link rel="stylesheet" href="../css/login.css">
     <link rel="stylesheet" href="../css/search.css">
-	<link rel="stylesheet" href="../css/catalogo.css">
+	<link rel="stylesheet" href="../css/kit.css">
 
 	<title>Resultados da Pesquisa</title>
 </head>
@@ -254,121 +254,6 @@ try {
 					</ul>
 				</div>
             </div>
-            
-
-			<div class="catalogoStruct">
-				<?php 
-			switch ($state) {
-				case 0:
-					?>
-                            <div class="catFeedback">
-								<h1>Nenhum produto foi encontrado!</h1>
-								<h2>Para a pesquisa de "<?php echo $prod_name ?>"</h2>
-								<h1 class="gig">:(</h1>
-							</div>
-                        <?php
-																							break;
-
-																						case 1:
-																							?>
-						<div class="catFeedback">
-							<h1>Esses foram os produtos encontrados!</h1>
-							<h2>Para a pesquisa de "<?php echo $prod_name ?>"</h2>
-						</div>
-
-						<div class="orderBar">
-							<div class="orderOrg">
-								<div class="order">
-									<form action="" id="frmOrder">
-										<input type="hidden" name="search" value="<?php echo $prod_name; ?>">
-
-										<select name="order" id="selOrder" onchange="frmOrderSubmit()">
-											<option value="alf" <?php if ($selorder && $getOrder == "alf") echo "selected"; ?>>Ordem Alfabética</option>
-											<option value="men" <?php if ($selorder && $getOrder == "men") echo "selected"; ?>>Menor Preço ↑</option>
-											<option value="mai" <?php if ($selorder && $getOrder == "mai") echo "selected"; ?>>Maior Preço ↓</option>
-										</select>
-
-										<input type="hidden" name="search" value="<?php echo $prod_name; ?>">
-
-									</form>
-								</div>
-							</div>
-						</div>
-
-            <div class="catalogo">
-                        <div class="catalogoProds">
-                            <div class="prods">
-                                
-                                <?php
-
-																															$i = 0;
-																															while ($prod = pg_fetch_array($res)) {
-
-																																$id = $prod['id_prod'];
-																																$nome = $prod['nome'];
-																																$preco = $prod['preco'];
-																																$qtd = $prod['qtd'];
-																																$link_img = $prod['link_img'];
-
-																																$emEstoque = $qtd > 0;
-
-																																?>
-									<div class="prod">
-                                        <div class="prodImage">
-                                            <div class="prodImg">
-                                                <img src="<?php echo $link_img; ?>" alt="<?php echo $nome; ?>">
-                                            </div>
-                                        </div>
-										<div class="prodText">
-											<div class="prodTextContent">
-												<div class="prodInfo">
-                                                    <h3>
-                                                    <?php echo $nome; ?>
-                                                    </h3>
-												</div>
-											</div>
-
-											<div class="prodPriceContent">
-												<div class="prodPrice">R$
-                                                    <?php echo $preco; ?></div>
-											</div>
-
-											<div class="prodBtnContent">
-												
-												<div class="prodBtn  <?php if ($emEstoque) echo "emEstoque";
-																																else echo "semEstoque"; ?>">
-                                                    <a href="" class="standby"><?php if ($emEstoque) echo "EM ESTOQUE";
-																																																																														else echo "INDISPONÍVEL"; ?></a>
-                                                    <a href="<?php echo $link_venda . $id ?>" class="active"><?php if ($emEstoque) echo "COMPRAR";
-																																																																																																												else echo "VISUALIZAR"; ?></a>
-                                            	</div>
-											</div>
-										</div>
-									</div>
-
-                                    <?php
-									// $i++;
-																																		}
-																																		?> 
-								</div>
-                        </div>
-            </div>
-                        <?php
-																							pg_close($conectar);
-
-																							break;
-
-																						case 2:
-																							$link = "Location: ../venda/index.php?id_prod=$id";
-
-																							header("Location: ../venda/index.php?id_prod=$id", true);
-                        //echo "<script>window.top.location='$link'</script>";
-
-																							break;
-																					}
-																					?>
-				</div>
-
 				<div class="kit">
 				<?php 
 			switch ($state) {
@@ -380,7 +265,7 @@ try {
 						 <div class="kitContent">
             				<div class="kitTitle">
 								<h1>Nenhum produto encontrado</h1>
-								<h2>para a pesquisa de "a"</h2>
+								<h2>para a pesquisa de "<?php echo $prod_name; ?>"</h2>
 								<h1>:C</h1>
 							</div>
 						</div>
@@ -393,7 +278,7 @@ try {
 						<div class="kitContent">
 							<div class="kitTitle">
 								<h1>Produtos encontrados</h1>
-								<h2>para a pesquisa de ""</h2>
+								<h2>para a pesquisa de "<?php echo $prod_name; ?>"</h2>
 							</div>
 
 							<div class="prodsKit">
