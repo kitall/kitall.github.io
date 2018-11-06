@@ -1,113 +1,97 @@
 <?php
-    $root_usr = "kitall";
-	$root_passwd = "kitallEComm2018";
-	
-	session_start();
+$root_usr = "kitall";
+$root_passwd = "kitallEComm2018";
 
-    if (!empty($_SESSION['user'])) //tem alguém logado?
-    {
-		header("Location: ../index.php");
+session_start();
 
-		exit;
-	}
-	
-	$logado = true;
+if (!empty($_SESSION['user'])) //tem alguém logado?
+{
+	header("Location: ../index.php");
+
+	exit;
+}
+
+$logado = true;
 
 	//tentou comprar, por isso foi desviado?
-	$comprar = $_SESSION['buffer']; // NULL ou VENDA ou CARRINHO
+$comprar = $_SESSION['buffer']; // NULL ou VENDA ou CARRINHO
 
-    try 
-    {
-        if (isset($_POST['subLogin'])) 
-        {
+try {
+	if (isset($_POST['subLogin'])) {
 
-            include "../php/connect.php";
+		include "../php/connect.php";
 
-            $user = $_POST['user'];
-            $pass = $_POST['senha'];
+		$user = $_POST['user'];
+		$pass = $_POST['senha'];
 
                 //Admin
-            if ($user == $root_usr && $pass == $root_passwd) 
-            {
-                header("Location: ../admin");
-                exit;
-            }
+		if ($user == $root_usr && $pass == $root_passwd) {
+			header("Location: ../admin");
+			exit;
+		}
 
-            if (strpos($user, '@'))
-                $table = "email";
-            else
-                $table = "login";
+		if (strpos($user, '@'))
+			$table = "email";
+		else
+			$table = "login";
 
-            $sql = "SELECT * FROM c_usuario WHERE $table = '$user'";
+		$sql = "SELECT * FROM c_usuario WHERE $table = '$user'";
 
-            $res = pg_query($conectar, $sql);
-            $lin = pg_num_rows($res);
-            if ($lin > 0) 
-            {
-                $userbd = pg_fetch_array($res);
-                $senha = $userbd['senha'];
+		$res = pg_query($conectar, $sql);
+		$lin = pg_num_rows($res);
+		if ($lin > 0) {
+			$userbd = pg_fetch_array($res);
+			$senha = $userbd['senha'];
 
-                if ($senha == md5($pass)) 
-                {
-                    $_SESSION['user'] = $user;
-                    $_SESSION['user_id'] = $userbd['id_usuario'];
-                    $_SESSION['senha'] = $senha;
-                    $_SESSION['email'] = $userbd['email'];
-                    
-                    $_SESSION['carrinho'] = 0;
+			if ($senha == md5($pass)) {
+				$_SESSION['user'] = $user;
+				$_SESSION['user_id'] = $userbd['id_usuario'];
+				$_SESSION['senha'] = $senha;
+				$_SESSION['email'] = $userbd['email'];
 
-					if($comprar == NULL)
-					{
-						header("Location: ../");
-					}
-					else if($comprar == "venda")
-					{
-						unset($_SESSION['buffer']);
-						
-						header("Location: ../venda/");
-					}
-					else if($comprar == "montekit")
-					{
-						unset($_SESSION['buffer']);
-						
-						header("Location: ../montar_kit/");
-					}	
-					else
-					{
-						unset($_SESSION['buffer']);
-						
-						echo "Erro no redirecionamento!!";
-						exit;
-					}
-                } 
-                else 
-                {
+				$_SESSION['carrinho'] = 0;
 
-                ?> 
+				if ($comprar == null) {
+					header("Location: ../");
+				} else if ($comprar == "venda") {
+					unset($_SESSION['buffer']);
+
+					header("Location: ../venda/");
+				} else if ($comprar == "montekit") {
+					unset($_SESSION['buffer']);
+
+					header("Location: ../montar_kit/");
+				} else {
+					unset($_SESSION['buffer']);
+
+					echo "Erro no redirecionamento!!";
+					exit;
+				}
+			} else {
+
+				?> 
                     <script>
                         alert("Senha incorreta para este usuário!");
                     </script>
                 <?php
-                }
-            } 
-            else 
-            {
-                pg_close($conectar);
-            ?> 
+
+														}
+													} else {
+														pg_close($conectar);
+														?> 
                 <script>
                     alert("Usuário inexistente!");
 					window.location.reload();
                 </script>
             <?php
-            }
-        }
-    } 
-    catch (Exception $e) 
-    {
-		echo "Exception!";
-		exit;
-    }
-?>
+
+										}
+									}
+								} catch (Exception $e) {
+									echo "Exception!";
+									exit;
+								}
+								?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -430,7 +414,7 @@
 					<div class="footerContato">
 						<div class="footerContatoContent">
 							<div class="footerContatoTxt">
-								<h2>Entre em <a class="bold" href="">Contato</a>!</h2>
+								<h2>Entre em Contato!</h2>
 							</div>
 							<div class="footerContatoIcons">
 								<div class="footerContatoIconsContent">

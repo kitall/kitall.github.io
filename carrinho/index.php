@@ -1,133 +1,127 @@
 <?php
-    session_start();
+session_start();
 
-    include "../php/connect.php";
+include "../php/connect.php";
 
-    if (empty($_SESSION['user'])) //Teste de sessão
-    {
-        header("Location: ../login/");
-        exit;
-    }
+if (empty($_SESSION['user'])) //Teste de sessão
+{
+    header("Location: ../login/");
+    exit;
+}
 
-    $logado = true;
-
-    //-------------------------------------------------------------------------------
-
-    $qtd_comprada = $_POST['qtd'];
-
-    if(!empty($_SESSION['carrinho']) && $qtd_comprada > 0) //adiciona ao carrinho
-    {
-        array_push($_SESSION['carrinho_id'], $_SESSION['id_venda']);
-
-        array_push($_SESSION['carrinho_qtd'], (string)$qtd_comprada);
-
-        array_push($_SESSION['carrinho_preco'], $_SESSION['preco_venda']);
-
-        array_push($_SESSION['carrinho_estoque'], $_SESSION['estoque_venda']);
-
-        array_push($_SESSION['carrinho_nome'], $_SESSION['nome_venda']);
-        
-        array_push($_SESSION['carrinho_link'], $_SESSION['link_venda']);
-
-        $_SESSION['carrinho'] += 1;
-    }
-    else if(empty($_SESSION['carrinho_id']) && $qtd_comprada > 0) //cria o carrinho
-    {
-        $_SESSION['carrinho_id'] = array($_SESSION['id_venda']);
-
-        $_SESSION['carrinho_qtd'] = array((string)$qtd_comprada);
-
-        $_SESSION['carrinho_preco'] = array($_SESSION['preco_venda']);
-        
-        $_SESSION['carrinho_estoque'] = array($_SESSION['estoque_venda']);
-        
-        $_SESSION['carrinho_nome'] = array($_SESSION['nome_venda']);
-        
-        $_SESSION['carrinho_link'] = array($_SESSION['link_venda']);
-        
-        $_SESSION['carrinho'] = 1;
-    }
+$logado = true;
 
     //-------------------------------------------------------------------------------
 
-    if(!empty($_SESSION['kit_carrinho']))
-    {
-        if($logado)
+$qtd_comprada = $_POST['qtd'];
+
+if (!empty($_SESSION['carrinho']) && $qtd_comprada > 0) //adiciona ao carrinho
+{
+    array_push($_SESSION['carrinho_id'], $_SESSION['id_venda']);
+
+    array_push($_SESSION['carrinho_qtd'], (string)$qtd_comprada);
+
+    array_push($_SESSION['carrinho_preco'], $_SESSION['preco_venda']);
+
+    array_push($_SESSION['carrinho_estoque'], $_SESSION['estoque_venda']);
+
+    array_push($_SESSION['carrinho_nome'], $_SESSION['nome_venda']);
+
+    array_push($_SESSION['carrinho_link'], $_SESSION['link_venda']);
+
+    $_SESSION['carrinho'] += 1;
+} else if (empty($_SESSION['carrinho_id']) && $qtd_comprada > 0) //cria o carrinho
+{
+    $_SESSION['carrinho_id'] = array($_SESSION['id_venda']);
+
+    $_SESSION['carrinho_qtd'] = array((string)$qtd_comprada);
+
+    $_SESSION['carrinho_preco'] = array($_SESSION['preco_venda']);
+
+    $_SESSION['carrinho_estoque'] = array($_SESSION['estoque_venda']);
+
+    $_SESSION['carrinho_nome'] = array($_SESSION['nome_venda']);
+
+    $_SESSION['carrinho_link'] = array($_SESSION['link_venda']);
+
+    $_SESSION['carrinho'] = 1;
+}
+
+    //-------------------------------------------------------------------------------
+
+if (!empty($_SESSION['kit_carrinho'])) {
+    if ($logado) {
+        $kit_id = $_SESSION['kit_carrinho_id'];
+        $kit_qtd = $_SESSION['kit_carrinho_qtd']; //string?
+        $kit_preco = $_SESSION['kit_carrinho_preco'];
+        $kit_estoque = $_SESSION['kit_carrinho_estoque'];
+        $kit_link = $_SESSION['kit_carrinho_link'];
+        $kit_nome = $_SESSION['kit_carrinho_nome'];
+
+        $kit_carrinho = $_SESSION['kit_carrinho'];
+
+
+        if (!empty($_SESSION['carrinho'])) //adiciona ao carrinho
         {
-            $kit_id = $_SESSION['kit_carrinho_id'];
-            $kit_qtd = $_SESSION['kit_carrinho_qtd']; //string?
-            $kit_preco = $_SESSION['kit_carrinho_preco'];
-            $kit_estoque = $_SESSION['kit_carrinho_estoque'];
-            $kit_link = $_SESSION['kit_carrinho_link'];
-            $kit_nome = $_SESSION['kit_carrinho_nome'];
-            
-            $kit_carrinho = $_SESSION['kit_carrinho'];
-            
+            for ($i = 0; $i < $kit_carrinho; $i++) {
+                array_push($_SESSION['carrinho_id'], $kit_id[$i]);
 
-            if(!empty($_SESSION['carrinho'])) //adiciona ao carrinho
-            {
-                for($i=0; $i<$kit_carrinho; $i++)
-                {
-                    array_push($_SESSION['carrinho_id'], $kit_id[$i]);
+                array_push($_SESSION['carrinho_qtd'], $kit_qtd[$i]);
 
-                    array_push($_SESSION['carrinho_qtd'], $kit_qtd[$i]);
+                array_push($_SESSION['carrinho_preco'], $kit_preco[$i]);
 
-                    array_push($_SESSION['carrinho_preco'], $kit_preco[$i]);
+                array_push($_SESSION['carrinho_estoque'], $kit_estoque[$i]);
 
-                    array_push($_SESSION['carrinho_estoque'], $kit_estoque[$i]);
+                array_push($_SESSION['carrinho_nome'], $kit_nome[$i]);
 
-                    array_push($_SESSION['carrinho_nome'], $kit_nome[$i]);
-                    
-                    array_push($_SESSION['carrinho_link'], $kit_link[$i]);
+                array_push($_SESSION['carrinho_link'], $kit_link[$i]);
 
-                    $_SESSION['carrinho'] += 1;
-                }
+                $_SESSION['carrinho'] += 1;
             }
-            else if(empty($_SESSION['carrinho_id'])) //cria o carrinho
-            {
-                $_SESSION['carrinho_id'] = $kit_id;
+        } else if (empty($_SESSION['carrinho_id'])) //cria o carrinho
+        {
+            $_SESSION['carrinho_id'] = $kit_id;
 
-                $_SESSION['carrinho_qtd'] = $kit_qtd;
+            $_SESSION['carrinho_qtd'] = $kit_qtd;
 
-                $_SESSION['carrinho_preco'] = $kit_preco;
+            $_SESSION['carrinho_preco'] = $kit_preco;
 
-                $_SESSION['carrinho_estoque'] = $kit_estoque;
+            $_SESSION['carrinho_estoque'] = $kit_estoque;
 
-                $_SESSION['carrinho_nome'] = $kit_nome;
+            $_SESSION['carrinho_nome'] = $kit_nome;
 
-                $_SESSION['carrinho_link'] = $kit_link;
+            $_SESSION['carrinho_link'] = $kit_link;
 
-                $_SESSION['carrinho'] = $kit_carrinho;
-            }
-
-            unset($_SESSION['kit_carrinho_id']);
-            unset($_SESSION['kit_carrinho_qtd']);
-            unset($_SESSION['kit_carrinho_preco']);
-            unset($_SESSION['kit_carrinho_estoque']);
-            unset($_SESSION['kit_carrinho_link']);
-            unset($_SESSION['kit_carrinho_nome']);
-            unset($_SESSION['kit_carrinho']);
+            $_SESSION['carrinho'] = $kit_carrinho;
         }
+
+        unset($_SESSION['kit_carrinho_id']);
+        unset($_SESSION['kit_carrinho_qtd']);
+        unset($_SESSION['kit_carrinho_preco']);
+        unset($_SESSION['kit_carrinho_estoque']);
+        unset($_SESSION['kit_carrinho_link']);
+        unset($_SESSION['kit_carrinho_nome']);
+        unset($_SESSION['kit_carrinho']);
     }
+}
 
     //-------------------------------------------------------------------------------
 
-    $produtos = false;
+$produtos = false;
 
-    $carrinho = $_SESSION['carrinho'];
+$carrinho = $_SESSION['carrinho'];
 
-    if($carrinho > 0)
-    {
-        $carrinho_id = $_SESSION['carrinho_id'];
-        $carrinho_qtd = $_SESSION['carrinho_qtd'];
-        $carrinho_preco = $_SESSION['carrinho_preco'];
-        $carrinho_nome = $_SESSION['carrinho_nome'];
-        $carrinho_link = $_SESSION['carrinho_link'];
-        
-        $preco_total = 0;
-        
-        $produtos = true;   
-    }
+if ($carrinho > 0) {
+    $carrinho_id = $_SESSION['carrinho_id'];
+    $carrinho_qtd = $_SESSION['carrinho_qtd'];
+    $carrinho_preco = $_SESSION['carrinho_preco'];
+    $carrinho_nome = $_SESSION['carrinho_nome'];
+    $carrinho_link = $_SESSION['carrinho_link'];
+
+    $preco_total = 0;
+
+    $produtos = true;
+}
 
 ?>
 <!DOCTYPE html> 
@@ -227,14 +221,12 @@
                                                         </div>
                                                         <div>
                                                             <?php 
-                                                                if ($logado) //Teste de sessão
-                                                                {
-                                                                    echo "<h2>".$carrinho."</h2>";
-                                                                }
-                                                                else
-                                                                {
-                                                                    echo "<h2>0</h2>"; //SEM CARRINHO
-                                                                }
+                                                            if ($logado) //Teste de sessão
+                                                            {
+                                                                echo "<h2>" . $carrinho . "</h2>";
+                                                            } else {
+                                                                echo "<h2>0</h2>"; //SEM CARRINHO
+                                                            }
                                                             ?>
                                                         </div>
                                                     </a>
@@ -275,15 +267,13 @@
                                     </div>
                                     <div>
                                         <?php
-                                            if($logado)
-                                            {
-                                                ?><h2><a href="../minha_conta/" title="Minha conta."> <?php echo $_SESSION['user']; ?> </a></h2><?php
-                                            }
-                                            else
-                                            {
-                                                ?><h2><a href="../login/" title="Entre em sua conta!">Entre</a> ou <a href="../cadastro/" title="Cadastre-se em nosso site!">Cadastre-se</a></h2><?php 
-                                            } 
-                                        ?>
+                                        if ($logado) {
+                                            ?><h2><a href="../minha_conta/" title="Minha conta."> <?php echo $_SESSION['user']; ?> </a></h2><?php
+
+                                                                                                                                            } else {
+                                                                                                                                                ?><h2><a href="../login/" title="Entre em sua conta!">Entre</a> ou <a href="../cadastro/" title="Cadastre-se em nosso site!">Cadastre-se</a></h2><?php 
+                                                                                                                                                                                            }
+                                                                                                                                                                                            ?>
                                     </div>
                                 </div>
                             </li>
@@ -295,14 +285,12 @@
                                         </div>
                                         <div>
                                             <?php 
-                                                if ($logado) //Teste de sessão
-                                                {
-                                                    echo "<h2>".$carrinho."</h2>";
-                                                }
-                                                else
-                                                {
-                                                    echo "<h2>0</h2>"; //SEM CARRINHO
-                                                }
+                                            if ($logado) //Teste de sessão
+                                            {
+                                                echo "<h2>" . $carrinho . "</h2>";
+                                            } else {
+                                                echo "<h2>0</h2>"; //SEM CARRINHO
+                                            }
                                             ?>
                                         </div>
                                     </a>
@@ -324,19 +312,17 @@
             <div class="carrinhoProdsBox">
                 <div class="carrinhoProdsBoxContent">
                    <?php
-                    if($produtos)
-                    {
-                        for($i = 0; $i < $carrinho; $i++)
-                        { 
+                    if ($produtos) {
+                        for ($i = 0; $i < $carrinho; $i++) {
                             $id = $carrinho_id[$i];
                             $qtd_prod = $carrinho_qtd[$i];
                             $preco = $carrinho_preco[$i];
-                            $nome =  $carrinho_nome[$i];
+                            $nome = $carrinho_nome[$i];
                             $link = $carrinho_link[$i];
-                           
-                            $preco_total += ($preco*$qtd_prod);
-                    
-                    ?>
+
+                            $preco_total += ($preco * $qtd_prod);
+
+                            ?>
                     <div class="carrinhoProd">
                         <div class="carrinhoProdImage">
                             <div class="carrinhoProdImageContent">
@@ -375,18 +361,16 @@
                     </div>
                     
                     <?php
-                            
-                         }
-                        echo "<a href='../index.php'>Adicionar mais produtos</a>";
-                    }
-                    else
-                    {
-                        echo "<h2>Seu carrinho está vazio!</h2>";
-                        echo "<br><br><br>";
-                        echo "<a href='../index.php'>Compre produtos agora!</a>";
-                    }
-            
-                    ?>
+
+                }
+                echo "<a href='../index.php'>Adicionar mais produtos</a>";
+            } else {
+                echo "<h2>Seu carrinho está vazio!</h2>";
+                echo "<br><br><br>";
+                echo "<a href='../index.php'>Compre produtos agora!</a>";
+            }
+
+            ?>
 
                 </div>
             </div>
@@ -396,10 +380,10 @@
                     <div class="carrinhoSubtotal">
                         <div class="carrinhoSubtotalContent">
                             <?php
-                                if($carrinho > 0)
-                                    echo "<h2>Subtotal ($carrinho): R$ $preco_total</h2>";
-                                else
-                                    echo "<h2>Subtotal ($carrinho): R$ 0.00</h2>";
+                            if ($carrinho > 0)
+                                echo "<h2>Subtotal ($carrinho): R$ $preco_total</h2>";
+                            else
+                                echo "<h2>Subtotal ($carrinho): R$ 0.00</h2>";
                             ?>
                         </div>
                     </div>
@@ -408,7 +392,7 @@
                             <div class="btnSubmit">
                                 <form action="../php/vender.php">
                                     <?php 
-                                    if($carrinho > 0)
+                                    if ($carrinho > 0)
                                         echo "<input type='submit' name='subCadastro' value='Finalizar Compra'>";
                                     ?>
                                 </form>
@@ -481,15 +465,13 @@
                                                                 </div>
                                                                 <div>
                                                                     <?php
-                                                                        if($logado)
-                                                                        {
-                                                                            ?><h2><a href="../minha_conta/" title="Minha conta."> <?php echo $_SESSION['user']; ?> </a></h2><?php
-                                                                        }
-                                                                        else
-                                                                        {
-                                                                            ?><h2><a href="../login/" title="Entre em sua conta!">Entre</a> ou <a href="../cadastro/" title="Cadastre-se em nosso site!">Cadastre-se</a></h2><?php 
-                                                                        } 
-                                                                    ?>
+                                                                    if ($logado) {
+                                                                        ?><h2><a href="../minha_conta/" title="Minha conta."> <?php echo $_SESSION['user']; ?> </a></h2><?php
+
+                                                                                                                                                                        } else {
+                                                                                                                                                                            ?><h2><a href="../login/" title="Entre em sua conta!">Entre</a> ou <a href="../cadastro/" title="Cadastre-se em nosso site!">Cadastre-se</a></h2><?php 
+                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                        ?>
                                                                 </div>
                                                             </div>
                                                         </li>
@@ -500,14 +482,12 @@
                                                                         <img src="" id="cesta" alt="Cesta">
                                                                     </div>
                                                                     <?php 
-                                                                        if ($logado) //Teste de sessão
-                                                                        {
-                                                                            echo "<h2>".$carrinho."</h2>";
-                                                                        }
-                                                                        else
-                                                                        {
-                                                                            echo "<h2>0</h2>"; //SEM CARRINHO
-                                                                        }
+                                                                    if ($logado) //Teste de sessão
+                                                                    {
+                                                                        echo "<h2>" . $carrinho . "</h2>";
+                                                                    } else {
+                                                                        echo "<h2>0</h2>"; //SEM CARRINHO
+                                                                    }
                                                                     ?>
                                                                 </a>
                                                             </div>
@@ -547,15 +527,13 @@
                                                 </div>
                                                 <div>
                                                     <?php
-                                                        if($logado)
-                                                        {
-                                                            ?><h2><a href="../minha_conta/" title="Minha conta."> <?php echo $_SESSION['user']; ?> </a></h2><?php
-                                                        }
-                                                        else
-                                                        {
-                                                            ?><h2><a href="../login/" title="Entre em sua conta!">Entre</a> ou <a href="../cadastro/" title="Cadastre-se em nosso site!">Cadastre-se</a></h2><?php 
-                                                        } 
-                                                    ?>
+                                                    if ($logado) {
+                                                        ?><h2><a href="../minha_conta/" title="Minha conta."> <?php echo $_SESSION['user']; ?> </a></h2><?php
+
+                                                                                                                                                        } else {
+                                                                                                                                                            ?><h2><a href="../login/" title="Entre em sua conta!">Entre</a> ou <a href="../cadastro/" title="Cadastre-se em nosso site!">Cadastre-se</a></h2><?php 
+                                                                                                                                                                                                        }
+                                                                                                                                                                                                        ?>
                                                 </div>
                                             </div>
                                         </li>
@@ -567,14 +545,12 @@
                                                     </div>
                                                     <div>
                                                         <?php 
-                                                            if ($logado) //Teste de sessão
-                                                            {
-                                                                echo "<h2>".$carrinho."</h2>";
-                                                            }
-                                                            else
-                                                            {
-                                                                echo "<h2>0</h2>"; //SEM CARRINHO
-                                                            }
+                                                        if ($logado) //Teste de sessão
+                                                        {
+                                                            echo "<h2>" . $carrinho . "</h2>";
+                                                        } else {
+                                                            echo "<h2>0</h2>"; //SEM CARRINHO
+                                                        }
                                                         ?>
                                                     </div>
                                                 </a>
@@ -588,7 +564,7 @@
                         <div class="footerContato">
                             <div class="footerContatoContent">
                                 <div class="footerContatoTxt">
-                                    <h2>Entre em <a class="bold" href="">Contato</a>!</h2>
+                                    <h2>Entre em Contato!</h2>
                                 </div>
                                 <div class="footerContatoIcons">
                                     <div class="footerContatoIconsContent">

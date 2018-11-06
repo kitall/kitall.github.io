@@ -127,8 +127,8 @@ if ($qtd <= 0) {
 
 																																																																																																											} else {
 																																																																																																												?><h2><a href="../login/" title="Entre em sua conta!">Entre</a> ou <a href="../cadastro/" title="Cadastre-se em nosso site!">Cadastre-se</a></h2><?php 
-																																																																																																																																																																																																																																																																																																										}
-																																																																																																																																																																																																																																																																																																										?>
+																																																																																																																																																																																																																																																											}
+																																																																																																																																																																																																																																																											?>
 												</div>
 											</div>
 										</li>
@@ -191,8 +191,8 @@ if ($qtd <= 0) {
 
 																																																																																																							} else {
 																																																																																																								?><h2><a href="../login/" title="Entre em sua conta!">Entre</a> ou <a href="../cadastro/" title="Cadastre-se em nosso site!">Cadastre-se</a></h2><?php 
-																																																																																																																																																																																																																																																																																										}
-																																																																																																																																																																																																																																																																																										?>
+																																																																																																																																																																																																																																																							}
+																																																																																																																																																																																																																																																							?>
 								</div>
 							</div>
 						</li>
@@ -353,8 +353,8 @@ if ($qtd <= 0) {
 
 																																																																																																														} else {
 																																																																																																															?><h2><a href="../login/" title="Entre em sua conta!">Entre</a> ou <a href="../cadastro/" title="Cadastre-se em nosso site!">Cadastre-se</a></h2><?php 
-																																																																																																																																																																																																																																																																																																																						}
-																																																																																																																																																																																																																																																																																																																						?>
+																																																																																																																																																																																																																																																														}
+																																																																																																																																																																																																																																																														?>
 															</div>
 														</div>
 													</li>
@@ -417,8 +417,8 @@ if ($qtd <= 0) {
 
 																																																																																																										} else {
 																																																																																																											?><h2><a href="../login/" title="Entre em sua conta!">Entre</a> ou <a href="../cadastro/" title="Cadastre-se em nosso site!">Cadastre-se</a></h2><?php 
-																																																																																																																																																																																																																																																																																																						}
-																																																																																																																																																																																																																																																																																																						?>
+																																																																																																																																																																																																																																																										}
+																																																																																																																																																																																																																																																										?>
 											</div>
 										</div>
 									</li>
@@ -449,7 +449,7 @@ if ($qtd <= 0) {
 					<div class="footerContato">
 						<div class="footerContatoContent">
 							<div class="footerContatoTxt">
-								<h2>Entre em <a class="bold" href="">Contato</a>!</h2>
+								<h2>Entre em Contato!</h2>
 							</div>
 							<div class="footerContatoIcons">
 								<div class="footerContatoIconsContent">

@@ -624,7 +624,7 @@ try {
 					<div class="footerContato">
 						<div class="footerContatoContent">
 							<div class="footerContatoTxt">
-								<h2>Entre em <a class="bold" href="">Contato</a>!</h2>
+								<h2>Entre em Contato!</h2>
 							</div>
 							<div class="footerContatoIcons">
 								<div class="footerContatoIconsContent">

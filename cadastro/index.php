@@ -1,110 +1,105 @@
 <?php
-    session_start();
+session_start();
 
-    if (!empty($_SESSION['user'])) //Teste de sessão
-    {
+if (!empty($_SESSION['user'])) //Teste de sessão
+{
         //Redireciona pois não se pode fazer o seu cadastro estando logado
         //O usuario tentou entrar manualmente
-        header("Location: ../index.php");
+    header("Location: ../index.php");
+    exit;
+}
+
+if (isset($_POST['subCadastro'])) {
+        //Dados do cadastro obrigatório
+    $nome = $_POST['nome'];
+    $sobrenome = $_POST['sobrenome'];
+    $sexo = $_POST['sexo'];
+    $data_nasc = $_POST['data_nasc'];
+    $celular = $_POST['celular'];
+
+    $login = $_POST['login'];
+    $email = $_POST['email'];
+    $senha = $_POST['senha'];
+
+        //Dados do endereço de entrega
+    if ($_POST['isContatoShown'] == "false")
+        $verEndereco = false;
+    else
+        $verEndereco = true;
+
+    if ($verEndereco) {
+        $endereco = $_POST['endereco'];
+        $numero = $_POST['numero'];
+        $complemento = $_POST['complemento'];
+        $bairro = $_POST['bairro'];
+        $cidade = $_POST['cidade'];
+        $cep = $_POST['cep'];
+        $estado = $_POST['estado'];
+        $pais = $_POST['pais'];
+    }
+
+    include "../php/connect.php";
+    include "../php/email/email.php";
+        
+        //testa se o login ja existe
+    $sql = "SELECT * FROM c_usuario
+            WHERE login='$login' OR email='$email';";
+
+    $res = pg_query($conectar, $sql);
+    $qtd = pg_affected_rows($res);
+    if ($qtd > 0) {
+        echo "LOGIN ou EMAIL já existente!";
+
+        echo "<br><br><a href='index.php'>Tentar novamente</a>";
+
         exit;
     }
 
-    if (isset($_POST['subCadastro'])) 
-    {
-        //Dados do cadastro obrigatório
-        $nome = $_POST['nome'];
-        $sobrenome = $_POST['sobrenome'];
-        $sexo = $_POST['sexo'];
-        $data_nasc = $_POST['data_nasc'];
-        $celular = $_POST['celular'];
-
-        $login = $_POST['login'];
-        $email = $_POST['email'];
-        $senha = $_POST['senha'];
-
-        //Dados do endereço de entrega
-        if ($_POST['isContatoShown'] == "false")
-            $verEndereco = false;
-        else
-            $verEndereco = true;
-        
-        if($verEndereco)
-        {
-            $endereco = $_POST['endereco'];
-            $numero = $_POST['numero'];
-            $complemento = $_POST['complemento'];
-            $bairro = $_POST['bairro'];
-            $cidade = $_POST['cidade'];
-            $cep = $_POST['cep'];
-            $estado = $_POST['estado'];
-            $pais = $_POST['pais'];
-        }
-        
-        include "../php/connect.php";
-        include "../php/email/email.php";
-        
-        //testa se o login ja existe
-        $sql = "SELECT * FROM c_usuario
-            WHERE login='$login' OR email='$email';";
-
-        $res = pg_query($conectar, $sql);
-        $qtd = pg_affected_rows($res);
-        if($qtd > 0)
-        {
-            echo "LOGIN ou EMAIL já existente!";
-
-            echo "<br><br><a href='index.php'>Tentar novamente</a>";
-
-            exit;
-        }
-
-        $senha = md5($senha);
-        $sql = "INSERT INTO c_usuario(id_usuario, login, email, senha, excluido) 
+    $senha = md5($senha);
+    $sql = "INSERT INTO c_usuario(id_usuario, login, email, senha, excluido) 
             VALUES (DEFAULT, '$login', '$email', '$senha', 'n');";
 
-        $res = pg_query($conectar, $sql);
-        $qtd = pg_affected_rows($res);
-        if ($qtd <= 0)
-        {
-            echo "Erro no CADASTRO do usuário<br>";
+    $res = pg_query($conectar, $sql);
+    $qtd = pg_affected_rows($res);
+    if ($qtd <= 0) {
+        echo "Erro no CADASTRO do usuário<br>";
 
-            pg_close($conectar);
+        pg_close($conectar);
 
-            header("Location: ../");
-            exit;
-        }
+        header("Location: ../");
+        exit;
+    }
 
         //--------------------------------------------------------------------
 
-        $sql = "SELECT id_usuario FROM c_usuario WHERE email='$email';";
-        $res = pg_query($conectar, $sql);
-        $qtd = pg_num_rows($res);
-        if ($qtd <= 0) 
-        {
-            echo "Erro na CONSULTA do usuário!";
+    $sql = "SELECT id_usuario FROM c_usuario WHERE email='$email';";
+    $res = pg_query($conectar, $sql);
+    $qtd = pg_num_rows($res);
+    if ($qtd <= 0) {
+        echo "Erro na CONSULTA do usuário!";
 
-            pg_close($conectar);
+        pg_close($conectar);
 
-            header("Location: ../");
-            exit;
-        }
+        header("Location: ../");
+        exit;
+    }
 
         //Pega o id cadastrado anteriormente
-        $prod = pg_fetch_array($res);
-        $id = $prod['id_usuario'];
+    $prod = pg_fetch_array($res);
+    $id = $prod['id_usuario'];
 
         //-----------------------------------------------------------
 
         //Cadastro do cliente
-        $sql = "INSERT INTO c_cliente(id_usuario, nome, sobrenome, sexo, data_nasc, celular, excluido)
+    $sql = "INSERT INTO c_cliente(id_usuario, nome, sobrenome, sexo, data_nasc, celular, excluido)
                 VALUES('$id', '$nome', '$sobrenome', '$sexo', '$data_nasc', '$celular', 'n');";
 
-        $res = pg_query($conectar, $sql);
-        $qtd = pg_affected_rows($res);
+    $res = pg_query($conectar, $sql);
+    $qtd = pg_affected_rows($res);
 
-        if ($qtd <= 0) //ERRO
-        {
-            ?> 
+    if ($qtd <= 0) //ERRO
+    {
+        ?> 
                 <script>
                     alert("Algo deu errado ao tentar realizar o cadastro!");
                     window.location.reload();
@@ -116,21 +111,20 @@
             pg_close($conectar);
 
             exit;
-        } 
+        }
 
         mandaEmail($email, $nome, 1); //EMAIL DE CONFIRMAÇÃO DE CADASTRO
 
         //------------------------------------------------------
 
         //Cadastro dos dados de entrega
-        if ($verEndereco) 
-        {
+        if ($verEndereco) {
             include("../php/cad_endereco_cli.php");
 
             if ($complemento != null) //complemento = sim
-                cadastrar_endereco($id, $endereco, $numero, $complemento, $bairro, $cep, $cidade, $estado, $pais, TRUE, 1); 
+            cadastrar_endereco($id, $endereco, $numero, $complemento, $bairro, $cep, $cidade, $estado, $pais, true, 1);
             else //complemento = nao
-                cadastrar_endereco($id, $endereco, $numero, $complemento, $bairro, $cep, $cidade, $estado, $pais, FALSE, 1);
+            cadastrar_endereco($id, $endereco, $numero, $complemento, $bairro, $cep, $cidade, $estado, $pais, false, 1);
         }
 
         //Tudo OK
@@ -154,7 +148,7 @@
                 break;
         }
     }
-?>
+    ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -734,7 +728,7 @@
                     <div class="footerContato">
 						<div class="footerContatoContent">
 							<div class="footerContatoTxt">
-								<h2>Entre em <a class="bold" href="">Contato</a>!</h2>
+								<h2>Entre em Contato!</h2>
 							</div>
 							<div class="footerContatoIcons">
 								<div class="footerContatoIconsContent">
